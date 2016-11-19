@@ -29,6 +29,7 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:mk20dx64vlh7
+LIBS:PiBot
 LIBS:PiBot-cache
 EELAYER 25 0
 EELAYER END
@@ -111,6 +112,144 @@ F 3 "" H 1800 950 50  0000 C CNN
 	1    1800 950 
 	1    0    0    -1  
 $EndComp
+$Comp
+L MC33926PNB U?
+U 1 1 58301234
+P 4650 650
+F 0 "U?" H 4800 450 60  0000 C CNN
+F 1 "MC33926PNB" V 4650 -150 60  0000 C CNB
+F 2 "" H 4600 650 60  0001 C CNN
+F 3 "" H 4600 650 60  0001 C CNN
+	1    4650 650 
+	1    0    0    -1  
+$EndComp
+$Comp
+L MC33926PNB U?
+U 1 1 5830127C
+P 4650 2650
+F 0 "U?" H 4800 2450 60  0000 C CNN
+F 1 "MC33926PNB" V 4650 1850 60  0000 C CNB
+F 2 "" H 4600 2650 60  0001 C CNN
+F 3 "" H 4600 2650 60  0001 C CNN
+	1    4650 2650
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 5830134B
+P 4750 2200
+F 0 "#PWR?" H 4750 1950 50  0001 C CNN
+F 1 "GND" H 4750 2050 50  0000 C CNN
+F 2 "" H 4750 2200 50  0000 C CNN
+F 3 "" H 4750 2200 50  0000 C CNN
+	1    4750 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNDA #PWR?
+U 1 1 58301453
+P 4500 2200
+F 0 "#PWR?" H 4500 1950 50  0001 C CNN
+F 1 "GNDA" H 4500 2050 50  0000 C CNN
+F 2 "" H 4500 2200 50  0000 C CNN
+F 3 "" H 4500 2200 50  0000 C CNN
+	1    4500 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNDA #PWR?
+U 1 1 583017C9
+P 4500 4200
+F 0 "#PWR?" H 4500 3950 50  0001 C CNN
+F 1 "GNDA" H 4500 4050 50  0000 C CNN
+F 2 "" H 4500 4200 50  0000 C CNN
+F 3 "" H 4500 4200 50  0000 C CNN
+	1    4500 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 583017E9
+P 4750 4200
+F 0 "#PWR?" H 4750 3950 50  0001 C CNN
+F 1 "GND" H 4750 4050 50  0000 C CNN
+F 2 "" H 4750 4200 50  0000 C CNN
+F 3 "" H 4750 4200 50  0000 C CNN
+	1    4750 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L +BATT #PWR?
+U 1 1 58301A5C
+P 4550 2800
+F 0 "#PWR?" H 4550 2650 50  0001 C CNN
+F 1 "+BATT" H 4550 2940 50  0000 C CNN
+F 2 "" H 4550 2800 50  0000 C CNN
+F 3 "" H 4550 2800 50  0000 C CNN
+	1    4550 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L +BATT #PWR?
+U 1 1 58301B18
+P 4550 800
+F 0 "#PWR?" H 4550 650 50  0001 C CNN
+F 1 "+BATT" H 4550 940 50  0000 C CNN
+F 2 "" H 4550 800 50  0000 C CNN
+F 3 "" H 4550 800 50  0000 C CNN
+	1    4550 800 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2050 3000 2400 3000
+Connection ~ 2100 3000
+Wire Wire Line
+	2150 650  2150 1050
+Wire Wire Line
+	2150 1050 1950 1050
+Connection ~ 2100 1050
+Connection ~ 2050 1050
+Connection ~ 2150 3000
 Wire Wire Line
 	2150 650  1800 650 
+Wire Wire Line
+	4600 2200 4850 2200
+Connection ~ 4800 2200
+Connection ~ 4750 2200
+Connection ~ 4700 2200
+Connection ~ 4650 2200
+Wire Wire Line
+	4500 2200 4450 2200
+Wire Wire Line
+	4600 4200 4850 4200
+Connection ~ 4800 4200
+Connection ~ 4750 4200
+Connection ~ 4700 4200
+Connection ~ 4650 4200
+Wire Wire Line
+	4450 4200 4500 4200
+Wire Wire Line
+	4500 800  4650 800 
+Connection ~ 4550 800 
+Connection ~ 4600 800 
+Wire Wire Line
+	4500 2800 4650 2800
+Connection ~ 4550 2800
+Connection ~ 4600 2800
+Wire Wire Line
+	5000 1200 5000 1350
+Connection ~ 5000 1250
+Connection ~ 5000 1300
+Wire Wire Line
+	5000 1650 5000 1800
+Connection ~ 5000 1700
+Connection ~ 5000 1750
+Wire Wire Line
+	5000 3200 5000 3350
+Connection ~ 5000 3250
+Connection ~ 5000 3300
+Wire Wire Line
+	5000 3650 5000 3800
+Connection ~ 5000 3700
+Connection ~ 5000 3750
 $EndSCHEMATC

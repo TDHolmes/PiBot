@@ -1,4 +1,4 @@
-update=Wednesday, November 16, 2016 'PMt' 09:03:37 PM
+update=Friday, November 18, 2016 'PMt' 10:46:14 PM
 version=1
 last_client=kicad
 [pcbnew]
@@ -59,3 +59,4 @@ LibName27=atmel
 LibName28=contrib
 LibName29=valves
 LibName30=mk20dx64vlh7
+LibName31=PiBot
