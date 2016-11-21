@@ -9,7 +9,7 @@ your robot.
 ## Hardware
 The PiBot uses:
  - a mk20dx256vlh7 processor, just like the teensy 3.1 and 3.2
- - a ___ motor driver
+ - a MC33926PNB motor driver
  - ___ motors
  - ___ encoders
 
