@@ -28,7 +28,6 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:mk20dx64vlh7
 LIBS:PiBot
 LIBS:PiBot-cache
 EELAYER 25 0
@@ -45,17 +44,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L MK20DX64VLH7 U?
-U 1 1 582D41FB
-P 2250 2050
-F 0 "U?" H 2900 3000 60  0000 C CNN
-F 1 "MK20DX64VLH7" H 2300 2250 60  0000 C CNB
-F 2 "Housings_QFP:LQFP-64_10x10mm_Pitch0.5mm" H 2250 2050 60  0001 C CNN
-F 3 "" H 2250 2050 60  0001 C CNN
-	1    2250 2050
-	1    0    0    -1  
-$EndComp
 $Comp
 L +3.3V #PWR?
 U 1 1 582E9263
@@ -454,4 +442,15 @@ Text GLabel 5650 3100 2    60   Input ~ 0
 right_encA
 Text GLabel 5650 3900 2    60   Input ~ 0
 right_encB
+$Comp
+L MK20DX64VLH7 U?
+U 1 1 5833AEE0
+P 2250 2050
+F 0 "U?" H 2900 3000 60  0000 C CNN
+F 1 "MK20DX64VLH7" H 2300 2250 60  0000 C CNB
+F 2 "" H 2250 2050 60  0001 C CNN
+F 3 "" H 2250 2050 60  0001 C CNN
+	1    2250 2050
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
