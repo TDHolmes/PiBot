@@ -30,6 +30,7 @@ LIBS:contrib
 LIBS:valves
 LIBS:mk20dx64vlh7
 LIBS:PiBot
+LIBS:PiBot-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -125,7 +126,7 @@ U 1 1 58301234
 P 4650 650
 F 0 "U?" H 4800 450 60  0000 C CNN
 F 1 "MC33926PNB" V 4650 -150 60  0000 C CNB
-F 2 "" H 4600 650 60  0001 C CNN
+F 2 "KiCAD_lib:PQFN-32-EP-0.8mm" H 4600 650 60  0001 C CNN
 F 3 "" H 4600 650 60  0001 C CNN
 	1    4650 650 
 	1    0    0    -1  
@@ -136,7 +137,7 @@ U 1 1 5830127C
 P 4650 2650
 F 0 "U?" H 4800 2450 60  0000 C CNN
 F 1 "MC33926PNB" V 4650 1850 60  0000 C CNB
-F 2 "" H 4600 2650 60  0001 C CNN
+F 2 "KiCAD_lib:PQFN-32-EP-0.8mm" H 4600 2650 60  0001 C CNN
 F 3 "" H 4600 2650 60  0001 C CNN
 	1    4650 2650
 	1    0    0    -1  
@@ -421,4 +422,36 @@ F 3 "" H 6050 1600 50  0000 C CNN
 	1    6050 1600
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	5600 1450 5650 1450
+Wire Wire Line
+	5650 1450 5650 1100
+Wire Wire Line
+	5650 1100 5700 1100
+Wire Wire Line
+	5600 1500 5650 1500
+Wire Wire Line
+	5650 1500 5650 1900
+Wire Wire Line
+	5650 1900 5700 1900
+Text GLabel 5700 1900 2    60   Input ~ 0
+left_encB
+Text GLabel 5700 1100 2    60   Input ~ 0
+left_encA
+Wire Wire Line
+	5550 3450 5600 3450
+Wire Wire Line
+	5600 3450 5600 3100
+Wire Wire Line
+	5600 3100 5650 3100
+Wire Wire Line
+	5550 3500 5600 3500
+Wire Wire Line
+	5600 3500 5600 3900
+Wire Wire Line
+	5600 3900 5650 3900
+Text GLabel 5650 3100 2    60   Input ~ 0
+right_encA
+Text GLabel 5650 3900 2    60   Input ~ 0
+right_encB
 $EndSCHEMATC
