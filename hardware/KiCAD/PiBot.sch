@@ -67,20 +67,12 @@ F 3 "" H 2100 3000 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2050 3000 2100 3000
-Wire Wire Line
-	2100 3000 2150 3000
-Wire Wire Line
-	2150 3000 2400 3000
+	2050 3000 2400 3000
 Connection ~ 2100 3000
 Wire Wire Line
 	2150 1050 2150 650 
 Wire Wire Line
-	1950 1050 2050 1050
-Wire Wire Line
-	2050 1050 2100 1050
-Wire Wire Line
-	2100 1050 2150 1050
+	1950 1050 2150 1050
 Connection ~ 2100 1050
 Connection ~ 2050 1050
 NoConn ~ 3150 1250
@@ -177,15 +169,7 @@ $EndComp
 Wire Wire Line
 	2150 650  1800 650 
 Wire Wire Line
-	4600 2200 4650 2200
-Wire Wire Line
-	4650 2200 4700 2200
-Wire Wire Line
-	4700 2200 4750 2200
-Wire Wire Line
-	4750 2200 4800 2200
-Wire Wire Line
-	4800 2200 4850 2200
+	4600 2200 4850 2200
 Connection ~ 4800 2200
 Connection ~ 4750 2200
 Connection ~ 4700 2200
@@ -193,15 +177,7 @@ Connection ~ 4650 2200
 Wire Wire Line
 	4500 2200 4450 2200
 Wire Wire Line
-	4600 4200 4650 4200
-Wire Wire Line
-	4650 4200 4700 4200
-Wire Wire Line
-	4700 4200 4750 4200
-Wire Wire Line
-	4750 4200 4800 4200
-Wire Wire Line
-	4800 4200 4850 4200
+	4600 4200 4850 4200
 Connection ~ 4800 4200
 Connection ~ 4750 4200
 Connection ~ 4700 4200
@@ -209,19 +185,11 @@ Connection ~ 4650 4200
 Wire Wire Line
 	4450 4200 4500 4200
 Wire Wire Line
-	4500 800  4550 800 
-Wire Wire Line
-	4550 800  4600 800 
-Wire Wire Line
-	4600 800  4650 800 
+	4500 800  4650 800 
 Connection ~ 4550 800 
 Connection ~ 4600 800 
 Wire Wire Line
-	4500 2800 4550 2800
-Wire Wire Line
-	4550 2800 4600 2800
-Wire Wire Line
-	4600 2800 4650 2800
+	4500 2800 4650 2800
 Connection ~ 4550 2800
 Connection ~ 4600 2800
 Connection ~ 5000 1250
@@ -253,13 +221,7 @@ F 3 "" H 5450 3300 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5000 3550 5000 3650
-Wire Wire Line
-	5000 3650 5000 3700
-Wire Wire Line
-	5000 3700 5000 3750
-Wire Wire Line
-	5000 3750 5000 3800
+	5000 3550 5000 3800
 Connection ~ 5000 3750
 Connection ~ 5000 3700
 Wire Wire Line
@@ -268,36 +230,18 @@ Connection ~ 5000 3650
 Wire Wire Line
 	5000 3400 5050 3400
 Wire Wire Line
-	5000 3200 5000 3250
-Wire Wire Line
-	5000 3250 5000 3300
-Wire Wire Line
-	5000 3300 5000 3350
-Wire Wire Line
-	5000 3350 5000 3400
+	5000 3200 5000 3400
 Connection ~ 5000 3350
 Connection ~ 5000 3300
 Connection ~ 5000 3250
 Wire Wire Line
-	5000 1200 5000 1250
-Wire Wire Line
-	5000 1250 5000 1300
-Wire Wire Line
-	5000 1300 5000 1350
-Wire Wire Line
-	5000 1350 5000 1400
+	5000 1200 5000 1400
 Wire Wire Line
 	5000 1400 5100 1400
 Wire Wire Line
 	5100 1550 5000 1550
 Wire Wire Line
-	5000 1550 5000 1650
-Wire Wire Line
-	5000 1650 5000 1700
-Wire Wire Line
-	5000 1700 5000 1750
-Wire Wire Line
-	5000 1750 5000 1800
+	5000 1550 5000 1800
 $Comp
 L C C?
 U 1 1 58328431
@@ -451,6 +395,41 @@ F 1 "MK20DX64VLH7" H 2300 2250 60  0000 C CNB
 F 2 "" H 2250 2050 60  0001 C CNN
 F 3 "" H 2250 2050 60  0001 C CNN
 	1    2250 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L MolexMicroSD U?
+U 1 1 5834082C
+P 5050 5750
+F 0 "U?" H 5450 6000 60  0000 C CNN
+F 1 "MolexMicroSD" H 5050 5750 60  0000 C CNB
+F 2 "" H 4700 6100 60  0001 C CNN
+F 3 "" H 4700 6100 60  0001 C CNN
+	1    5050 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 58340D24
+P 5050 6050
+F 0 "#PWR?" H 5050 5800 50  0001 C CNN
+F 1 "GND" H 5050 5900 50  0000 C CNN
+F 2 "" H 5050 6050 50  0000 C CNN
+F 3 "" H 5050 6050 50  0000 C CNN
+	1    5050 6050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5000 6050 5050 6050
+$Comp
+L +3.3V #PWR?
+U 1 1 5834102E
+P 5050 5450
+F 0 "#PWR?" H 5050 5300 50  0001 C CNN
+F 1 "+3.3V" H 4900 5500 50  0000 C CNN
+F 2 "" H 5050 5450 50  0000 C CNN
+F 3 "" H 5050 5450 50  0000 C CNN
+	1    5050 5450
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
