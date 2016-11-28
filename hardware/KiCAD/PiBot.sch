@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:PiBot-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -482,7 +483,7 @@ F 3 "" H 6500 5500 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L MolexMicroSD U?
+L MolexMicroSD-RESCUE-PiBot U?
 U 1 1 5834082C
 P 7850 3350
 F 0 "U?" H 8250 3600 60  0000 C CNN
@@ -666,18 +667,34 @@ SDA
 Text GLabel 7350 1600 0    50   Input ~ 0
 SCL
 Wire Wire Line
-	2050 3000 2400 3000
+	2050 3000 2100 3000
+Wire Wire Line
+	2100 3000 2150 3000
+Wire Wire Line
+	2150 3000 2400 3000
 Connection ~ 2100 3000
 Wire Wire Line
 	2150 1050 2150 650 
 Wire Wire Line
-	1950 1050 2150 1050
+	1950 1050 2050 1050
+Wire Wire Line
+	2050 1050 2100 1050
+Wire Wire Line
+	2100 1050 2150 1050
 Connection ~ 2100 1050
 Connection ~ 2050 1050
 Wire Wire Line
 	2150 650  1800 650 
 Wire Wire Line
-	4600 2200 4850 2200
+	4600 2200 4650 2200
+Wire Wire Line
+	4650 2200 4700 2200
+Wire Wire Line
+	4700 2200 4750 2200
+Wire Wire Line
+	4750 2200 4800 2200
+Wire Wire Line
+	4800 2200 4850 2200
 Connection ~ 4800 2200
 Connection ~ 4750 2200
 Connection ~ 4700 2200
@@ -685,7 +702,15 @@ Connection ~ 4650 2200
 Wire Wire Line
 	4500 2200 4450 2200
 Wire Wire Line
-	4600 4200 4850 4200
+	4600 4200 4650 4200
+Wire Wire Line
+	4650 4200 4700 4200
+Wire Wire Line
+	4700 4200 4750 4200
+Wire Wire Line
+	4750 4200 4800 4200
+Wire Wire Line
+	4800 4200 4850 4200
 Connection ~ 4800 4200
 Connection ~ 4750 4200
 Connection ~ 4700 4200
@@ -693,11 +718,19 @@ Connection ~ 4650 4200
 Wire Wire Line
 	4450 4200 4500 4200
 Wire Wire Line
-	4500 800  4650 800 
+	4500 800  4550 800 
+Wire Wire Line
+	4550 800  4600 800 
+Wire Wire Line
+	4600 800  4650 800 
 Connection ~ 4550 800 
 Connection ~ 4600 800 
 Wire Wire Line
-	4500 2800 4650 2800
+	4500 2800 4550 2800
+Wire Wire Line
+	4550 2800 4600 2800
+Wire Wire Line
+	4600 2800 4650 2800
 Connection ~ 4550 2800
 Connection ~ 4600 2800
 Connection ~ 5000 1250
@@ -707,7 +740,13 @@ Connection ~ 5000 1750
 Connection ~ 5000 1350
 Connection ~ 5000 1650
 Wire Wire Line
-	5000 3550 5000 3800
+	5000 3550 5000 3650
+Wire Wire Line
+	5000 3650 5000 3700
+Wire Wire Line
+	5000 3700 5000 3750
+Wire Wire Line
+	5000 3750 5000 3800
 Connection ~ 5000 3750
 Connection ~ 5000 3700
 Wire Wire Line
@@ -716,18 +755,36 @@ Connection ~ 5000 3650
 Wire Wire Line
 	5000 3400 5050 3400
 Wire Wire Line
-	5000 3200 5000 3400
+	5000 3200 5000 3250
+Wire Wire Line
+	5000 3250 5000 3300
+Wire Wire Line
+	5000 3300 5000 3350
+Wire Wire Line
+	5000 3350 5000 3400
 Connection ~ 5000 3350
 Connection ~ 5000 3300
 Connection ~ 5000 3250
 Wire Wire Line
-	5000 1200 5000 1400
+	5000 1200 5000 1250
+Wire Wire Line
+	5000 1250 5000 1300
+Wire Wire Line
+	5000 1300 5000 1350
+Wire Wire Line
+	5000 1350 5000 1400
 Wire Wire Line
 	5000 1400 5100 1400
 Wire Wire Line
 	5100 1550 5000 1550
 Wire Wire Line
-	5000 1550 5000 1800
+	5000 1550 5000 1650
+Wire Wire Line
+	5000 1650 5000 1700
+Wire Wire Line
+	5000 1700 5000 1750
+Wire Wire Line
+	5000 1750 5000 1800
 Wire Wire Line
 	6100 5500 6500 5500
 Wire Wire Line
@@ -832,7 +889,9 @@ Wire Wire Line
 Wire Wire Line
 	600  1150 600  1000
 Wire Wire Line
-	7850 2150 7950 2150
+	7850 2150 7900 2150
+Wire Wire Line
+	7900 2150 7950 2150
 Connection ~ 7900 2150
 Wire Wire Line
 	7850 1450 7950 1450
