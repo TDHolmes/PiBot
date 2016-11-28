@@ -36,3 +36,6 @@
 *-rescue.lib
 *.bak
 *.bck
+
+# custom added
+*.sublime-*
