@@ -678,7 +678,7 @@ F 3 "" H 10800 4750 50  0000 C CNN
 	1    10800 4750
 	1    0    0    -1  
 $EndComp
-Text GLabel 7600 4250 0    50   Output ~ 0
+Text GLabel 7100 4250 0    50   Output ~ 0
 PG
 $Comp
 L TPS63060 U?
@@ -1462,7 +1462,7 @@ Wire Wire Line
 	7750 6050 7750 6100
 Connection ~ 9500 5700
 Wire Wire Line
-	7600 4250 7850 4250
+	7450 4250 7850 4250
 Wire Wire Line
 	7850 4800 8000 4800
 Wire Wire Line
@@ -1948,4 +1948,17 @@ Text GLabel 1050 2200 0    50   Output ~ 0
 PG
 Wire Wire Line
 	1050 2200 1150 2200
+$Comp
+L R_Small R?
+U 1 1 5865121A
+P 7350 4250
+F 0 "R?" V 7250 4200 50  0000 L CNN
+F 1 "0" V 7450 4200 50  0000 L CNN
+F 2 "" H 7350 4250 50  0000 C CNN
+F 3 "" H 7350 4250 50  0000 C CNN
+	1    7350 4250
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	7250 4250 7100 4250
 $EndSCHEMATC
