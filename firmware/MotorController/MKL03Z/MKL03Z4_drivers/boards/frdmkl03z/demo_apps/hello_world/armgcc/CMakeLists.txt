@@ -18,9 +18,11 @@ SET(CMAKE_EXECUTABLE_LIBRARY_PREFIX)
 SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 
  
-# CURRENT DIRECTORY
-SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR})
+# CURRENT DIRECTORY (set it to the root level of the drivers folder for more clear folder structure)
+SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR}/../../../../../)
 
+
+# ------------------------------ ASSEMBLY LANGUAGE FLAGS - DEBUG ------------------------------ #
 
 SET(CMAKE_ASM_FLAGS_DEBUG "${CMAKE_ASM_FLAGS_DEBUG} -DDEBUG")
 
@@ -52,6 +54,9 @@ SET(CMAKE_ASM_FLAGS_DEBUG "${CMAKE_ASM_FLAGS_DEBUG} -mapcs")
 
 SET(CMAKE_ASM_FLAGS_DEBUG "${CMAKE_ASM_FLAGS_DEBUG} -std=gnu99")
 
+
+# ------------------------------ ASSEMBLY LANGUAGE FLAGS - DEBUG ------------------------------ #
+
 SET(CMAKE_ASM_FLAGS_RELEASE "${CMAKE_ASM_FLAGS_RELEASE} -D__STARTUP_CLEAR_BSS")
 
 SET(CMAKE_ASM_FLAGS_RELEASE "${CMAKE_ASM_FLAGS_RELEASE} -flto")
@@ -77,6 +82,10 @@ SET(CMAKE_ASM_FLAGS_RELEASE "${CMAKE_ASM_FLAGS_RELEASE} -fno-builtin")
 SET(CMAKE_ASM_FLAGS_RELEASE "${CMAKE_ASM_FLAGS_RELEASE} -mapcs")
 
 SET(CMAKE_ASM_FLAGS_RELEASE "${CMAKE_ASM_FLAGS_RELEASE} -std=gnu99")
+
+
+
+# ------------------------------ C LANGUAGE FLAGS - DEBUG ------------------------------ #
 
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -DDEBUG")
 
@@ -126,6 +135,9 @@ SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -mapcs")
 
 SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -std=gnu99")
 
+
+# ------------------------------ C LANGUAGE FLAGS - RELEASE ------------------------------ #
+
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DNDEBUG")
 
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DCPU_MKL03Z32VFK4")
@@ -172,6 +184,9 @@ SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -mapcs")
 
 SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -std=gnu99")
 
+
+# ------------------------------ LINKER FLAGS - RELEASE ------------------------------ #
+
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -flto")
 
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -mcpu=cortex-m0plus")
@@ -196,21 +211,16 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -mthumb")
 
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -mapcs")
 
-SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -Xlinker")
+SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -Xlinker --gc-sections")
 
-SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} --gc-sections")
+SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -Xlinker -static")
 
-SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -Xlinker")
+SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -Xlinker -z")
 
-SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -static")
+SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -Xlinker muldefs")
 
-SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -Xlinker")
 
-SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -z")
-
-SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -Xlinker")
-
-SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} muldefs")
+# ------------------------------ LINKER FLAGS - DEBUG ------------------------------ #
 
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -g")
 
@@ -238,80 +248,70 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -mthumb")
 
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -mapcs")
 
-SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -Xlinker")
+SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -Xlinker --gc-sections")
 
-SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} --gc-sections")
+SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -Xlinker -static")
 
-SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -Xlinker")
+SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -Xlinker -z")
 
-SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -static")
+SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -Xlinker muldefs")
 
-SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -Xlinker")
 
-SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -z")
+# ------------------------------ INCLUDE DIRECTORIES ------------------------------ #
 
-SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -Xlinker")
+include_directories(${ProjDirPath}CMSIS/Include)
 
-SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} muldefs")
+include_directories(${ProjDirPath}devices)
 
-include_directories(${ProjDirPath}/../../../../../CMSIS/Include)
+include_directories(${ProjDirPath}devices/MKL03Z4/drivers)
 
-include_directories(${ProjDirPath}/../../../../../devices)
+include_directories(${ProjDirPath}boards/frdmkl03z/demo_apps/hello_world/)
 
-include_directories(${ProjDirPath}/../../../../../devices/MKL03Z4/drivers)
+include_directories(${ProjDirPath}devices/MKL03Z4/utilities)
 
-include_directories(${ProjDirPath}/..)
+include_directories(${ProjDirPath}frdmkl04z/)
 
-include_directories(${ProjDirPath}/../../../../../devices/MKL03Z4/utilities)
+include_directories(${ProjDirPath}devices/MKL03Z4)
 
-include_directories(${ProjDirPath}/../../..)
 
-include_directories(${ProjDirPath}/../../../../../devices/MKL03Z4)
-
-include_directories(${ProjDirPath}/../../../../../CMSIS/Include)
-
-include_directories(${ProjDirPath}/../../../../../devices)
-
-include_directories(${ProjDirPath}/../../../../../devices/MKL03Z4/drivers)
-
-include_directories(${ProjDirPath}/..)
-
-include_directories(${ProjDirPath}/../../../../../devices/MKL03Z4/utilities)
-
-include_directories(${ProjDirPath}/../../..)
-
-include_directories(${ProjDirPath}/../../../../../devices/MKL03Z4)
+# ------------------------------ SOURCE FILES ------------------------------ #
 
 add_executable(hello_world.elf 
-"${ProjDirPath}/../../../../../devices/MKL03Z4/gcc/startup_MKL03Z4.S"
-"${ProjDirPath}/../../../../../devices/MKL03Z4/drivers/fsl_lpuart.h"
-"${ProjDirPath}/../../../../../devices/MKL03Z4/drivers/fsl_lpuart.c"
-"${ProjDirPath}/../../../../../devices/MKL03Z4/drivers/fsl_port.h"
-"${ProjDirPath}/../hello_world.c"
-"${ProjDirPath}/../pin_mux.c"
-"${ProjDirPath}/../pin_mux.h"
-"${ProjDirPath}/../board.c"
-"${ProjDirPath}/../board.h"
-"${ProjDirPath}/../../../../../devices/MKL03Z4/drivers/fsl_common.h"
-"${ProjDirPath}/../../../../../devices/MKL03Z4/drivers/fsl_common.c"
-"${ProjDirPath}/../../../../../devices/MKL03Z4/utilities/fsl_debug_console.c"
-"${ProjDirPath}/../../../../../devices/MKL03Z4/utilities/fsl_debug_console.h"
-"${ProjDirPath}/../../../../../devices/MKL03Z4/system_MKL03Z4.c"
-"${ProjDirPath}/../../../../../devices/MKL03Z4/system_MKL03Z4.h"
-"${ProjDirPath}/../../../../../devices/MKL03Z4/drivers/fsl_gpio.h"
-"${ProjDirPath}/../../../../../devices/MKL03Z4/drivers/fsl_gpio.c"
-"${ProjDirPath}/../clock_config.c"
-"${ProjDirPath}/../clock_config.h"
-"${ProjDirPath}/../../../../../devices/MKL03Z4/drivers/fsl_smc.h"
-"${ProjDirPath}/../../../../../devices/MKL03Z4/drivers/fsl_smc.c"
-"${ProjDirPath}/../../../../../devices/MKL03Z4/drivers/fsl_clock.h"
-"${ProjDirPath}/../../../../../devices/MKL03Z4/drivers/fsl_clock.c"
+"${ProjDirPath}devices/MKL03Z4/gcc/startup_MKL03Z4.S"
+"${ProjDirPath}devices/MKL03Z4/drivers/fsl_lpuart.h"
+"${ProjDirPath}devices/MKL03Z4/drivers/fsl_lpuart.c"
+"${ProjDirPath}devices/MKL03Z4/drivers/fsl_port.h"
+"${ProjDirPath}boards/frdmkl03z/demo_apps/hello_world/hello_world.c"
+"${ProjDirPath}boards/frdmkl03z/demo_apps/hello_world/pin_mux.c"
+"${ProjDirPath}boards/frdmkl03z/demo_apps/hello_world/pin_mux.h"
+"${ProjDirPath}boards/frdmkl03z/demo_apps/hello_world/board.c"
+"${ProjDirPath}boards/frdmkl03z/demo_apps/hello_world/board.h"
+"${ProjDirPath}devices/MKL03Z4/drivers/fsl_common.h"
+"${ProjDirPath}devices/MKL03Z4/drivers/fsl_common.c"
+"${ProjDirPath}devices/MKL03Z4/utilities/fsl_debug_console.c"
+"${ProjDirPath}devices/MKL03Z4/utilities/fsl_debug_console.h"
+"${ProjDirPath}devices/MKL03Z4/system_MKL03Z4.c"
+"${ProjDirPath}devices/MKL03Z4/system_MKL03Z4.h"
+"${ProjDirPath}devices/MKL03Z4/drivers/fsl_gpio.h"
+"${ProjDirPath}devices/MKL03Z4/drivers/fsl_gpio.c"
+"${ProjDirPath}boards/frdmkl03z/demo_apps/hello_world/clock_config.c"
+"${ProjDirPath}boards/frdmkl03z/demo_apps/hello_world/clock_config.h"
+"${ProjDirPath}devices/MKL03Z4/drivers/fsl_smc.h"
+"${ProjDirPath}devices/MKL03Z4/drivers/fsl_smc.c"
+"${ProjDirPath}devices/MKL03Z4/drivers/fsl_clock.h"
+"${ProjDirPath}devices/MKL03Z4/drivers/fsl_clock.c"
 )
 
 
-set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -T${ProjDirPath}/MKL03Z32xxx4_flash.ld -static")
+# ------------------------------ LINKER FILES ------------------------------ #
 
-set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -T${ProjDirPath}/MKL03Z32xxx4_flash.ld -static")
+set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -T${ProjDirPath}boards/frdmkl03z/demo_apps/hello_world/armgcc/MKL03Z32xxx4_flash.ld -static")
+
+set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -T${ProjDirPath}boards/frdmkl03z/demo_apps/hello_world/armgcc/MKL03Z32xxx4_flash.ld -static")
+
+
+
+# ------------------------------ MAGIC? ------------------------------ #
 
 TARGET_LINK_LIBRARIES(hello_world.elf -Wl,--start-group)
 target_link_libraries(hello_world.elf debug m)
