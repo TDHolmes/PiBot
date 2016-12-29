@@ -1,0 +1,10 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/tholmes/projects/PiBot/firmware/MotorController/MKL03Z/MKL03Z4_drivers/devices/MKL03Z4/gcc/startup_MKL03Z4.S
+
