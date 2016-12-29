@@ -195,6 +195,8 @@ add_executable(motor_driver.elf
 "${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/system_MKL03Z4.h"
 "${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_gpio.h"
 "${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_gpio.c"
+"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_i2c.h"
+"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_i2c.c"
 "${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_smc.h"
 "${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_smc.c"
 "${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_clock.h"

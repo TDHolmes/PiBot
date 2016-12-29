@@ -30,6 +30,10 @@
 
 #include "fsl_device_registers.h"
 #include "fsl_debug_console.h"
+#include "fsl_i2c.h"
+
+// definitions of peripherals and memory addresses
+#include "MKL03Z4.h"
 #include "board.h"
 
 #include "pin_mux.h"
@@ -57,6 +61,17 @@ int main(void)
     BOARD_InitPins();
     BOARD_BootClockRUN();
     BOARD_InitDebugConsole();
+
+    // I2C slave configuration (can't modify the pointer, but can modify contents)
+    i2c_slave_config_t * const i2c_conf_ptr;
+    // Get some sane defaults loaded
+    I2C_SlaveGetDefaultConfig(i2c_conf_ptr);
+
+    // add in I2C as a wake source and configure the address
+    i2c_conf_ptr->enableWakeUp = true;
+    i2c_conf_ptr->slaveAddress = 0x42;
+    // initialize the I2C slave
+    I2C_SlaveInit(I2C0, i2c_conf_ptr);
 
     PRINTF("hello world.\r\n");
 
