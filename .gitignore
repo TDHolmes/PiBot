@@ -1,7 +1,7 @@
 
 # cmake files
 CMakeCache.txt
-*CMakeFiles/*
+CMakeFiles/
 
 # Object files
 *.o
