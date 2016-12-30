@@ -171,45 +171,46 @@ include_directories(${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers)
 
 include_directories(${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/utilities)
 
-include_directories(${ProjDirPath}MKL03Z4_drivers/frdmkl04z/)
-
 include_directories(${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4)
 
 
 # ------------------------------ SOURCE FILES ------------------------------ #
 
 add_executable(motor_driver.elf
-"${ProjDirPath}motor_driver.c"
-"${ProjDirPath}pin_mux.c"
-"${ProjDirPath}pin_mux.h"
-"${ProjDirPath}board.c"
-"${ProjDirPath}board.h"
-"${ProjDirPath}clock_config.c"
-"${ProjDirPath}clock_config.h"
-"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/gcc/startup_MKL03Z4.S"
-"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_lpuart.h"
-"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_lpuart.c"
-"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_port.h"
-"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_common.h"
-"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_common.c"
-"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/utilities/fsl_debug_console.c"
-"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/utilities/fsl_debug_console.h"
-"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/system_MKL03Z4.c"
-"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/system_MKL03Z4.h"
-"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_gpio.h"
-"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_gpio.c"
-"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_i2c.h"
-"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_i2c.c"
-"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_smc.h"
-"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_smc.c"
-"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_clock.h"
-"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_clock.c"
+	# user code
+	"${ProjDirPath}motor_driver.c"
+	"${ProjDirPath}pin_mux.c"
+	"${ProjDirPath}pin_mux.h"
+	"${ProjDirPath}board.c"
+	"${ProjDirPath}board.h"
+	"${ProjDirPath}clock_config.c"
+	"${ProjDirPath}clock_config.h"
+
+	# NXP drivers and system files
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/gcc/startup_MKL03Z4.S"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_lpuart.h"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_lpuart.c"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_port.h"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_common.h"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_common.c"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/utilities/fsl_debug_console.c"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/utilities/fsl_debug_console.h"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/system_MKL03Z4.c"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/system_MKL03Z4.h"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_gpio.h"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_gpio.c"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_i2c.h"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_i2c.c"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_smc.h"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_smc.c"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_clock.h"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_clock.c"
 )
 
 
 # ------------------------------ LINKER FILES ------------------------------ #
-set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -T${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/gcc/MKL03Z8xxx4_flash.ld -static")
-set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -T${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/gcc/MKL03Z8xxx4_flash.ld -static")
+set(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -T${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/gcc/MKL03Z32xxx4_flash.ld -static")
+set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -T${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/gcc/MKL03Z32xxx4_flash.ld -static")
 
 
 

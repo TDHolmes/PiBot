@@ -42,11 +42,14 @@ def build_debug():
     print("\n————————————————————— DEBUG BUILD ————————————————————————\n")
     sys.stdout.write(bcolors.COLOR_NC)
     sys.stdout.flush()
+
+    # build the makefile with cmake
     cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="armgcc.cmake" -G "Unix Makefiles"' + \
         ' -Wno-deprecated --no-warn-unused-cli -DCMAKE_BUILD_TYPE=Debug  .'
     os.system(cmd)
+
+    # make the code
     cmd = "make -j4"
-    # returns the retval returned by make
     retval = os.system(cmd)
     if retval:
         sys.stdout.write(bcolors.COLOR_LIGHT_RED)
@@ -62,11 +65,14 @@ def build_release():
     print("\n————————————————————— RELEASE BUILD ————————————————————————\n")
     sys.stdout.write(bcolors.COLOR_NC)
     sys.stdout.flush()
+
+    # build the makefile with cmake
     cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="armgcc.cmake" -G "Unix Makefiles"' + \
         ' -Wno-deprecated --no-warn-unused-cli -DCMAKE_BUILD_TYPE=Release  .'
     os.system(cmd)
+
+    # make the code
     cmd = "make -j4"
-    # returns the retval returned by make
     retval = os.system(cmd)
     if retval:
         sys.stdout.write(bcolors.COLOR_LIGHT_RED)
@@ -123,6 +129,35 @@ def build_display_size(build_type, chip_total_flash):
     sys.stdout.write(bcolors.COLOR_NC)
 
 
+def build_get_section_info(build_type, chip_total_flash):
+    chip_total_flash = chip_total_flash * 1024
+    sys.stdout.write(bcolors.COLOR_YELLOW)
+    b = build_type.upper()
+    print("\n———————————— {} FUNCTION SIZES ———————————————\n".format(b))
+    sys.stdout.write(bcolors.COLOR_NC)
+    sys.stdout.flush()
+    cmd = "arm-none-eabi-nm --print-size --size-sort " + \
+        "--radix=d --defined-only {}/motor_driver.elf".format(build.lower())
+
+    stdout, stderr, retval = run_command(cmd, print_output=False)
+
+    data = []
+    for line in stdout.splitlines():
+        sym_ref, size, sym_type, name = line.split()
+        data.append((name, sym_type, int(size)))
+
+    # sort the data by size in reverse order
+    data_sorted = sorted(data, key=lambda d: d[2], reverse=True)
+    for val in data_sorted:
+        name, sym_type, size = val
+        sys.stdout.write(bcolors.COLOR_WHITE)
+        sys.stdout.write(name)
+        sys.stdout.write(bcolors.COLOR_NC)
+        sys.stdout.flush()
+        percentage = (float(size) * 100.0) / float(chip_total_flash)
+        print(" - {} bytes ({:0.2}%)".format(size, percentage))
+
+
 def run_command(cmd, print_output=True):
     """
     Kicks off a subprocess to run and accumilate the stdout of the process.
@@ -138,15 +173,16 @@ def run_command(cmd, print_output=True):
     q_stdout = Queue()
     t_stdout = Thread(target=enqueue_output, args=(proc.stdout, q_stdout))
     t_stdout.daemon = True  # thread dies with the program
-    t_stdout.start()
     q_stderr = Queue()
     t_stderr = Thread(target=enqueue_output, args=(proc.stderr, q_stderr))
     t_stderr.daemon = True  # thread dies with the program
+    t_stdout.start()
     t_stderr.start()
     stdout = ""
     stderr = ""
-    # read line without blocking
-    exit = False
+
+    # read stdout and stderr without blocking
+    finished = False
     while True:
         done = proc.poll()
         try:
@@ -171,14 +207,13 @@ def run_command(cmd, print_output=True):
         if print_output and line_stderr != "":
             print(line_stderr.rstrip("\n"))
 
-        if exit is True:
+        if finished:
             return stdout, stderr, done
 
-        # check if we're done
         if done is not None:
-            # give the process time to flush stdout/stderr
+            finished = True
+            # give stdout and stderr time
             time.sleep(0.25)
-            exit = True
 
 
 if __name__ == '__main__':
@@ -188,9 +223,12 @@ if __name__ == '__main__':
     parser.add_argument("build", type=str,
                         help="Type of build to run. Options are: "
                              "'debug', 'release', 'all', and 'clean'.")
-    parser.add_argument("-f", "--flash-size", type=int, default=8,
+    parser.add_argument("-f", "--flash-size", type=int, default=32,
                         help="total flash size available on the "
-                             "chip in Kibibytes. Defaults to 8.")
+                             "chip in Kibibytes. Defaults to 32.")
+    parser.add_argument("-s", "--show-usage", action="store_true",
+                        help="Outputs size information for individual symbols "
+                        "in the builds output elf file.")
     args = parser.parse_args()
     build = args.build.strip().lower()
 
@@ -202,6 +240,8 @@ if __name__ == '__main__':
         if retval == 0:
             build_display_size(build_type="debug",
                                chip_total_flash=args.flash_size)
+            if args.show_usage:
+                build_get_section_info("debug", args.flash_size)
 
     if build == "release" or build == "all":
         retval = build_release()
@@ -209,3 +249,5 @@ if __name__ == '__main__':
         if retval == 0:
             build_display_size(build_type="release",
                                chip_total_flash=args.flash_size)
+            if args.show_usage:
+                build_get_section_info("release", args.flash_size)
