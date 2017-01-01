@@ -21,6 +21,10 @@ SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR}/../)
 
 
+# ARMGCC DIRECTORY, if null string will use environmental variables
+SET(TOOLCHAIN_DIR "" CACHE STRING "Directory to use for ARM GCC")
+
+
 # ------------------------------ ASSEMBLY LANGUAGE FLAGS - DEBUG ------------------------------ #
 SET(CMAKE_ASM_FLAGS_DEBUG "${CMAKE_ASM_FLAGS_DEBUG} -DDEBUG")
 SET(CMAKE_ASM_FLAGS_DEBUG "${CMAKE_ASM_FLAGS_DEBUG} -D__STARTUP_CLEAR_BSS")

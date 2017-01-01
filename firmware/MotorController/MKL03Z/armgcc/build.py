@@ -36,7 +36,7 @@ class bcolors:
     COLOR_LIGHT_GRAY = '\033[0;37m'
 
 
-def build_debug():
+def build_debug(armgcc_dir=""):
     """Builds a debug version of the source code."""
     sys.stdout.write(bcolors.COLOR_YELLOW)
     print("\n————————————————————— DEBUG BUILD ————————————————————————\n")
@@ -44,8 +44,16 @@ def build_debug():
     sys.stdout.flush()
 
     # build the makefile with cmake
-    cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="armgcc.cmake" -G "Unix Makefiles"' + \
-        ' -Wno-deprecated --no-warn-unused-cli -DCMAKE_BUILD_TYPE=Debug  .'
+    if armgcc_dir == "":
+        cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="armgcc.cmake" -G ' + \
+            '"Unix Makefiles" -Wno-deprecated --no-warn-unused-cli' + \
+            '-DCMAKE_BUILD_TYPE=Debug  .'
+    else:
+        cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="armgcc.cmake" -G ' + \
+            '"Unix Makefiles" -Wno-deprecated --no-warn-unused-cli' + \
+            '-DCMAKE_BUILD_TYPE=Debug -DTOOLCHAIN_DIR:STRING="' + \
+            armgcc_dir + '"  .'
+
     os.system(cmd)
 
     # make the code
@@ -59,7 +67,7 @@ def build_debug():
     return retval
 
 
-def build_release():
+def build_release(armgcc_dir=""):
     """Builds a release version of the source code."""
     sys.stdout.write(bcolors.COLOR_YELLOW)
     print("\n————————————————————— RELEASE BUILD ————————————————————————\n")
@@ -67,8 +75,16 @@ def build_release():
     sys.stdout.flush()
 
     # build the makefile with cmake
-    cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="armgcc.cmake" -G "Unix Makefiles"' + \
-        ' -Wno-deprecated --no-warn-unused-cli -DCMAKE_BUILD_TYPE=Release  .'
+    if armgcc_dir == "":
+        cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="armgcc.cmake" -G ' + \
+            '"Unix Makefiles" -Wno-deprecated --no-warn-unused-cli' + \
+            '-DCMAKE_BUILD_TYPE=Release  .'
+    else:
+        cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="armgcc.cmake" -G ' + \
+            '"Unix Makefiles" -Wno-deprecated --no-warn-unused-cli' + \
+            '-DCMAKE_BUILD_TYPE=Release -DTOOLCHAIN_DIR:STRING="' + \
+            armgcc_dir + '"  .'
+
     os.system(cmd)
 
     # make the code
@@ -228,13 +244,16 @@ if __name__ == '__main__':
     parser.add_argument("-s", "--show-usage", action="store_true",
                         help="Outputs size information for individual symbols "
                         "in the builds output elf file.")
+    parser.add_argument("-g", "--gcc-dir", type=str, default="",
+                        help="Directory for armgcc compiler.")
+
     args = parser.parse_args()
     build = args.build.strip().lower()
 
     build_clean(remove_elf_files=True)
 
     if build == "debug" or build == "all":
-        retval = build_debug()
+        retval = build_debug(args.gcc_dir)
         build_clean(remove_elf_files=False)
         if retval == 0:
             build_display_size(build_type="debug",
@@ -243,7 +262,7 @@ if __name__ == '__main__':
                 build_get_section_info("debug", args.flash_size)
 
     if build == "release" or build == "all":
-        retval = build_release()
+        retval = build_release(args.gcc_dir)
         build_clean(remove_elf_files=False)
         if retval == 0:
             build_display_size(build_type="release",
