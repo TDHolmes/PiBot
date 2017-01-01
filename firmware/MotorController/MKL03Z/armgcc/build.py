@@ -46,14 +46,15 @@ def build_debug(armgcc_dir=""):
     # build the makefile with cmake
     if armgcc_dir == "":
         cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="armgcc.cmake" -G ' + \
-            '"Unix Makefiles" -Wno-deprecated --no-warn-unused-cli' + \
+            '"Unix Makefiles" -Wno-deprecated --no-warn-unused-cli ' + \
             '-DCMAKE_BUILD_TYPE=Debug  .'
     else:
         cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="armgcc.cmake" -G ' + \
-            '"Unix Makefiles" -Wno-deprecated --no-warn-unused-cli' + \
+            '"Unix Makefiles" -Wno-deprecated --no-warn-unused-cli ' + \
             '-DCMAKE_BUILD_TYPE=Debug -DTOOLCHAIN_DIR:STRING="' + \
             armgcc_dir + '"  .'
 
+    print("executing {}".format(cmd))
     os.system(cmd)
 
     # make the code
@@ -77,14 +78,15 @@ def build_release(armgcc_dir=""):
     # build the makefile with cmake
     if armgcc_dir == "":
         cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="armgcc.cmake" -G ' + \
-            '"Unix Makefiles" -Wno-deprecated --no-warn-unused-cli' + \
+            '"Unix Makefiles" -Wno-deprecated --no-warn-unused-cli ' + \
             '-DCMAKE_BUILD_TYPE=Release  .'
     else:
         cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="armgcc.cmake" -G ' + \
-            '"Unix Makefiles" -Wno-deprecated --no-warn-unused-cli' + \
+            '"Unix Makefiles" -Wno-deprecated --no-warn-unused-cli ' + \
             '-DCMAKE_BUILD_TYPE=Release -DTOOLCHAIN_DIR:STRING="' + \
             armgcc_dir + '"  .'
 
+    print("executing {}".format(cmd))
     os.system(cmd)
 
     # make the code
