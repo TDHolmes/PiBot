@@ -137,7 +137,7 @@ def build_get_section_info(build_type, chip_total_flash):
     sys.stdout.write(bcolors.COLOR_NC)
     sys.stdout.flush()
     cmd = "arm-none-eabi-nm --print-size --size-sort " + \
-        "--radix=d --defined-only {}/motor_driver.elf".format(build.lower())
+        "--radix=d --defined-only {}/motor_driver.elf".format(build_type.lower())
 
     stdout, stderr, retval = run_command(cmd, print_output=False)
 
@@ -167,15 +167,14 @@ def run_command(cmd, print_output=True):
             queue.put(line)
         out.close()
 
-    proc = subprocess.Popen(cmd,
-                            shell=True, stdout=subprocess.PIPE,
+    proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE)
     q_stdout = Queue()
-    t_stdout = Thread(target=enqueue_output, args=(proc.stdout, q_stdout))
-    t_stdout.daemon = True  # thread dies with the program
     q_stderr = Queue()
+    t_stdout = Thread(target=enqueue_output, args=(proc.stdout, q_stdout))
     t_stderr = Thread(target=enqueue_output, args=(proc.stderr, q_stderr))
     t_stderr.daemon = True  # thread dies with the program
+    t_stdout.daemon = True
     t_stdout.start()
     t_stderr.start()
     stdout = ""
@@ -225,7 +224,7 @@ if __name__ == '__main__':
                              "'debug', 'release', 'all', and 'clean'.")
     parser.add_argument("-f", "--flash-size", type=int, default=32,
                         help="total flash size available on the "
-                             "chip in Kibibytes. Defaults to 32.")
+                             "chip in Kibibytes. Defaults to 32k.")
     parser.add_argument("-s", "--show-usage", action="store_true",
                         help="Outputs size information for individual symbols "
                         "in the builds output elf file.")

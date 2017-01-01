@@ -34,9 +34,8 @@
 
 // definitions of peripherals and memory addresses
 #include "MKL03Z4.h"
-#include "board.h"
+#include "hardware.h"
 
-#include "pin_mux.h"
 #include "clock_config.h"
 /*******************************************************************************
  * Definitions
@@ -58,9 +57,9 @@ int main(void)
     char ch;
 
     /* Init board hardware. */
-    BOARD_InitPins();
-    BOARD_BootClockRUN();
-    BOARD_InitDebugConsole();
+    hw_init_pins();
+    clk_conf_run();
+    hw_init_debug_console();
 
     // I2C slave configuration (can't modify the pointer, but can modify contents)
     i2c_slave_config_t * const i2c_conf_ptr;

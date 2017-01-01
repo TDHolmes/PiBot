@@ -54,9 +54,15 @@ extern uint32_t SystemCoreClock;
  * 2. Call CLOCK_SetMcgliteConfig to set MCG_Lite configuration.
  *
  * 3. Call CLOCK_SetSimConfig to set the clock configuration in SIM.
+ *
+ * Power Management Controller (PMC)
+ * System Mode Controller (SMC)
+ * Multipurpose Clock Generator (MCG)
+ * Low Leakage Wakeup Unit (LLWU)
+ * Very low power run mode (VLPR)
  */
 
-void BOARD_BootClockVLPR(void)
+void clk_conf_VLPR(void)
 {
     /*
      * Core clock: 2MHz
@@ -94,7 +100,7 @@ void BOARD_BootClockVLPR(void)
     }
 }
 
-void BOARD_BootClockRUN(void)
+void clk_conf_run(void)
 {
     /*
      * Core clock: 48MHz
@@ -126,7 +132,7 @@ void BOARD_BootClockRUN(void)
     SystemCoreClock = 48000000U;
 }
 
-void BOARD_InitOsc0(void)
+void clk_init_osc0(void)
 {
     const osc_config_t oscConfig = {.freq = BOARD_XTAL0_CLK_HZ,
                                     .capLoad = 0U,

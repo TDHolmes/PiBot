@@ -33,12 +33,13 @@
 
 #include "clock_config.h"
 #include "fsl_gpio.h"
+#include "hardware.h"
 
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
 /*! @brief The board name */
-#define BOARD_NAME "FRDM-KL03Z"
+#define BOARD_NAME "PYCO-BOT-MOTOR-DRIVER"
 
 /*! @brief The UART to use for debug messages. */
 #define BOARD_USE_LPUART
@@ -50,7 +51,7 @@
 #define BOARD_UART_IRQ_HANDLER LPUART0_IRQHandler
 
 #ifndef BOARD_DEBUG_UART_BAUDRATE
-#define BOARD_DEBUG_UART_BAUDRATE 9600
+#define BOARD_DEBUG_UART_BAUDRATE 115200
 #endif /* BOARD_DEBUG_UART_BAUDRATE */
 
 /*! @brief The i2c instance used for i2c connection by default */
@@ -67,15 +68,6 @@
 /*! @brief The TPM instance/channel used for board */
 #define BOARD_TPM_BASEADDR TPM0
 #define BOARD_TPM_CHANNEL 0U
-
-/*! @brief The bubble level demo information */
-#define BOARD_BUBBLE_TPM_BASEADDR TPM0
-#define BOARD_TPM_X_CHANNEL 0U
-#define BOARD_TPM_Y_CHANNEL 1U
-#define BOARD_MMA8451_ADDR 0x1D
-#define BOARD_ACCEL_ADDR BOARD_MMA8451_ADDR
-#define BOARD_ACCEL_BAUDRATE 100
-#define BOARD_ACCEL_I2C_BASEADDR I2C0
 
 /*! @brief deafult ADC channel used for board. */
 #define BOARD_ADC_HW_TRIGGER_CHAN 3U
@@ -102,61 +94,22 @@
 #define BOARD_SW3_IRQ_HANDLER PORTB_IRQHandler
 #define BOARD_SW3_NAME "SW3"
 
-/*! @brief Board led color mapping */
-#define LOGIC_LED_ON 0U
-#define LOGIC_LED_OFF 1U
-#define BOARD_LED_RED_GPIO GPIOB
-#define BOARD_LED_RED_GPIO_PORT PORTB
-#define BOARD_LED_RED_GPIO_PIN 10U
-#define BOARD_LED_GREEN_GPIO GPIOB
-#define BOARD_LED_GREEN_GPIO_PORT PORTB
-#define BOARD_LED_GREEN_GPIO_PIN 11U
-#define BOARD_LED_BLUE_GPIO GPIOB
-#define BOARD_LED_BLUE_GPIO_PORT PORTB
-#define BOARD_LED_BLUE_GPIO_PIN 13U
 
-#define LED_RED_INIT(output)                                 \
-    GPIO_WritePinOutput(BOARD_LED_RED_GPIO, BOARD_LED_RED_GPIO_PIN, output);\
-    BOARD_LED_RED_GPIO->PDDR |= (1U << BOARD_LED_RED_GPIO_PIN)  /*!< Enable target LED_RED */
-#define LED_RED_ON() \
-    GPIO_ClearPinsOutput(BOARD_LED_RED_GPIO, 1U << BOARD_LED_RED_GPIO_PIN) /*!< Turn on target LED_RED */
-#define LED_RED_OFF() \
-    GPIO_SetPinsOutput(BOARD_LED_RED_GPIO, 1U << BOARD_LED_RED_GPIO_PIN) /*!< Turn off target LED_RED */
-#define LED_RED_TOGGLE() \
-    GPIO_TogglePinsOutput(BOARD_LED_RED_GPIO, 1U << BOARD_LED_RED_GPIO_PIN) /*!< Toggle on target LED_RED */
+// #define LED_RED_INIT(output)                                 \
+//     GPIO_WritePinOutput(BOARD_LED_RED_GPIO, BOARD_LED_RED_GPIO_PIN, output);\
+//     BOARD_LED_RED_GPIO->PDDR |= (1U << BOARD_LED_RED_GPIO_PIN)  /*!< Enable target LED_RED */
+// #define LED_RED_ON() \
+//     GPIO_ClearPinsOutput(BOARD_LED_RED_GPIO, 1U << BOARD_LED_RED_GPIO_PIN) /*!< Turn on target LED_RED */
+// #define LED_RED_OFF() \
+//     GPIO_SetPinsOutput(BOARD_LED_RED_GPIO, 1U << BOARD_LED_RED_GPIO_PIN) /*!< Turn off target LED_RED */
+// #define LED_RED_TOGGLE() \
+//     GPIO_TogglePinsOutput(BOARD_LED_RED_GPIO, 1U << BOARD_LED_RED_GPIO_PIN) /*!< Toggle on target LED_RED */
 
-#define LED_GREEN_INIT(output)                                   \
-    GPIO_WritePinOutput(BOARD_LED_GREEN_GPIO, BOARD_LED_GREEN_GPIO_PIN, output);\
-    BOARD_LED_GREEN_GPIO->PDDR |= (1U << BOARD_LED_GREEN_GPIO_PIN)  /*!< Enable target LED_GREEN */
-#define LED_GREEN_ON() \
-    GPIO_ClearPinsOutput(BOARD_LED_GREEN_GPIO, 1U << BOARD_LED_GREEN_GPIO_PIN) /*!< Turn on target LED_GREEN */
-#define LED_GREEN_OFF() \
-    GPIO_SetPinsOutput(BOARD_LED_GREEN_GPIO, 1U << BOARD_LED_GREEN_GPIO_PIN) /*!< Turn off target LED_GREEN */
-#define LED_GREEN_TOGGLE() \
-    GPIO_TogglePinsOutput(BOARD_LED_GREEN_GPIO, 1U << BOARD_LED_GREEN_GPIO_PIN) /*!< Toggle on target LED_GREEN */
-
-#define LED_BLUE_INIT(output)                                  \
-    GPIO_WritePinOutput(BOARD_LED_BLUE_GPIO, BOARD_LED_BLUE_GPIO_PIN, output);\
-    BOARD_LED_BLUE_GPIO->PDDR |= (1U << BOARD_LED_BLUE_GPIO_PIN)  /*!< Enable target LED_BLUE */
-#define LED_BLUE_ON() \
-    GPIO_ClearPinsOutput(BOARD_LED_BLUE_GPIO, 1U << BOARD_LED_BLUE_GPIO_PIN) /*!< Turn on target LED_BLUE */
-#define LED_BLUE_OFF() \
-    GPIO_SetPinsOutput(BOARD_LED_BLUE_GPIO, 1U << BOARD_LED_BLUE_GPIO_PIN) /*!< Turn off target LED_BLUE */
-#define LED_BLUE_TOGGLE() \
-    GPIO_TogglePinsOutput(BOARD_LED_BLUE_GPIO, 1U << BOARD_LED_BLUE_GPIO_PIN) /*!< Toggle on target LED_BLUE */
-
-#if defined(__cplusplus)
-extern "C" {
-#endif /* __cplusplus */
 
 /*******************************************************************************
  * API
  ******************************************************************************/
 
-void BOARD_InitDebugConsole(void);
-
-#if defined(__cplusplus)
-}
-#endif /* __cplusplus */
-
+void hw_init_debug_console(void);
+void hw_init_pins(void);
 #endif /* _BOARD_H_ */

@@ -39,16 +39,10 @@
 /*******************************************************************************
  * API
  ******************************************************************************/
-#if defined(__cplusplus)
-extern "C" {
-#endif /* __cplusplus*/
 
-void BOARD_BootClockVLPR(void);
-void BOARD_BootClockRUN(void);
-void BOARD_InitOsc0(void);
+void clk_conf_VLPR(void);
+void clk_conf_run(void);
+void clk_init_osc0(void);
 
-#if defined(__cplusplus)
-}
-#endif /* __cplusplus*/
 
 #endif /* _CLOCK_CONFIG_H_ */

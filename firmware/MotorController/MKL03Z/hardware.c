@@ -29,9 +29,10 @@
 */
 
 #include <stdint.h>
-#include "board.h"
+#include "hardware.h"
 #include "fsl_debug_console.h"
 #include "fsl_common.h"
+#include "fsl_port.h"
 
 /*******************************************************************************
  * Variables
@@ -41,7 +42,7 @@
  * Code
  ******************************************************************************/
 /* Initialize debug console. */
-void BOARD_InitDebugConsole(void)
+void hw_init_debug_console(void)
 {
     uint32_t uartClkSrcFreq;
     /* SIM_SOPT2[27:26]:
@@ -57,4 +58,16 @@ void BOARD_InitDebugConsole(void)
     DbgConsole_Init(BOARD_DEBUG_UART_BASEADDR, BOARD_DEBUG_UART_BAUDRATE,
 
                     BOARD_DEBUG_UART_TYPE, uartClkSrcFreq);
+}
+
+/* initialize GPIO pins and setup hardware modules */
+void hw_init_pins(void)
+{
+    /* Initialize LPUART0 pins below */
+    /* Ungate the port clock */
+    CLOCK_EnableClock(kCLOCK_PortB);
+    /* Affects PORTA_PCR1 register */
+    PORT_SetPinMux(PORTB, 1u, kPORT_MuxAlt2);
+    /* Affects PORTA_PCR2 register */
+    PORT_SetPinMux(PORTB, 2u, kPORT_MuxAlt2);
 }
