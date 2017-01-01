@@ -30,7 +30,7 @@ LIBS:contrib
 LIBS:valves
 LIBS:PiBot
 LIBS:PiBot-cache
-EELAYER 26 0
+EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -614,7 +614,7 @@ F 3 "" H 2000 1400 50  0000 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L F_Small PTC?
+L Polyfuse_Small PTC?
 U 1 1 58579C3D
 P 1800 1400
 F 0 "PTC?" H 1800 1500 50  0000 C TNN
@@ -624,10 +624,10 @@ F 3 "" H 1800 1400 50  0000 C CNN
 F 4 "0ZCJ0050FF2G" H 1800 1400 60  0001 C CNN "MPN"
 F 5 "http://www.digikey.com/product-detail/en/bel-fuse-inc/0ZCJ0050FF2G/507-1802-1-ND/4156236" H 1800 1400 60  0001 C CNN "DigiKey Link"
 	1    1800 1400
-	-1   0    0    -1  
+	0    1    -1   0   
 $EndComp
 $Comp
-L ZENER D?
+L D_Zener D?
 U 1 1 58579C3E
 P 1300 1600
 F 0 "D?" H 1350 1500 50  0000 C CNN
@@ -1732,4 +1732,26 @@ Text GLabel 10650 4700 2    39   Input ~ 0
 FB_L
 Wire Wire Line
 	7750 3900 7700 3900
+Wire Wire Line
+	600  5600 600  5650
+Wire Wire Line
+	600  5650 800  5650
+Wire Wire Line
+	600  5300 600  5250
+Wire Wire Line
+	600  5250 800  5250
+Wire Wire Line
+	800  4550 650  4550
+Wire Wire Line
+	650  4550 650  4500
+Wire Wire Line
+	650  4200 650  4150
+Wire Wire Line
+	650  4150 800  4150
+Wire Wire Line
+	10650 4700 10600 4700
+Wire Wire Line
+	1300 1750 1300 1800
+Wire Wire Line
+	1300 1450 1300 1400
 $EndSCHEMATC
