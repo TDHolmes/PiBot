@@ -36,7 +36,10 @@
 #include "MKL03Z4.h"
 #include "hardware.h"
 
+// important user code
 #include "clock_config.h"
+#include "encoders.h"
+#include "motor_drivers.h"
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -60,6 +63,10 @@ int main(void)
     hw_init_pins();
     clk_conf_run();
     hw_init_debug_console();
+
+    // initialize the motor driver and encoders
+    motors_init();
+    encoders_init();
 
     // I2C slave configuration (can't modify the pointer, but can modify contents)
     i2c_slave_config_t * const i2c_conf_ptr;

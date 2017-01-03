@@ -16,7 +16,7 @@ SET(CMAKE_STATIC_LIBRARY_SUFFIX)
 SET(CMAKE_EXECUTABLE_LIBRARY_PREFIX)
 SET(CMAKE_EXECUTABLE_LIBRARY_SUFFIX)
 
- 
+
 # CURRENT DIRECTORY up a level
 SET(ProjDirPath ${CMAKE_CURRENT_SOURCE_DIR}/../)
 
@@ -187,7 +187,11 @@ include_directories(${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4)
 
 add_executable(motor_driver.elf
 	# user code
-	"${ProjDirPath}motor_driver.c"
+	"${ProjDirPath}motor_drivers.c"
+	"${ProjDirPath}motor_drivers.h"
+	"${ProjDirPath}encoders.c"
+	"${ProjDirPath}encoders.h"
+	"${ProjDirPath}motor_controller.c"
 	"${ProjDirPath}hardware.c"
 	"${ProjDirPath}hardware.h"
 	"${ProjDirPath}clock_config.c"
@@ -206,6 +210,8 @@ add_executable(motor_driver.elf
 	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/system_MKL03Z4.h"
 	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_gpio.h"
 	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_gpio.c"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_tpm.h"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_tpm.c"
 	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_i2c.h"
 	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_i2c.c"
 	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_smc.h"
