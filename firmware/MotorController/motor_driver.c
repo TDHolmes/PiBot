@@ -68,6 +68,7 @@ int main(void)
 
     // add in I2C as a wake source and configure the address
     i2c_conf_ptr->enableWakeUp = true;
+    //TODO: lower two bits can be set via some extra IO pins
     i2c_conf_ptr->slaveAddress = 0x42;
     // initialize the I2C slave
     I2C_SlaveInit(I2C0, i2c_conf_ptr);
