@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:PiBot-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -91,7 +92,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 2
+Sheet 2 4
 Title ""
 Date ""
 Rev ""
@@ -124,9 +125,11 @@ F 3 "" H 3800 3950 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Battery BT?
+L Battery-RESCUE-PiBot BT?
 U 1 1 586935B2
 P 800 3700
+AR Path="/586935B2" Ref="BT?"  Part="1" 
+AR Path="/5869317C/586935B2" Ref="BT?"  Part="1" 
 F 0 "BT?" H 900 3750 50  0000 L CNN
 F 1 "Battery" H 800 3600 50  0000 L CNN
 F 2 "" V 800 3740 50  0000 C CNN
