@@ -396,17 +396,6 @@ Text Notes 7050 7050 0    60   ~ 12
 By:\nBroderick Carlin\nTyler Holmes
 Text Notes 7950 7050 0    60   ~ 12
 MIT License\n
-$Comp
-L TEST_1P W?
-U 1 1 586935CD
-P 5550 3450
-F 0 "W?" H 5450 3700 50  0000 L TNN
-F 1 "TP" H 5400 3600 50  0000 L CNN
-F 2 "" H 5750 3450 50  0000 C CNN
-F 3 "" H 5750 3450 50  0000 C CNN
-	1    5550 3450
-	1    0    0    -1  
-$EndComp
 Text Label 7250 3700 0    39   ~ 0
 PSU_VOUT
 Text Label 7150 3800 0    39   ~ 0
@@ -460,8 +449,6 @@ Connection ~ 2950 4700
 Wire Wire Line
 	1750 4650 1750 4700
 Connection ~ 3500 4300
-Wire Wire Line
-	5350 3450 5750 3450
 Wire Wire Line
 	5750 4000 5900 4000
 Wire Wire Line
@@ -539,7 +526,7 @@ Wire Wire Line
 	2950 4500 2950 4500
 Connection ~ 4750 4700
 Wire Wire Line
-	4350 4700 4950 4700
+	4250 4700 4950 4700
 Wire Wire Line
 	4750 4650 4750 4750
 Wire Wire Line
@@ -548,10 +535,10 @@ Connection ~ 3500 4700
 Wire Wire Line
 	3500 4650 3500 5000
 Wire Wire Line
-	1750 4700 3650 4700
+	1750 4700 3750 4700
 Connection ~ 4050 4300
 Wire Wire Line
-	4050 4250 4050 4350
+	4050 4250 4050 4450
 Wire Wire Line
 	2900 4300 4750 4300
 Wire Wire Line
@@ -565,7 +552,6 @@ Wire Wire Line
 Wire Wire Line
 	5850 3800 5850 3700
 Connection ~ 5850 3700
-Connection ~ 5550 3450
 Wire Wire Line
 	5150 3450 5000 3450
 Text HLabel 8050 2800 2    60   Output ~ 0
@@ -593,4 +579,6 @@ F 3 "" H 4000 5000 50  0000 C CNN
 	1    4000 5000
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	5350 3450 5750 3450
 $EndSCHEMATC
