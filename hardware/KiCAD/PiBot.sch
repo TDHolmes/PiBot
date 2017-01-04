@@ -1,6 +1,92 @@
 EESchema Schematic File Version 2
 LIBS:PiBot-rescue
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
 LIBS:PiBot
+LIBS:74xgxx
+LIBS:ac-dc
+LIBS:actel
+LIBS:allegro
+LIBS:Altera
+LIBS:analog_devices
+LIBS:battery_management
+LIBS:bbd
+LIBS:bosch
+LIBS:brooktre
+LIBS:cmos_ieee
+LIBS:dc-dc
+LIBS:diode
+LIBS:elec-unifil
+LIBS:ESD_Protection
+LIBS:ftdi
+LIBS:gennum
+LIBS:graphic
+LIBS:hc11
+LIBS:ir
+LIBS:Lattice
+LIBS:logo
+LIBS:maxim
+LIBS:mechanical
+LIBS:microchip_dspic33dsc
+LIBS:microchip_pic10mcu
+LIBS:microchip_pic12mcu
+LIBS:microchip_pic16mcu
+LIBS:microchip_pic18mcu
+LIBS:microchip_pic32mcu
+LIBS:motor_drivers
+LIBS:motors
+LIBS:msp430
+LIBS:nordicsemi
+LIBS:nxp_armmcu
+LIBS:onsemi
+LIBS:Oscillators
+LIBS:powerint
+LIBS:Power_Management
+LIBS:pspice
+LIBS:references
+LIBS:relays
+LIBS:rfcom
+LIBS:sensors
+LIBS:silabs
+LIBS:stm8
+LIBS:stm32
+LIBS:supertex
+LIBS:switches
+LIBS:transf
+LIBS:ttl_ieee
+LIBS:video
+LIBS:wiznet
+LIBS:Worldsemi
+LIBS:Xicor
+LIBS:zetex
+LIBS:Zilog
 LIBS:PiBot-cache
 EELAYER 25 0
 EELAYER END
@@ -16,28 +102,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Comp
-L GND #PWR017
-U 1 1 58340D24
-P 5300 5250
-F 0 "#PWR017" H 5300 5000 50  0001 C CNN
-F 1 "GND" H 5300 5100 50  0001 C CNN
-F 2 "" H 5300 5250 50  0000 C CNN
-F 3 "" H 5300 5250 50  0000 C CNN
-	1    5300 5250
-	1    0    0    -1  
-$EndComp
-$Comp
-L +3.3V #PWR018
-U 1 1 5834102E
-P 5300 4650
-F 0 "#PWR018" H 5300 4500 50  0001 C CNN
-F 1 "+3.3V" H 5150 4700 50  0000 C CNN
-F 2 "" H 5300 4650 50  0000 C CNN
-F 3 "" H 5300 4650 50  0000 C CNN
-	1    5300 4650
-	1    0    0    -1  
-$EndComp
 $Comp
 L +3.3V #PWR030
 U 1 1 58579C26
@@ -226,27 +290,6 @@ F 3 "" H 2750 2800 60  0001 C CNN
 	1    3050 2400
 	1    0    0    -1  
 $EndComp
-$Comp
-L MolexMicroSD U?
-U 1 1 58579424
-P 5300 4950
-F 0 "U?" H 5700 5200 60  0000 C CNN
-F 1 "MolexMicroSD" H 5300 4950 50  0000 C CNB
-F 2 "" H 4950 5300 60  0001 C CNN
-F 3 "" H 4950 5300 60  0001 C CNN
-	1    5300 4950
-	1    0    0    -1  
-$EndComp
-Text GLabel 4600 4900 0    39   Input ~ 0
-MOSI
-Text GLabel 4250 5000 0    39   Input ~ 0
-SCK
-Text GLabel 6000 4900 2    39   Output ~ 0
-MISO
-Text GLabel 6350 5050 2    39   Input ~ 0
-SD_CS
-NoConn ~ 5850 4950
-NoConn ~ 5850 5000
 Text GLabel 3950 2950 2    39   Input ~ 0
 MISO
 Text GLabel 3950 2850 2    39   Output ~ 0
@@ -286,50 +329,6 @@ Text GLabel 6950 2450 0    39   Input ~ 0
 left_encA
 Text GLabel 4400 3050 2    39   Output ~ 0
 SD_CS
-$Comp
-L TEST_1P W?
-U 1 1 585E006C
-P 4650 4900
-F 0 "W?" H 4600 5150 50  0000 L TNN
-F 1 "TP" H 4500 5050 50  0000 L CNN
-F 2 "" H 4850 4900 50  0000 C CNN
-F 3 "" H 4850 4900 50  0000 C CNN
-	1    4650 4900
-	1    0    0    -1  
-$EndComp
-$Comp
-L TEST_1P W?
-U 1 1 585E0A38
-P 4300 5000
-F 0 "W?" H 4250 5250 50  0000 L TNN
-F 1 "TP" H 4150 5150 50  0000 L CNN
-F 2 "" H 4500 5000 50  0000 C CNN
-F 3 "" H 4500 5000 50  0000 C CNN
-	1    4300 5000
-	1    0    0    -1  
-$EndComp
-$Comp
-L TEST_1P W?
-U 1 1 585E0B11
-P 5950 4900
-F 0 "W?" H 5900 5150 50  0000 L TNN
-F 1 "TP" H 6000 5050 50  0000 L CNN
-F 2 "" H 6150 4900 50  0000 C CNN
-F 3 "" H 6150 4900 50  0000 C CNN
-	1    5950 4900
-	1    0    0    -1  
-$EndComp
-$Comp
-L TEST_1P W?
-U 1 1 585E0BF5
-P 6300 5050
-F 0 "W?" H 6300 5350 50  0000 L TNN
-F 1 "TEST_1P" H 6250 5250 50  0000 L CNN
-F 2 "" H 6500 5050 50  0000 C CNN
-F 3 "" H 6500 5050 50  0000 C CNN
-	1    6300 5050
-	1    0    0    -1  
-$EndComp
 Text Notes 1800 1800 0    39   ~ 0
 Enable proc\nif our 5v\nline is up
 Text Notes 1100 1500 0    39   ~ 0
@@ -672,10 +671,6 @@ Text GLabel 6950 1850 0    39   Input ~ 0
 FB_R
 Text GLabel 9900 2650 2    39   Input ~ 0
 FB_L
-Connection ~ 4300 5000
-Connection ~ 4650 4900
-Connection ~ 5950 4900
-Connection ~ 6300 5050
 Wire Wire Line
 	4400 2050 4400 2100
 Wire Wire Line
@@ -705,24 +700,6 @@ Wire Wire Line
 Wire Wire Line
 	1950 3150 1950 3250
 Wire Wire Line
-	4250 5000 4300 5000
-Wire Wire Line
-	4300 5000 4700 5000
-Wire Wire Line
-	4600 4900 4650 4900
-Wire Wire Line
-	4650 4900 4700 4900
-Wire Wire Line
-	4700 4900 4700 4950
-Wire Wire Line
-	5850 4900 5950 4900
-Wire Wire Line
-	5950 4900 6000 4900
-Wire Wire Line
-	5850 5050 6300 5050
-Wire Wire Line
-	6300 5050 6350 5050
-Wire Wire Line
 	1800 1950 1950 1950
 Wire Wire Line
 	1950 1950 2150 1950
@@ -737,8 +714,6 @@ Wire Wire Line
 	3950 2050 4400 2050
 Wire Notes Line
 	3500 7800 3500 6000
-Wire Wire Line
-	5250 5250 5300 5250
 Wire Notes Line
 	450  6000 6950 6000
 Wire Wire Line
@@ -943,7 +918,7 @@ Text Notes 5900 6150 0    60   Italic 12
 Power
 Wire Wire Line
 	8850 1200 8850 1250
-Text Notes 1250 7800 0    60   ~ 0
+Text Notes 1250 7750 0    60   ~ 0
 *All LED's PN: XZVG45S-9
 $Sheet
 S 650  4250 750  1600
@@ -1221,4 +1196,127 @@ Wire Wire Line
 Connection ~ 10700 2750
 Text Notes 10200 3300 0    60   ~ 0
 2.5:1 voltage divider
+$Comp
+L Micro_SD_Card CON?
+U 1 1 586FB99A
+P 5950 5050
+F 0 "CON?" H 5300 5650 50  0000 C CNN
+F 1 "Micro_SD_Card" H 6600 5650 50  0000 R CNN
+F 2 "" H 7100 5350 50  0000 C CNN
+F 3 "" H 5950 5050 50  0000 C CNN
+	1    5950 5050
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 586FD28E
+P 6800 5700
+F 0 "#PWR?" H 6800 5450 50  0001 C CNN
+F 1 "GND" H 6800 5550 50  0001 C CNN
+F 2 "" H 6800 5700 50  0000 C CNN
+F 3 "" H 6800 5700 50  0000 C CNN
+	1    6800 5700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6800 5700 6800 5650
+Wire Wire Line
+	6800 5650 6750 5650
+Text GLabel 4950 5350 0    39   Output ~ 0
+MISO
+Wire Wire Line
+	4950 5350 5050 5350
+NoConn ~ 5050 5450
+NoConn ~ 5050 4750
+Text GLabel 4950 4850 0    39   Input ~ 0
+SD_CS
+Wire Wire Line
+	4950 4850 5050 4850
+Text GLabel 4950 4950 0    39   Input ~ 0
+MOSI
+Wire Wire Line
+	4950 4950 5050 4950
+$Comp
+L GND #PWR?
+U 1 1 586FFA6C
+P 4600 5300
+F 0 "#PWR?" H 4600 5050 50  0001 C CNN
+F 1 "GND" H 4600 5150 50  0001 C CNN
+F 2 "" H 4600 5300 50  0000 C CNN
+F 3 "" H 4600 5300 50  0000 C CNN
+	1    4600 5300
+	1    0    0    -1  
+$EndComp
+$Comp
+L +3.3V #PWR?
+U 1 1 586FFE35
+P 4600 5000
+F 0 "#PWR?" H 4600 4850 50  0001 C CNN
+F 1 "+3.3V" H 4450 5050 50  0000 C CNN
+F 2 "" H 4600 5000 50  0000 C CNN
+F 3 "" H 4600 5000 50  0000 C CNN
+	1    4600 5000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5050 5050 4600 5050
+Wire Wire Line
+	5050 5250 4600 5250
+Text GLabel 4950 5150 0    39   Input ~ 0
+SCK
+Wire Wire Line
+	4950 5150 5050 5150
+$Comp
+L C C?
+U 1 1 587029ED
+P 3900 5150
+F 0 "C?" H 3925 5250 50  0000 L CNN
+F 1 "100uF" H 3925 5050 50  0000 L CNN
+F 2 "" H 3938 5000 50  0000 C CNN
+F 3 "" H 3900 5150 50  0000 C CNN
+	1    3900 5150
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 587039FA
+P 4150 5150
+F 0 "C?" H 4175 5250 50  0000 L CNN
+F 1 "10uF" H 4175 5050 50  0000 L CNN
+F 2 "" H 4188 5000 50  0000 C CNN
+F 3 "" H 4150 5150 50  0000 C CNN
+	1    4150 5150
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 58703AFD
+P 4400 5150
+F 0 "C?" H 4425 5250 50  0000 L CNN
+F 1 "1uF" H 4425 5050 50  0000 L CNN
+F 2 "" H 4438 5000 50  0000 C CNN
+F 3 "" H 4400 5150 50  0000 C CNN
+	1    4400 5150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3900 5300 4150 5300
+Wire Wire Line
+	4150 5300 4400 5300
+Wire Wire Line
+	4400 5300 4600 5300
+Connection ~ 4400 5300
+Connection ~ 4150 5300
+Wire Wire Line
+	3900 5000 4150 5000
+Wire Wire Line
+	4150 5000 4400 5000
+Wire Wire Line
+	4400 5000 4600 5000
+Connection ~ 4150 5000
+Connection ~ 4400 5000
+Wire Wire Line
+	4600 5000 4600 5050
+Wire Wire Line
+	4600 5300 4600 5250
 $EndSCHEMATC

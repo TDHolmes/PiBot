@@ -1,6 +1,92 @@
 EESchema Schematic File Version 2
 LIBS:PiBot-rescue
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
 LIBS:PiBot
+LIBS:74xgxx
+LIBS:ac-dc
+LIBS:actel
+LIBS:allegro
+LIBS:Altera
+LIBS:analog_devices
+LIBS:battery_management
+LIBS:bbd
+LIBS:bosch
+LIBS:brooktre
+LIBS:cmos_ieee
+LIBS:dc-dc
+LIBS:diode
+LIBS:elec-unifil
+LIBS:ESD_Protection
+LIBS:ftdi
+LIBS:gennum
+LIBS:graphic
+LIBS:hc11
+LIBS:ir
+LIBS:Lattice
+LIBS:logo
+LIBS:maxim
+LIBS:mechanical
+LIBS:microchip_dspic33dsc
+LIBS:microchip_pic10mcu
+LIBS:microchip_pic12mcu
+LIBS:microchip_pic16mcu
+LIBS:microchip_pic18mcu
+LIBS:microchip_pic32mcu
+LIBS:motor_drivers
+LIBS:motors
+LIBS:msp430
+LIBS:nordicsemi
+LIBS:nxp_armmcu
+LIBS:onsemi
+LIBS:Oscillators
+LIBS:powerint
+LIBS:Power_Management
+LIBS:pspice
+LIBS:references
+LIBS:relays
+LIBS:rfcom
+LIBS:sensors
+LIBS:silabs
+LIBS:stm8
+LIBS:stm32
+LIBS:supertex
+LIBS:switches
+LIBS:transf
+LIBS:ttl_ieee
+LIBS:video
+LIBS:wiznet
+LIBS:Worldsemi
+LIBS:Xicor
+LIBS:zetex
+LIBS:Zilog
 LIBS:PiBot-cache
 EELAYER 25 0
 EELAYER END
@@ -313,7 +399,7 @@ Wire Wire Line
 Wire Wire Line
 	5800 3200 5500 3200
 Wire Wire Line
-	5500 2800 5500 3200
+	5500 3200 5500 2800
 Wire Wire Line
 	4700 2800 5700 2800
 Connection ~ 5600 2800
@@ -441,18 +527,14 @@ $EndComp
 $Comp
 L GND #PWR?
 U 1 1 5875CDBA
-P 3000 4950
-F 0 "#PWR?" H 3000 4700 50  0001 C CNN
-F 1 "GND" H 2950 4800 50  0001 C CNN
-F 2 "" H 3000 4950 50  0000 C CNN
-F 3 "" H 3000 4950 50  0000 C CNN
-	1    3000 4950
+P 2150 5150
+F 0 "#PWR?" H 2150 4900 50  0001 C CNN
+F 1 "GND" H 2100 5000 50  0001 C CNN
+F 2 "" H 2150 5150 50  0000 C CNN
+F 3 "" H 2150 5150 50  0000 C CNN
+	1    2150 5150
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	2550 4850 2650 4850
-Wire Wire Line
-	2550 4650 2650 4650
 $Comp
 L C C?
 U 1 1 5875CDCB
@@ -467,18 +549,14 @@ $EndComp
 $Comp
 L R R?
 U 1 1 5875CDD2
-P 2800 4850
-F 0 "R?" V 2880 4850 50  0000 C CNN
-F 1 "10k" V 2800 4850 50  0000 C CNN
-F 2 "" V 2730 4850 50  0000 C CNN
-F 3 "" H 2800 4850 50  0000 C CNN
-	1    2800 4850
-	0    1    1    0   
+P 2150 4950
+F 0 "R?" V 2230 4950 50  0000 C CNN
+F 1 "10k" V 2150 4950 50  0000 C CNN
+F 2 "" V 2080 4950 50  0000 C CNN
+F 3 "" H 2150 4950 50  0000 C CNN
+	1    2150 4950
+	-1   0    0    1   
 $EndComp
-Wire Wire Line
-	2950 4850 3000 4850
-Wire Wire Line
-	3000 4850 3000 4950
 $Comp
 L R R?
 U 1 1 5875CDDB
@@ -524,18 +602,14 @@ $EndComp
 $Comp
 L GND #PWR?
 U 1 1 5875CDF5
-P 3000 5600
-F 0 "#PWR?" H 3000 5350 50  0001 C CNN
-F 1 "GND" H 2950 5450 50  0001 C CNN
-F 2 "" H 3000 5600 50  0000 C CNN
-F 3 "" H 3000 5600 50  0000 C CNN
-	1    3000 5600
+P 2150 5800
+F 0 "#PWR?" H 2150 5550 50  0001 C CNN
+F 1 "GND" H 2100 5650 50  0001 C CNN
+F 2 "" H 2150 5800 50  0000 C CNN
+F 3 "" H 2150 5800 50  0000 C CNN
+	1    2150 5800
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	2550 5500 2650 5500
-Wire Wire Line
-	2550 5300 2650 5300
 $Comp
 L C C?
 U 1 1 5875CE04
@@ -550,18 +624,14 @@ $EndComp
 $Comp
 L R R?
 U 1 1 5875CE0B
-P 2800 5500
-F 0 "R?" V 2880 5500 50  0000 C CNN
-F 1 "10k" V 2800 5500 50  0000 C CNN
-F 2 "" V 2730 5500 50  0000 C CNN
-F 3 "" H 2800 5500 50  0000 C CNN
-	1    2800 5500
-	0    1    1    0   
+P 2150 5600
+F 0 "R?" V 2230 5600 50  0000 C CNN
+F 1 "10k" V 2150 5600 50  0000 C CNN
+F 2 "" V 2080 5600 50  0000 C CNN
+F 3 "" H 2150 5600 50  0000 C CNN
+	1    2150 5600
+	-1   0    0    1   
 $EndComp
-Wire Wire Line
-	2950 5500 3000 5500
-Wire Wire Line
-	3000 5500 3000 5600
 $Comp
 L R R?
 U 1 1 5875CE14
@@ -597,9 +667,9 @@ Wire Notes Line
 	3900 6100 500  6100
 Text Notes 550  3950 0    60   ~ 12
 Bumpers
-Text HLabel 2650 4650 2    60   Input ~ 12
+Text HLabel 2650 4850 2    60   Input ~ 12
 +3.3V
-Text HLabel 2650 5300 2    60   Input ~ 12
+Text HLabel 2650 5500 2    60   Input ~ 12
 +3.3V
 Text HLabel 1600 2750 1    60   Input ~ 12
 +3.3V
@@ -664,4 +734,16 @@ Text Notes 4550 600  0    60   ~ 0
 addr: 0xD6 (alt 0xD4)
 Text Notes 1350 700  0    60   ~ 0
 addr: 0x70\n      0x72
+Wire Wire Line
+	2150 5150 2150 5100
+Wire Wire Line
+	2150 4750 2150 4800
+Wire Wire Line
+	2150 5400 2150 5450
+Wire Wire Line
+	2150 5800 2150 5750
+Wire Wire Line
+	2650 5500 2550 5500
+Wire Wire Line
+	2650 4850 2550 4850
 $EndSCHEMATC

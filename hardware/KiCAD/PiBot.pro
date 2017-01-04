@@ -1,4 +1,4 @@
-update=Tuesday, January 03, 2017 'AMt' 10:46:07 AM
+update=Tuesday, January 03, 2017 'PMt' 08:51:29 PM
 version=1
 last_client=kicad
 [pcbnew]
@@ -37,7 +37,7 @@ SpiceUseNetNumbers=0
 LabSize=60
 [eeschema]
 version=1
-LibDir=../../hardware
+LibDir=../../hardware;../../../Documents/kicad-library/library
 [eeschema/libraries]
 LibName1=PiBot-rescue
 LibName2=power
