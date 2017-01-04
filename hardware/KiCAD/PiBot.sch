@@ -296,8 +296,8 @@ Text GLabel 3950 2850 2    39   Output ~ 0
 MOSI
 Text GLabel 3950 2750 2    39   BiDi ~ 0
 SCK
-Text Notes 1550 800  0    39   ~ 0
-On Feather boards, VBUS connects directly to USB\npower. This is protection circuitry so we don't blow\nour computers (or the feather circuitry).
+Text Notes 500  2350 0    39   ~ 0
+On Feather boards, VBUS connects \ndirectly to USB power. This is protection \ncircuitry so we don't blow our computers \n(or the feather circuitry).
 $Comp
 L GND #PWR?
 U 1 1 5858BC5B

@@ -1224,4 +1224,10 @@ Connection ~ 10300 3800
 Wire Wire Line
 	9700 4200 9700 4100
 Connection ~ 9700 4100
+Text Notes 7050 7050 0    60   ~ 12
+By:\nBroderick Carlin\nTyler Holmes
+Text Notes 7950 7050 0    60   ~ 12
+MIT License\n
+Text Notes 7350 7500 0    60   ~ 12
+PycoBot (Teensy uPython Robot)
 $EndSCHEMATC

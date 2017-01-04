@@ -746,4 +746,10 @@ Wire Wire Line
 	2650 5500 2550 5500
 Wire Wire Line
 	2650 4850 2550 4850
+Text Notes 7050 7050 0    60   ~ 12
+By:\nBroderick Carlin\nTyler Holmes
+Text Notes 7950 7050 0    60   ~ 12
+MIT License\n
+Text Notes 7350 7500 0    60   ~ 12
+PycoBot (Teensy uPython Robot)
 $EndSCHEMATC
