@@ -1,4 +1,4 @@
-update=Wednesday, January 04, 2017 'PMt' 11:08:42 PM
+update=Thursday, January 05, 2017 'AMt' 12:33:31 AM
 version=1
 last_client=kicad
 [pcbnew]
@@ -126,3 +126,4 @@ LibName84=Worldsemi
 LibName85=Xicor
 LibName86=zetex
 LibName87=Zilog
+LibName88=MF_Connectors

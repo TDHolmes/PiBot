@@ -45,3 +45,4 @@ CMakeFiles/
 # custom added
 *.sublime-*
 _saved_*.sch
+*.kicad_pcb-bak
