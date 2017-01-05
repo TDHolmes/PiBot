@@ -1,5 +1,4 @@
 EESchema Schematic File Version 2
-LIBS:PiBot-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -88,7 +87,7 @@ LIBS:Xicor
 LIBS:zetex
 LIBS:Zilog
 LIBS:PiBot-cache
-EELAYER 25 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8

@@ -1,5 +1,4 @@
 EESchema Schematic File Version 2
-LIBS:PiBot-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -88,7 +87,7 @@ LIBS:Xicor
 LIBS:zetex
 LIBS:Zilog
 LIBS:PiBot-cache
-EELAYER 25 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -113,8 +112,6 @@ F 3 "" H 4900 1600 50  0000 C CNN
 	1    4900 1600
 	1    0    0    -1  
 $EndComp
-Text GLabel 4600 1800 2    39   BiDi ~ 0
-VREF
 Text Notes 7350 7500 0    60   ~ 12
 PycoBot (Teensy uPython Robot)
 Text Notes 7050 7050 0    60   ~ 12
@@ -187,49 +184,49 @@ Text Notes 750  6450 0    60   ~ 0
 $Comp
 L +5V #PWR040
 U 1 1 58579C3C
-P 2050 1500
-F 0 "#PWR040" H 2050 1350 50  0001 C CNN
-F 1 "+5V" H 1950 1600 50  0000 C CNN
-F 2 "" H 2050 1500 50  0000 C CNN
-F 3 "" H 2050 1500 50  0000 C CNN
-	1    2050 1500
+P 1750 1500
+F 0 "#PWR040" H 1750 1350 50  0001 C CNN
+F 1 "+5V" H 1650 1600 50  0000 C CNN
+F 2 "" H 1750 1500 50  0000 C CNN
+F 3 "" H 1750 1500 50  0000 C CNN
+	1    1750 1500
 	-1   0    0    -1  
 $EndComp
 $Comp
 L Polyfuse_Small PTC?
 U 1 1 58579C3D
-P 2050 1650
-F 0 "PTC?" H 2050 1750 50  0000 C TNN
-F 1 "0.5A" H 2050 1600 50  0000 C TNN
-F 2 "Resistors_SMD:R_1206" H 2050 1650 50  0001 C CNN
-F 3 "" H 2050 1650 50  0000 C CNN
-F 4 "0ZCJ0050FF2G" H 2050 1650 60  0001 C CNN "MPN"
-F 5 "http://www.digikey.com/product-detail/en/bel-fuse-inc/0ZCJ0050FF2G/507-1802-1-ND/4156236" H 2050 1650 60  0001 C CNN "DigiKey Link"
-	1    2050 1650
+P 1750 1650
+F 0 "PTC?" V 1800 1650 50  0000 C TNN
+F 1 "0.5A" V 1650 1700 50  0000 C CNN
+F 2 "Resistors_SMD:R_1206" H 1750 1650 50  0001 C CNN
+F 3 "" H 1750 1650 50  0000 C CNN
+F 4 "0ZCJ0050FF2G" H 1750 1650 60  0001 C CNN "MPN"
+F 5 "http://www.digikey.com/product-detail/en/bel-fuse-inc/0ZCJ0050FF2G/507-1802-1-ND/4156236" H 1750 1650 60  0001 C CNN "DigiKey Link"
+	1    1750 1650
 	-1   0    0    -1  
 $EndComp
 $Comp
 L D_Zener D?
 U 1 1 58579C3E
-P 2600 2000
-F 0 "D?" H 2650 1900 50  0000 C CNN
-F 1 "5.1V-1W" H 2650 2100 50  0000 C CNN
-F 2 "Diodes_SMD:SMA_Standard" H 2600 2000 50  0001 C CNN
-F 3 "" H 2600 2000 50  0000 C CNN
-F 4 "SMAZ5V1-13-F" H 2600 2000 60  0001 C CNN "MPN"
-F 5 "http://www.digikey.com/product-detail/en/diodes-incorporated/SMAZ5V1-13-F/SMAZ5V1-FDICT-ND/725074" H 2600 2000 60  0001 C CNN "DigiKey Link"
-	1    2600 2000
+P 2200 2000
+F 0 "D?" H 2350 1950 50  0000 C CNN
+F 1 "5.1V-1W" H 2350 2100 50  0000 C CNN
+F 2 "Diodes_SMD:SMA_Standard" H 2200 2000 50  0001 C CNN
+F 3 "" H 2200 2000 50  0000 C CNN
+F 4 "SMAZ5V1-13-F" H 2200 2000 60  0001 C CNN "MPN"
+F 5 "http://www.digikey.com/product-detail/en/diodes-incorporated/SMAZ5V1-13-F/SMAZ5V1-FDICT-ND/725074" H 2200 2000 60  0001 C CNN "DigiKey Link"
+	1    2200 2000
 	0    -1   1    0   
 $EndComp
 $Comp
 L GND #PWR041
 U 1 1 58579C3F
-P 2600 2200
-F 0 "#PWR041" H 2600 1950 50  0001 C CNN
-F 1 "GND" H 2600 2050 50  0001 C CNN
-F 2 "" H 2600 2200 50  0000 C CNN
-F 3 "" H 2600 2200 50  0000 C CNN
-	1    2600 2200
+P 2200 2200
+F 0 "#PWR041" H 2200 1950 50  0001 C CNN
+F 1 "GND" H 2200 2050 50  0001 C CNN
+F 2 "" H 2200 2200 50  0000 C CNN
+F 3 "" H 2200 2200 50  0000 C CNN
+	1    2200 2200
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -246,36 +243,36 @@ $EndComp
 $Comp
 L R R?
 U 1 1 58579C45
-P 2600 2850
-F 0 "R?" V 2680 2850 50  0000 C CNN
-F 1 "10k" V 2600 2850 50  0000 C CNN
-F 2 "" V 2530 2850 50  0000 C CNN
-F 3 "" H 2600 2850 50  0000 C CNN
-	1    2600 2850
+P 2600 2900
+F 0 "R?" V 2680 2900 50  0000 C CNN
+F 1 "10k" V 2600 2900 50  0000 C CNN
+F 2 "" V 2530 2900 50  0000 C CNN
+F 3 "" H 2600 2900 50  0000 C CNN
+	1    2600 2900
 	1    0    0    -1  
 $EndComp
 $Comp
 L +3.3V #PWR044
 U 1 1 58579C46
-P 2550 2650
-F 0 "#PWR044" H 2550 2500 50  0001 C CNN
-F 1 "+3.3V" H 2400 2700 50  0000 C CNN
-F 2 "" H 2550 2650 50  0000 C CNN
-F 3 "" H 2550 2650 50  0000 C CNN
-	1    2550 2650
+P 2550 2700
+F 0 "#PWR044" H 2550 2550 50  0001 C CNN
+F 1 "+3.3V" H 2400 2750 50  0000 C CNN
+F 2 "" H 2550 2700 50  0000 C CNN
+F 3 "" H 2550 2700 50  0000 C CNN
+	1    2550 2700
 	1    0    0    -1  
 $EndComp
 $Comp
 L D_Schottky D?
 U 1 1 58579C47
-P 2300 1800
-F 0 "D?" H 2300 1900 50  0000 C CNN
-F 1 "Schottky" H 2300 1700 50  0000 C CNN
-F 2 "Diodes_SMD:SOD-323" H 2300 1800 50  0001 C CNN
-F 3 "" H 2300 1800 50  0000 C CNN
-F 4 "CUS10S30H3FCT-ND" H 2300 1800 60  0001 C CNN "MPN"
-F 5 "230mV @ 100mA" H 2300 1800 60  0001 C CNN "Vf"
-	1    2300 1800
+P 1950 1800
+F 0 "D?" H 1900 1900 50  0000 C CNN
+F 1 "Schottky" H 1950 1700 50  0000 C CNN
+F 2 "Diodes_SMD:SOD-323" H 1950 1800 50  0001 C CNN
+F 3 "" H 1950 1800 50  0000 C CNN
+F 4 "CUS10S30H3FCT-ND" H 1950 1800 60  0001 C CNN "MPN"
+F 5 "230mV @ 100mA" H 1950 1800 60  0001 C CNN "Vf"
+	1    1950 1800
 	-1   0    0    -1  
 $EndComp
 NoConn ~ 2800 1600
@@ -296,8 +293,8 @@ Text GLabel 4600 2700 2    39   Output ~ 0
 MOSI
 Text GLabel 4600 2600 2    39   BiDi ~ 0
 SCK
-Text Notes 1150 2200 0    39   ~ 0
-On Feather boards, VBUS connects \ndirectly to USB power. This is protection \ncircuitry so we don't blow our computers \n(or the feather circuitry).
+Text Notes 850  2150 0    39   ~ 0
+On Feather boards, VBUS\nconnects directly to USB\npower. This is protection \ncircuitry so we don’t blow\nour computers (or the\nfeather circuitry).
 $Comp
 L GND #PWR?
 U 1 1 5858BC5B
@@ -373,7 +370,7 @@ $Comp
 L R R?
 U 1 1 585FB60E
 P 4800 2900
-F 0 "R?" V 4900 2900 50  0000 C CNN
+F 0 "R?" V 4900 2950 50  0000 C CNN
 F 1 "0R" V 4800 2900 50  0000 C CNN
 F 2 "" V 4730 2900 50  0000 C CNN
 F 3 "" H 4800 2900 50  0000 C CNN
@@ -496,7 +493,7 @@ F 3 "" H 2050 6600 50  0000 C CNN
 	1    2050 6600
 	1    0    0    -1  
 $EndComp
-Text Label 2650 1800 0    30   ~ 0
+Text Label 2250 1800 0    30   ~ 0
 F_VBUS
 $Comp
 L +5V #PWR?
@@ -672,11 +669,7 @@ FB_R
 Text GLabel 9450 2500 2    39   Input ~ 0
 FB_L
 Wire Wire Line
-	5050 1900 5050 1950
-Wire Wire Line
-	2500 2700 2600 2700
-Wire Wire Line
-	2500 2750 2500 2700
+	2500 2750 2600 2750
 Connection ~ 2600 3100
 Wire Wire Line
 	2750 2600 2800 2600
@@ -692,10 +685,10 @@ Wire Wire Line
 Wire Wire Line
 	2450 3200 2800 3200
 Wire Wire Line
-	2600 3000 2600 3100
+	2600 3050 2600 3100
 Wire Wire Line
-	2450 1800 2800 1800
-Connection ~ 2600 1800
+	2100 1800 2800 1800
+Connection ~ 2200 1800
 Wire Wire Line
 	4600 1600 4650 1600
 Wire Wire Line
@@ -801,9 +794,9 @@ Wire Wire Line
 Wire Wire Line
 	9450 2500 9400 2500
 Wire Wire Line
-	2600 2150 2600 2200
+	2200 2150 2200 2200
 Wire Wire Line
-	2600 1850 2600 1800
+	2200 1850 2200 1800
 $Comp
 L C C?
 U 1 1 586CC70F
@@ -821,7 +814,7 @@ $Comp
 L Jumper_NC_Small JP?
 U 1 1 586B1E97
 P 6000 2550
-F 0 "JP?" H 6000 2630 50  0000 C CNN
+F 0 "JP?" H 6000 2500 50  0000 C TNN
 F 1 "Jumper_NC_Small" H 6010 2490 50  0001 C CNN
 F 2 "" H 6000 2550 50  0000 C CNN
 F 3 "" H 6000 2550 50  0000 C CNN
@@ -1056,11 +1049,11 @@ Wire Wire Line
 Wire Wire Line
 	4850 6750 4600 6750
 Wire Wire Line
-	2150 1800 2050 1800
+	1800 1800 1750 1800
 Wire Wire Line
-	2050 1800 2050 1750
+	1750 1800 1750 1750
 Wire Wire Line
-	2050 1500 2050 1550
+	1750 1500 1750 1550
 $Comp
 L +3.3V #PWR?
 U 1 1 58775CE4
@@ -1073,8 +1066,8 @@ F 3 "" H 4600 1300 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2550 2650 2550 2700
-Connection ~ 2550 2700
+	2550 2700 2550 2750
+Connection ~ 2550 2750
 Wire Wire Line
 	9450 2200 9400 2200
 Text GLabel 9450 2400 2    39   Input ~ 0
@@ -2095,10 +2088,6 @@ Wire Wire Line
 	8300 4300 8300 4350
 Wire Wire Line
 	8300 4350 8450 4350
-Text GLabel 1500 4900 2    39   Output ~ 0
-MotorR_Inv
-Wire Wire Line
-	1500 4900 1400 4900
 Text GLabel 9450 5600 3    39   Output ~ 0
 MotorR_Inv
 $Comp
@@ -2268,4 +2257,76 @@ F 3 "" H 9650 6400 50  0000 C CNN
 $EndComp
 Text Notes 7000 4050 0    60   Italic 12
 Test Points
+$Comp
+L CONN_01X06 P?
+U 1 1 586E0430
+P 4850 2250
+F 0 "P?" V 4950 2400 50  0000 L CNN
+F 1 "BREAKOUT" V 4950 1950 50  0000 L CNN
+F 2 "" H 4850 2250 50  0000 C CNN
+F 3 "" H 4850 2250 50  0000 C CNN
+	1    4850 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_01X07 P?
+U 1 1 586E08CF
+P 2550 2200
+F 0 "P?" V 2650 2450 50  0000 C CNN
+F 1 "BREAKOUT" V 2650 2100 50  0000 C CNN
+F 2 "" H 2550 2200 50  0000 C CNN
+F 3 "" H 2550 2200 50  0000 C CNN
+	1    2550 2200
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2750 1900 2800 1900
+Wire Wire Line
+	2800 2000 2750 2000
+Wire Wire Line
+	2750 2100 2800 2100
+Wire Wire Line
+	2800 2200 2750 2200
+Wire Wire Line
+	2750 2300 2800 2300
+Wire Wire Line
+	2800 2400 2750 2400
+Wire Wire Line
+	2750 2500 2800 2500
+Wire Wire Line
+	4600 2500 4650 2500
+Wire Wire Line
+	4650 2400 4600 2400
+Wire Wire Line
+	4600 2300 4650 2300
+Wire Wire Line
+	4650 2200 4600 2200
+Wire Wire Line
+	4600 2100 4650 2100
+Wire Wire Line
+	4650 2000 4600 2000
+NoConn ~ 2650 5550
+NoConn ~ 3150 5550
+$Comp
+L CONN_01X01 P?
+U 1 1 586EA9A5
+P 4750 3300
+F 0 "P?" V 4800 3050 50  0000 L CNN
+F 1 "BREAKOUT" V 4900 3050 50  0000 L CNN
+F 2 "" H 4750 3300 50  0000 C CNN
+F 3 "" H 4750 3300 50  0000 C CNN
+	1    4750 3300
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4750 3100 4750 3000
+Wire Wire Line
+	4750 3000 4600 3000
+Wire Wire Line
+	5050 1900 5050 1950
+NoConn ~ 4600 1800
+Text Label 6050 2700 0    30   ~ 0
+I2C_LSB_BIT
+Text Label 9550 2600 0    30   ~ 0
+VBATT_MONITOR
 $EndSCHEMATC

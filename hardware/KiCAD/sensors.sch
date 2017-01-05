@@ -1,5 +1,4 @@
 EESchema Schematic File Version 2
-LIBS:PiBot-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -88,7 +87,7 @@ LIBS:Xicor
 LIBS:zetex
 LIBS:Zilog
 LIBS:PiBot-cache
-EELAYER 25 0
+EELAYER 26 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -336,17 +335,16 @@ $EndComp
 $Comp
 L C C?
 U 1 1 58759E7B
-P 10000 2250
-F 0 "C?" H 10025 2350 50  0000 L CNN
-F 1 "0.22uF" H 10025 2150 50  0000 L CNN
-F 2 "" H 10038 2100 50  0000 C CNN
-F 3 "" H 10000 2250 50  0000 C CNN
-	1    10000 2250
+P 10000 2350
+F 0 "C?" H 10025 2450 50  0000 L CNN
+F 1 "0.22uF" H 10025 2250 50  0000 L CNN
+F 2 "" H 10038 2200 50  0000 C CNN
+F 3 "" H 10000 2350 50  0000 C CNN
+	1    10000 2350
 	1    0    0    -1  
 $EndComp
-Connection ~ 3050 2900
 Wire Wire Line
-	2650 2900 3100 2900
+	2650 2900 2750 2900
 Wire Wire Line
 	1600 1800 1600 1950
 Wire Wire Line
@@ -376,21 +374,41 @@ Wire Wire Line
 Wire Wire Line
 	5500 3200 5500 2800
 Wire Wire Line
-	4700 2800 5700 2800
+	4700 2800 5200 2800
+Wire Wire Line
+	5200 2800 5300 2800
+Wire Wire Line
+	5300 2800 5400 2800
+Wire Wire Line
+	5400 2800 5500 2800
+Wire Wire Line
+	5500 2800 5600 2800
+Wire Wire Line
+	5600 2800 5700 2800
 Connection ~ 5600 2800
 Connection ~ 5500 2800
 Connection ~ 5400 2800
 Connection ~ 5300 2800
 Wire Wire Line
-	4700 1250 6250 1250
+	4700 1250 5400 1250
+Wire Wire Line
+	5400 1250 5750 1250
+Wire Wire Line
+	5750 1250 6000 1250
+Wire Wire Line
+	6000 1250 6250 1250
 Connection ~ 6000 1250
 Wire Wire Line
-	5400 1200 5400 1550
+	5400 1200 5400 1250
+Wire Wire Line
+	5400 1250 5400 1550
 Connection ~ 5400 1250
 Wire Wire Line
 	5400 1550 5500 1550
 Wire Wire Line
-	5750 1550 6250 1550
+	5750 1550 6000 1550
+Wire Wire Line
+	6000 1550 6250 1550
 Connection ~ 6000 1550
 Wire Wire Line
 	6000 1550 6000 1600
@@ -411,26 +429,38 @@ Wire Wire Line
 Wire Wire Line
 	6150 2100 6700 2100
 Wire Wire Line
-	6700 2050 6700 2150
+	6700 2050 6700 2100
+Wire Wire Line
+	6700 2100 6700 2150
 Connection ~ 6700 2100
 Wire Wire Line
 	6700 1800 6700 1850
 Wire Wire Line
 	6700 2350 6700 2400
 Wire Wire Line
-	9300 1550 9800 1550
+	9300 1550 9550 1550
+Wire Wire Line
+	9550 1550 9800 1550
 Connection ~ 9550 1550
 Wire Wire Line
-	8950 1250 9800 1250
+	8950 1250 9300 1250
+Wire Wire Line
+	9300 1250 9550 1250
+Wire Wire Line
+	9550 1250 9800 1250
 Connection ~ 9550 1250
 Wire Wire Line
-	8950 1200 8950 1550
+	8950 1200 8950 1250
+Wire Wire Line
+	8950 1250 8950 1550
 Connection ~ 9300 1250
 Connection ~ 8950 1250
 Wire Wire Line
 	9550 1600 9550 1550
 Wire Wire Line
-	8750 2800 8950 2800
+	8750 2800 8850 2800
+Wire Wire Line
+	8850 2800 8950 2800
 Connection ~ 8850 2800
 Wire Wire Line
 	9250 3150 9250 3200
@@ -441,17 +471,15 @@ Wire Wire Line
 Wire Wire Line
 	9800 2300 9850 2300
 Wire Wire Line
-	9850 2300 9850 2400
+	9850 2300 9850 2500
 Wire Wire Line
-	9850 2400 10000 2400
+	9850 2500 10000 2500
 Wire Wire Line
-	10000 2100 9850 2100
+	10000 2200 9900 2200
 Wire Wire Line
-	9850 2100 9850 2200
+	9900 2200 9850 2200
 Wire Wire Line
 	9850 2200 9800 2200
-NoConn ~ 6150 2300
-NoConn ~ 6150 2200
 $Comp
 L Jumper_NC_Small JP?
 U 1 1 58759EF3
@@ -474,8 +502,6 @@ F 3 "" H 6700 2250 50  0000 C CNN
 	1    6700 2250
 	0    -1   -1   0   
 $EndComp
-NoConn ~ 1600 1550
-NoConn ~ 1600 2950
 Wire Notes Line
 	450  3800 11200 3800
 Wire Notes Line
@@ -544,7 +570,9 @@ F 3 "" H 1900 4400 50  0000 C CNN
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	1450 4400 1750 4400
+	1450 4400 1650 4400
+Wire Wire Line
+	1650 4400 1750 4400
 Wire Wire Line
 	1650 4400 1650 4450
 Connection ~ 1650 4400
@@ -619,7 +647,9 @@ F 3 "" H 1900 5400 50  0000 C CNN
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	1450 5400 1750 5400
+	1450 5400 1650 5400
+Wire Wire Line
+	1650 5400 1750 5400
 Wire Wire Line
 	1650 5400 1650 5450
 Connection ~ 1650 5400
@@ -668,7 +698,7 @@ Text HLabel 4700 2100 0    60   Input ~ 12
 SCL
 Text HLabel 8250 2100 0    60   Input ~ 12
 SCL
-Text HLabel 3100 2900 2    60   Input ~ 12
+Text HLabel 2750 2900 2    60   Input ~ 12
 SCL
 Text HLabel 2650 1500 2    60   Input ~ 12
 SCL
@@ -680,8 +710,6 @@ Text HLabel 4700 2200 0    60   Input ~ 12
 SDA
 Text HLabel 8250 2200 0    60   Input ~ 12
 SDA
-NoConn ~ 2650 3200
-NoConn ~ 2650 1800
 Text HLabel 1450 4400 0    60   Input ~ 12
 rear_bumper
 Text HLabel 1450 5400 0    60   Input ~ 12
@@ -712,9 +740,13 @@ addr: 0x70\n      0x72
 Wire Wire Line
 	2150 4800 2150 4750
 Wire Wire Line
-	2150 4050 2150 4450
+	2150 4050 2150 4400
 Wire Wire Line
-	2150 5050 2150 5450
+	2150 4400 2150 4450
+Wire Wire Line
+	2150 5050 2150 5400
+Wire Wire Line
+	2150 5400 2150 5450
 Wire Wire Line
 	2150 5800 2150 5750
 Wire Wire Line
@@ -769,4 +801,50 @@ Text Notes 3100 5450 0    60   ~ 0
 front right
 Wire Wire Line
 	2650 2800 2750 2800
+Text Notes 4550 3250 0    60   ~ 0
+Per datasheet,\nconnect reserved\npins to GND.
+$Comp
+L CONN_01X01 P?
+U 1 1 586DD209
+P 2850 1800
+F 0 "P?" H 2928 1841 50  0000 L CNN
+F 1 "BREAKOUT" H 2928 1750 50  0000 L CNN
+F 2 "" H 2850 1800 50  0000 C CNN
+F 3 "" H 2850 1800 50  0000 C CNN
+	1    2850 1800
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_01X01 P?
+U 1 1 586DD2E1
+P 2850 3200
+F 0 "P?" H 2928 3241 50  0000 L CNN
+F 1 "BREAKOUT" H 2928 3150 50  0000 L CNN
+F 2 "" H 2850 3200 50  0000 C CNN
+F 3 "" H 2850 3200 50  0000 C CNN
+	1    2850 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_01X02 P?
+U 1 1 586DD782
+P 6350 2250
+F 0 "P?" H 6428 2291 50  0000 L CNN
+F 1 "BREAKOUT" H 6150 2100 50  0000 L CNN
+F 2 "" H 6350 2250 50  0000 C CNN
+F 3 "" H 6350 2250 50  0000 C CNN
+	1    6350 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_01X03 P?
+U 1 1 586DDBFB
+P 10000 2000
+F 0 "P?" H 10078 2041 50  0000 L CNN
+F 1 "BREAKOUT" H 10078 1950 50  0000 L CNN
+F 2 "" H 10000 2000 50  0000 C CNN
+F 3 "" H 10000 2000 50  0000 C CNN
+	1    10000 2000
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
