@@ -274,7 +274,6 @@ F 5 "230mV @ 100mA" H 1950 1800 60  0001 C CNN "Vf"
 	1    1950 1800
 	-1   0    0    -1  
 $EndComp
-NoConn ~ 2800 1600
 $Comp
 L Feather-Adaper P?
 U 1 1 58578A83
@@ -323,7 +322,7 @@ Text GLabel 6500 2400 0    39   Input ~ 0
 left_encB
 Text GLabel 6500 2300 0    39   Input ~ 0
 left_encA
-Text GLabel 5050 2900 2    39   Output ~ 0
+Text GLabel 5350 2500 2    39   Output ~ 0
 SD_CS
 Text Notes 2450 1650 0    39   ~ 0
 Enable proc\nif our 5v\nline is up
@@ -367,38 +366,27 @@ Text GLabel 6500 2600 0    39   Output ~ 0
 MotorL_Inv
 $Comp
 L R R?
-U 1 1 585FB60E
-P 4800 2900
-F 0 "R?" V 4900 2950 50  0000 C CNN
-F 1 "0R" V 4800 2900 50  0000 C CNN
-F 2 "" V 4730 2900 50  0000 C CNN
-F 3 "" H 4800 2900 50  0000 C CNN
-	1    4800 2900
-	0    1    1    0   
-$EndComp
-$Comp
-L R R?
 U 1 1 585FC008
-P 5000 3100
-F 0 "R?" V 4900 3150 50  0000 C CNN
-F 1 "10k" V 5000 3100 50  0000 C CNN
-F 2 "" V 4930 3100 50  0000 C CNN
-F 3 "" H 5000 3100 50  0000 C CNN
-	1    5000 3100
+P 5300 2700
+F 0 "R?" V 5200 2750 50  0000 C CNN
+F 1 "10k" V 5300 2700 50  0000 C CNN
+F 2 "" V 5230 2700 50  0000 C CNN
+F 3 "" H 5300 2700 50  0000 C CNN
+	1    5300 2700
 	-1   0    0    1   
 $EndComp
 $Comp
 L GND #PWR?
 U 1 1 585FC951
-P 5000 3250
-F 0 "#PWR?" H 5000 3000 50  0001 C CNN
-F 1 "GND" H 5000 3100 50  0001 C CNN
-F 2 "" H 5000 3250 50  0000 C CNN
-F 3 "" H 5000 3250 50  0000 C CNN
-	1    5000 3250
+P 5300 2850
+F 0 "#PWR?" H 5300 2600 50  0001 C CNN
+F 1 "GND" H 5300 2700 50  0001 C CNN
+F 2 "" H 5300 2850 50  0000 C CNN
+F 3 "" H 5300 2850 50  0000 C CNN
+	1    5300 2850
 	1    0    0    -1  
 $EndComp
-Text Notes 4900 2850 0    39   ~ 0
+Text Notes 5200 2450 0    39   ~ 0
 Optionally, tie\nSD CS line low\nperminantly
 $Comp
 L R R?
@@ -701,12 +689,10 @@ Wire Notes Line
 Wire Notes Line
 	450  6000 6950 6000
 Wire Wire Line
-	4600 2900 4650 2900
+	5200 2500 5350 2500
+Connection ~ 5300 2500
 Wire Wire Line
-	4950 2900 5050 2900
-Connection ~ 5000 2900
-Wire Wire Line
-	5000 2950 5000 2900
+	5300 2550 5300 2500
 Wire Wire Line
 	1450 6600 1450 6700
 Wire Wire Line
@@ -2257,17 +2243,6 @@ $EndComp
 Text Notes 7000 4050 0    60   Italic 12
 Test Points
 $Comp
-L CONN_01X06 P?
-U 1 1 586E0430
-P 4850 2250
-F 0 "P?" V 4950 2400 50  0000 L CNN
-F 1 "BREAKOUT" V 4950 1950 50  0000 L CNN
-F 2 "" H 4850 2250 50  0000 C CNN
-F 3 "" H 4850 2250 50  0000 C CNN
-	1    4850 2250
-	1    0    0    -1  
-$EndComp
-$Comp
 L CONN_01X07 P?
 U 1 1 586E08CF
 P 2550 2200
@@ -2293,7 +2268,7 @@ Wire Wire Line
 Wire Wire Line
 	2750 2500 2800 2500
 Wire Wire Line
-	4600 2500 4650 2500
+	4600 2500 5000 2500
 Wire Wire Line
 	4650 2400 4600 2400
 Wire Wire Line
@@ -2307,23 +2282,18 @@ Wire Wire Line
 NoConn ~ 2650 5550
 NoConn ~ 3150 5550
 $Comp
-L CONN_01X01 P?
+L CONN_01X02 P?
 U 1 1 586EA9A5
-P 4750 3300
-F 0 "P?" V 4800 3050 50  0000 L CNN
-F 1 "BREAKOUT" V 4900 3050 50  0000 L CNN
-F 2 "" H 4750 3300 50  0000 C CNN
-F 3 "" H 4750 3300 50  0000 C CNN
-	1    4750 3300
-	0    1    1    0   
+P 4850 2950
+F 0 "P?" V 4850 3050 50  0000 L CNN
+F 1 "BREAKOUT" V 4950 2750 50  0000 L CNN
+F 2 "" H 4850 2950 50  0000 C CNN
+F 3 "" H 4850 2950 50  0000 C CNN
+	1    4850 2950
+	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4750 3100 4750 3000
-Wire Wire Line
-	4750 3000 4600 3000
-Wire Wire Line
 	5050 1900 5050 1950
-NoConn ~ 4600 1800
 Text Label 6050 2700 0    30   ~ 0
 I2C_LSB_BIT
 Text Label 9550 2600 0    30   ~ 0
@@ -2347,4 +2317,44 @@ Wire Wire Line
 	900  7000 900  7050
 Wire Wire Line
 	900  7350 900  7400
+$Comp
+L CONN_01X05 P?
+U 1 1 587015B5
+P 4850 2200
+F 0 "P?" V 4950 2400 50  0000 C CNN
+F 1 "BREAKOUT" V 4950 2150 50  0000 C CNN
+F 2 "" H 4850 2200 50  0000 C CNN
+F 3 "" H 4850 2200 50  0000 C CNN
+	1    4850 2200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4650 2900 4600 2900
+Wire Wire Line
+	4650 3000 4600 3000
+$Comp
+L CONN_01X01 P?
+U 1 1 5870679A
+P 4850 1800
+F 0 "P?" V 4950 1750 50  0000 L CNN
+F 1 "BREAKOUT" V 4950 1600 50  0001 L CNN
+F 2 "" H 4850 1800 50  0000 C CNN
+F 3 "" H 4850 1800 50  0000 C CNN
+	1    4850 1800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4650 1800 4600 1800
+$Comp
+L Jumper_NC_Small JP?
+U 1 1 58707A25
+P 5100 2500
+F 0 "JP?" H 5100 2450 50  0000 C TNN
+F 1 "Jumper_NC_Small" H 5110 2440 50  0001 C CNN
+F 2 "" H 5100 2500 50  0000 C CNN
+F 3 "" H 5100 2500 50  0000 C CNN
+	1    5100 2500
+	1    0    0    -1  
+$EndComp
+NoConn ~ 2800 1600
 $EndSCHEMATC
