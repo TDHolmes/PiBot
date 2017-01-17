@@ -1,36 +1,13 @@
 /*
- * Copyright (c) 2013 - 2015, Freescale Semiconductor, Inc.
- * All rights reserved.
+ * Motor Controller for the PycoBot project.
  *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
  *
- * o Redistributions of source code must retain the above copyright notice, this list
- *   of conditions and the following disclaimer.
  *
- * o Redistributions in binary form must reproduce the above copyright notice, this
- *   list of conditions and the following disclaimer in the documentation and/or
- *   other materials provided with the distribution.
  *
- * o Neither the name of Freescale Semiconductor, Inc. nor the names of its
- *   contributors may be used to endorse or promote products derived from this
- *   software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
- * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #include "fsl_device_registers.h"
 #include "fsl_debug_console.h"
-#include "fsl_i2c.h"
 
 // definitions of peripherals and memory addresses
 #include "MKL03Z4.h"
@@ -40,24 +17,18 @@
 #include "clock_config.h"
 #include "encoders.h"
 #include "motor_drivers.h"
-/*******************************************************************************
- * Definitions
- ******************************************************************************/
 
+// flag to trigger superloop
+extern uint8_t timer_update_parameters;
 
-/*******************************************************************************
- * Prototypes
- ******************************************************************************/
+i2c_command_t active_command;
+void * command_data_ptr;
 
-/*******************************************************************************
- * Code
- ******************************************************************************/
 /*!
  * @brief Main function
  */
 int main(void)
 {
-    char ch;
 
     /* Init board hardware. */
     hw_init_pins();
@@ -68,23 +39,119 @@ int main(void)
     motors_init();
     encoders_init();
 
-    // I2C slave configuration (can't modify the pointer, but can modify contents)
-    i2c_slave_config_t * const i2c_conf_ptr;
-    // Get some sane defaults loaded
-    I2C_SlaveGetDefaultConfig(i2c_conf_ptr);
 
-    // add in I2C as a wake source and configure the address
-    i2c_conf_ptr->enableWakeUp = true;
-    //TODO: lower two bits can be set via some extra IO pins
-    i2c_conf_ptr->slaveAddress = 0x42;
-    // initialize the I2C slave
-    I2C_SlaveInit(I2C0, i2c_conf_ptr);
+    // Setup a timer to trigger the running of the PID loop
 
     PRINTF("hello world.\r\n");
 
     while (1)
     {
-        ch = GETCHAR();
-        PUTCHAR(ch);
+        // wait x ms between updating motor parameters
+        if (timer_update_parameters) {
+            run_loop = 0;
+            motor_calc_parameters();
+        }
+
+        // run whatever command is currently active
+        switch (active_command) {
+            case (kIdle):
+
+                break;
+
+            case (kTurnLeft):
+
+                if (done) {
+                    active_command = kIdle;
+                }
+                break;
+
+            case (kTurnRight):
+
+                if (done) {
+                    active_command = kIdle;
+                }
+                break;
+
+            case (kMoveDistance):
+
+                if (done) {
+                    active_command = kIdle;
+                }
+                break;
+
+            case (kSetVelocity_Left):
+
+                if (done) {
+                    active_command = kIdle;
+                }
+                break;
+
+            case (kSetVelocity_Right):
+
+                if (done) {
+                    active_command = kIdle;
+                }
+                break;
+
+            case (kSetVelocity_Net):
+
+                if (done) {
+                    active_command = kIdle;
+                }
+                break;
+
+            case (kClearPosition_Left):
+
+                // simple 1 cycle command. We're done
+                active_command = kIdle;
+                break;
+
+            case (kClearPosition_Right):
+
+                // simple 1 cycle command. We're done
+                active_command = kIdle;
+                break;
+
+            case (kGetPosition_Left):
+
+                // simple 1 cycle command. We're done
+                active_command = kIdle;
+                break;
+
+            case (kGetPosition_Right):
+
+                // simple 1 cycle command. We're done
+                active_command = kIdle;
+                break;
+
+            case (kGetVelocity_Left):
+
+                // simple 1 cycle command. We're done
+                active_command = kIdle;
+                break;
+
+            case (kGetVelocity_Right):
+
+                // simple 1 cycle command. We're done
+                active_command = kIdle;
+                break;
+
+            case (kGetVelocity_Net):
+
+                // simple 1 cycle command. We're done
+                active_command = kIdle;
+                break;
+
+            default: {
+                // odd that we got here...
+            }
+        }
     }
+}
+
+
+void set_active_command(i2c_command_t command, void * data)
+{
+    active_command = command;
+    command_data_ptr = data_ptr;
 }
