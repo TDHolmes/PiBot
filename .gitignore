@@ -46,3 +46,5 @@ CMakeFiles/
 *.sublime-*
 _saved_*.sch
 *.kicad_pcb-bak
+.DS_Store
+
