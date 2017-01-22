@@ -6,29 +6,21 @@
  *
  */
 
+// standard libraries required
+#include <stdint.h>
+#include <string.h>  // for memcopy and memset
+
 // definitions of peripherals and memory addresses
 #include "MKL03Z4.h"
 #include "hardware.h"
 #include "fsl_i2c.h"
 
 
-// when receiving, we expect a command byte and two data bytes
-// when transmitting, we reserve 2 bytes for data
-#define I2C_DATA_LENGTH 3
-
-
 uint8_t slave_data_buffer[I2C_DATA_LENGTH];
 i2c_slave_handle_t slave_handle;
 
 
-// Our own structure to keep track of things. Might not need this...
-typedef struct {
-    uint8_t slave_address;
-    int8_t *addr_to_use_ptr;  //! This is the address either being writen to or read out. Valid if positive
-    i2c_state_t comms_admin.state;
-} i2c_comms_config_t;
-
-// Enum to keep track
+//! Enum to keep track of the I2C transaction state
 typedef enum {
     kWait,
     kReceivingAddr,
@@ -36,11 +28,24 @@ typedef enum {
     kTransmittingData,
 } i2c_state_t;
 
+
+//! Our own structure to keep track of things.
+typedef struct {
+    uint8_t slave_address;          //! the address we'll be referred to as
+    int8_t *addr_to_use_ptr;        //! This is the address either being writen to or read out. Valid if positive
+    i2c_state_t comms_admin.state;  //! state machine to keep track of the transaction state
+} i2c_comms_config_t;
+
+
 i2c_comms_config_t comms_admin;
 
 
-void i2c_comms_init(void)
+void i2c_comms_init(uint8_t slave_address)
 {
+    // configure the admin struct
+    comms_admin.address = slave_address;
+    *comms_admin.addr_to_use_ptr = -127;
+    comms_admin.state = kWait;
 
     // I2C slave configuration (can't modify the pointer, but can modify contents)
     i2c_slave_config_t * const i2c_conf_ptr;
@@ -48,16 +53,11 @@ void i2c_comms_init(void)
     I2C_SlaveGetDefaultConfig(i2c_conf_ptr);
 
     // add in I2C as a wake source and configure the address
-    //TODO: lower two bits can be set via some extra IO pins
     i2c_conf_ptr->enableWakeUp = true;
     i2c_conf_ptr->addressingMode = kI2C_Address7bit;
-    i2c_conf_ptr->slaveAddress = 0x42;
+    i2c_conf_ptr->slaveAddress = comms_admin.address;
     i2c_conf_ptr->upperAddress = 0; /*  not used for this example */
 
-    // configure the admin struct
-    comms_admin.address = 0x42;
-    *comms_admin.addr_to_use_ptr = -127;
-    comms_admin.state = kWait;
 
     // initialize the I2C slave
     I2C_SlaveInit(I2C0, i2c_conf_ptr);
@@ -157,7 +157,7 @@ static void i2c_comms_callback(I2C_Type *base, i2c_slave_transfer_t *xfer, void 
 
             }
             // clear the buffer
-            memset(slave_data_buffer, 0, sizeof(slave_handle));
+            memset(slave_data_buffer, 0, I2C_DATA_LENGTH);
             xfer->data = slave_data_buffer;  // can receive up to 4 bytes
 
             // size varies with command
@@ -189,6 +189,20 @@ static void i2c_comms_callback(I2C_Type *base, i2c_slave_transfer_t *xfer, void 
                 // write that data back to the appropriate location
                 set_active_command(*comms_admin.addr_to_use_ptr, slave_data_buffer);
             }
+
+            // -- Do the command it requested -- //
+            /* If we're just clearing variables, do that here. Otherwise,
+             * We should change the state of the main loop!
+             */
+            if (*comms_admin.addr_to_use_ptr == kClearPosition_Left) {
+                motor_calc_distance_clear(kEncoder_Left);
+            } else if (*comms_admin.addr_to_use_ptr == kClearPosition_Right) {
+                motor_calc_distance_clear(kEncoder_Right);
+            } else {
+                // Switch main to do whatever command we just received.
+                set_active_command(*comms_admin.addr_to_use_ptr, slave_data_buffer);
+            }
+
             // reset the address of interest to an invalid address and reset the state machine
             *comms_admin.addr_to_use_ptr = -127;
             comms_admin.state = kWait;
