@@ -30,19 +30,13 @@
 #ifndef _CLOCK_CONFIG_H_
 #define _CLOCK_CONFIG_H_
 
-/*******************************************************************************
- * DEFINITION
- ******************************************************************************/
-#define BOARD_XTAL0_CLK_HZ 32768U
-#define BOARD_XTAL32K_CLK_HZ 0U
 
 /*******************************************************************************
- * API
+ * Public Function Definitions
  ******************************************************************************/
 
 void clk_conf_VLPR(void);
 void clk_conf_run(void);
-void clk_init_osc0(void);
 
 
 #endif /* _CLOCK_CONFIG_H_ */

@@ -131,21 +131,3 @@ void clk_conf_run(void)
 
     SystemCoreClock = 48000000U;
 }
-
-void clk_init_osc0(void)
-{
-    const osc_config_t oscConfig = {.freq = BOARD_XTAL0_CLK_HZ,
-                                    .capLoad = 0U,
-                                    .workMode = kOSC_ModeOscLowPower,
-                                    .oscerConfig = {
-                                        .enableMode = kOSC_ErClkEnable,
-#if (defined(FSL_FEATURE_OSC_HAS_EXT_REF_CLOCK_DIVIDER) && FSL_FEATURE_OSC_HAS_EXT_REF_CLOCK_DIVIDER)
-                                        .erclkDiv = 0U,
-#endif
-                                    }};
-
-    CLOCK_InitOsc0(&oscConfig);
-
-    /* Passing the XTAL0 frequency to clock driver. */
-    CLOCK_SetXtal0Freq(BOARD_XTAL0_CLK_HZ);
-}
