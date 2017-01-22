@@ -44,7 +44,7 @@
 //! Administration structure to keep track of the PWM and direction of each motor.
 typedef struct {
     uint8_t pwm_vals[2];
-    motor_dir_t directions[2];
+    motor_mode_t modes[2];
 } motor_admin_t;
 
 motor_admin_t md_admin;
@@ -93,15 +93,15 @@ void motors_init(void)
     TPM_StartTimer(MOTOR_R_PWM_CHANNEL, kTPM_SystemClock);
 
     // initially turn motors off
-    motors_set_direction(kMotor_Left, kMotor_Dir_HighZ);
-    motors_set_direction(kMotor_Right, kMotor_Dir_HighZ);
+    motors_set_mode(kMotor_Left, kMotor_Mode_HighZ);
+    motors_set_mode(kMotor_Right, kMotor_Mode_HighZ);
 }
 
 
-void motors_set_direction(motor_select_t motor_selected, motor_dir_t direction)
+void motors_set_mode(motor_select_t motor_selected, motor_mode_t mode)
 {
     // check if we need to even update...
-    if (md_admin.directions[motor_selected] == direction) {
+    if (md_admin.modes[motor_selected] == mode) {
         return;
     }
 
@@ -109,14 +109,14 @@ void motors_set_direction(motor_select_t motor_selected, motor_dir_t direction)
     motors_set_pwm(motor_selected, 0);
 
     // now, if we need to do something other than highZ, do that.
-    if (direction == kMotor_Dir_Forward || direction == kMotor_Dir_Backward) {
+    if (mode == kMotor_Mode_Forward || mode == kMotor_Mode_Backward) {
         // Depending on which motor we're using, this gets interesting
         if (motor_selected == kMotor_Left) {
             // the left motor only needs to flip the left inv line
             GPIO_TogglePinsOutput(MOTOR_L_INVERT_PORT_n, (1 << MOTOR_L_INVERT_PIN_n));
 
         } else if (motor_selected == kMotor_Right) {
-            // the right motor requires we flip both the direction pins and left invert line
+            // the right motor requires we flip both the mode pins and left invert line
             GPIO_TogglePinsOutput(MOTOR_IN_1_PORT, (1 << MOTOR_IN_1_PIN));
             GPIO_TogglePinsOutput(MOTOR_IN_2_PORT, (1 << MOTOR_IN_2_PIN));
             GPIO_TogglePinsOutput(MOTOR_L_INVERT_PORT_n, (1 << MOTOR_L_INVERT_PIN_n));
@@ -125,7 +125,7 @@ void motors_set_direction(motor_select_t motor_selected, motor_dir_t direction)
         motors_set_pwm(kMotor_Left, md_admin.pwm_vals[motor_selected]);
         motors_set_pwm(kMotor_Right, md_admin.pwm_vals[motor_selected]);
 
-    } else if (direction == kMotor_Dir_Brake) {
+    } else if (mode == kMotor_Mode_Brake) {
         // Limitation: Must brake on both motors
         // Set inputs to LOW and turn MOTOR_L_INV_n to HIGH
         GPIO_ClearPinsOutput(MOTOR_IN_1_PORT, (1 << MOTOR_IN_1_PIN));
@@ -136,13 +136,13 @@ void motors_set_direction(motor_select_t motor_selected, motor_dir_t direction)
         motors_set_pwm(kMotor_Left, 100);
         motors_set_pwm(kMotor_Right, 100);
 
-    } else if (direction == kMotor_Dir_HighZ) {
+    } else if (mode == kMotor_Mode_HighZ) {
         // do nothing as of now
     } else {
         assert(false);
     }
     // update the admin structure
-    md_admin.directions[motor_selected] = direction;
+    md_admin.modes[motor_selected] = mode;
 }
 
 
@@ -173,9 +173,9 @@ uint8_t motors_get_pwm(motor_select_t motor_selected)
 }
 
 
-motor_dir_t motors_get_dir(motor_select_t motor_selected)
+motor_mode_t motors_get_dir(motor_select_t motor_selected)
 {
-    return md_admin.directions[motor_selected];
+    return md_admin.modes[motor_selected];
 }
 
 

@@ -8,8 +8,10 @@
 #ifndef _MOTOR_DRIVERS_H_
 #define _MOTOR_DRIVERS_H_
 
-/* Public Data Structures */
 
+/*******************************************************************************
+ * Public Data Structures
+ ******************************************************************************/
 
 //! Used to select which motor driver you want to configure/retrieve.
 typedef enum {
@@ -20,15 +22,16 @@ typedef enum {
 
 //! Direction modes possible.
 typedef enum {
-    kMotor_Dir_Forward,
-    kMotor_Dir_Backward,
-    kMotor_Dir_HighZ,
-    kMotor_Dir_Brake
-} motor_dir_t;
+    kMotor_Mode_Forward,
+    kMotor_Mode_Backward,
+    kMotor_Mode_HighZ,
+    kMotor_Mode_Brake
+} motor_mode_t;
 
 
-/* Public Function Declarations */
-
+/*******************************************************************************
+ * Public Function Definitions
+ ******************************************************************************/
 
 /*!
  * @brief Initializes all motor pins and sets up PWM modules. Leaves motor drivers in highZ.
@@ -38,12 +41,12 @@ typedef enum {
 void motors_init(void);
 
 /*!
- * @brief Configures the given motor to the given direction type.
+ * @brief Configures the given motor to the given mode.
  *
  * @param motor_selected (motor_select_t): Motor you want to configure.
- * @param direction (motor_dir_t): Direction type you want to set the motor to.
+ * @param mode (motor_mode_t): mode type you want to set the motor to.
  */
-void motors_set_direction(motor_select_t motor_selected, motor_dir_t direction);
+void motors_set_mode(motor_select_t motor_selected, motor_mode_t direction);
 
 /*!
  * @brief Sets the PWM duty cycle to the given motor.
@@ -67,8 +70,8 @@ uint8_t motors_get_pwm(motor_select_t motor_selected);
  * @brief Sets the PWM duty cycle to the given motor.
  *
  * @param motor_selected (motor_select_t): Motor you want to retrieve from.
- * @return (motor_dir_t): Direction of the motor.
+ * @return (motor_mode_t): Direction of the motor.
  */
-motor_dir_t motors_get_dir(motor_select_t motor_selected);
+motor_mode_t motors_get_dir(motor_select_t motor_selected);
 
 #endif /* _MOTOR_DRIVERS_H_ */
