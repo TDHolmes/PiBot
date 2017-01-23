@@ -185,6 +185,7 @@ def run_command(cmd, print_output=True):
             queue.put(line)
         out.close()
 
+    print(" -> {}".format(cmd))
     proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE)
     q_stdout = Queue()

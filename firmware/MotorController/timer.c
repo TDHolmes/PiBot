@@ -17,6 +17,7 @@
 
 #include "pin_mux.h"
 #include "clock_config.h"
+#include "timer.h"
 
 
 // Get source clock for LPTMR driver
@@ -86,12 +87,12 @@ void TIMER_TICK_IRQ(void)
 
 //! Helper accesser functions that can clear / read out the current tick
 
-inline void timer_clear(void)
+inline void timer_clear_tick(void)
 {
     tmr_admin.count = 0;
 }
 
-inline uint32_t timer_get(void)
+inline uint32_t timer_get_tick(void)
 {
     return tmr_admin.count;
 }

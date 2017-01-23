@@ -189,13 +189,21 @@ add_executable(motor_driver.elf
 	# user code
 	"${ProjDirPath}motor_drivers.c"
 	"${ProjDirPath}motor_drivers.h"
+	"${ProjDirPath}motor_calc.c"
+	"${ProjDirPath}motor_calc.h"
+	"${ProjDirPath}pid_parameters.h"
 	"${ProjDirPath}encoders.c"
 	"${ProjDirPath}encoders.h"
-	"${ProjDirPath}motor_controller.c"
 	"${ProjDirPath}hardware.c"
 	"${ProjDirPath}hardware.h"
 	"${ProjDirPath}clock_config.c"
 	"${ProjDirPath}clock_config.h"
+	"${ProjDirPath}i2c_comms.c"
+	"${ProjDirPath}i2c_comms.h"
+	"${ProjDirPath}timer.c"
+	"${ProjDirPath}timer.h"
+	"${ProjDirPath}main.c"
+	"${ProjDirPath}main.h"
 
 	# NXP drivers and system files
 	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/gcc/startup_MKL03Z4.S"
@@ -218,6 +226,8 @@ add_executable(motor_driver.elf
 	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_smc.c"
 	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_clock.h"
 	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_clock.c"
+	# "${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/pin_mux.h"
+	# "${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/pin_mux.c"
 )
 
 

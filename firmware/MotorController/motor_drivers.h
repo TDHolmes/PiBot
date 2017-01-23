@@ -67,11 +67,20 @@ void motors_set_pwm(motor_select_t motor_selected, uint8_t pwm_val);
 uint8_t motors_get_pwm(motor_select_t motor_selected);
 
 /*!
- * @brief Sets the PWM duty cycle to the given motor.
+ * @brief Gets the mode currently set for the given motor
  *
  * @param motor_selected (motor_select_t): Motor you want to retrieve from.
- * @return (motor_mode_t): Direction of the motor.
+ * @return (motor_mode_t): Mode of the motor.
  */
-motor_mode_t motors_get_dir(motor_select_t motor_selected);
+motor_mode_t motors_get_mode(motor_select_t motor_selected);
+
+
+/*!
+ * @brief Gets the direction the motor is moving. Etiher 1, -1, or 0
+ *
+ * @param motor_selected (motor_select_t): Motor you want to retrieve from.
+ * @return (int8_t): Direction of the motor.
+ */
+int8_t motors_get_direction(motor_select_t motor_selected);
 
 #endif /* _MOTOR_DRIVERS_H_ */

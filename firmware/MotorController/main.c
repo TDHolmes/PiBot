@@ -19,8 +19,11 @@
 // important user code
 #include "clock_config.h"
 #include "encoders.h"
+#include "motor_calc.h"
 #include "motor_drivers.h"
 #include "i2c_comms.h"
+#include "timer.h"
+#include "main.h"
 
 
 // flag to trigger superloop
@@ -42,7 +45,6 @@ int main(void)
     // Init board hardware.
     hw_init_pins();
     clk_conf_run();
-    hw_init_debug_console();
 
     // initialize the motor driver and encoders
     motors_init();
@@ -104,7 +106,7 @@ int main(void)
                     }
                     break;
 
-                case (kMoveDistance):
+                case (kMoveDistance_Left):
                     if (new_command) {
                         // hacky uint32 from a 4 item uint8_t array
                         gen_purpose_uint32 = *i2c_command_data;
@@ -116,6 +118,18 @@ int main(void)
                     }
                     break;
 
+
+                case (kMoveDistance_Right):
+                    if (new_command) {
+                        // hacky uint32 from a 4 item uint8_t array
+                        gen_purpose_uint32 = *i2c_command_data;
+                        new_command = false;
+                    }
+
+                    if (done) {
+                        set_active_command(kIdle, NULL);
+                    }
+                    break;
                 case (kSetVelocity_Left):
                     if (new_command) {
                         // hacky float from a 4 item uint8_t array
@@ -157,7 +171,7 @@ int main(void)
                 }
 
             // run the PID loop with the updated parameters
-            motor_calc_run_PID();
+            motor_calc_PID_run();
 
             }  /* END RUN EVERY N MS */
         }

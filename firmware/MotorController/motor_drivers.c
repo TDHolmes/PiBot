@@ -173,9 +173,20 @@ uint8_t motors_get_pwm(motor_select_t motor_selected)
 }
 
 
-motor_mode_t motors_get_dir(motor_select_t motor_selected)
+motor_mode_t motors_get_mode(motor_select_t motor_selected)
 {
     return md_admin.modes[motor_selected];
+}
+
+int8_t motors_get_direction(motor_select_t motor_selected)
+{
+    if (md_admin.modes[motor_selected] == kMotor_Mode_Forward) {
+        return 1;
+    } else if (md_admin.modes[motor_selected] == kMotor_Mode_Backward) {
+        return -1;
+    } else {
+        return 0;
+    }
 }
 
 

@@ -17,6 +17,5 @@
  * Public Function Definitions
  ******************************************************************************/
 
-void hw_init_debug_console(void);
 void hw_init_pins(void);
 #endif /* _HARDWARE_H_ */

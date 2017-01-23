@@ -14,6 +14,7 @@ typedef enum {
     kMoveDistance_Right,
     kSetVelocity_Left,
     kSetVelocity_Right,
+    kSetVelocity_Net,
     kClearPosition_Left,
     kClearPosition_Right,
     kGetPosition_Left,

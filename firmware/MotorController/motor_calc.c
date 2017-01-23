@@ -14,7 +14,10 @@
 #include "hardware.h"
 #include "fsl_port.h"
 #include "encoders.h"
-// need a time module
+#include "timer.h"
+#include "motor_calc.h"
+#include "motor_drivers.h"
+#include "pid_parameters.h"
 
 
 //! Data structure to keep track of important motor statistics.
@@ -38,9 +41,9 @@ typedef struct {
     PID_mode_t mode;
     float      vel_target[2];
     int32_t    pos_target[2];
-    // keep track of integral error over time.
-    float      vel_integral_err[2];
-    int32_t    pos_integral_err[2];
+    // keep track of integral error over time as well as previous error for derivative.
+    float      err_prev[2];
+    float      err_integral[2];
 } motor_PID_t;
 
 
@@ -50,21 +53,30 @@ motor_PID_t  PID_admin;
 
 void motor_calc_init(void)
 {
-    // initialize stats struct
-    motor_stats.pos[kMotor_Right] = 0;
-    motor_stats.pos[kMotor_Left] = 0;
+    // initialize the motor stat terms
+    motor_stats.vel[kMotor_Left]  = 0;
     motor_stats.vel[kMotor_Right] = 0;
-    motor_stats.vel[kMotor_Left] = 0;
-    motor_stats.enc_prev[kEncoder_Right] = 0;
-    motor_stats.enc_prev[kEncoder_Left] = 0;
-    motor_stats.time_prev = get_current_tick();
+    motor_stats.vel_prev[kMotor_Left]  = 0;
+    motor_stats.vel_prev[kMotor_Right] = 0;
+    motor_stats.pos[kMotor_Left]  = 0;
+    motor_stats.pos[kMotor_Right] = 0;
+    motor_stats.pos_prev[kMotor_Left]  = 0;
+    motor_stats.pos_prev[kMotor_Right] = 0;
+    motor_stats.enc_prev[kMotor_Left]  = 0;
+    motor_stats.enc_prev[kMotor_Right] = 0;
+    motor_stats.time_prev = timer_get_tick();
 
-    // initialize PID struct
+    // initialize the PID terms
     PID_admin.mode = kPID_stop;
-    PID_admin.vel_target[kMotor_Left] = 0;
+    PID_admin.vel_target[kMotor_Left]  = 0;
     PID_admin.vel_target[kMotor_Right] = 0;
-    PID_admin.pos_target[kMotor_Left] = 0;
+    PID_admin.pos_target[kMotor_Left]  = 0;
     PID_admin.pos_target[kMotor_Right] = 0;
+    PID_admin.err_prev[kMotor_Left]  = 0;
+    PID_admin.err_prev[kMotor_Right] = 0;
+    PID_admin.err_integral[kMotor_Left]  = 0;
+    PID_admin.err_integral[kMotor_Right] = 0;
+
 }
 
 
@@ -76,7 +88,7 @@ void motor_calc_parameters(void)
     int32_t time;
 
     // get the current time and position
-    time = get_current_tick();
+    time = timer_get_tick();
     enc_l = encoders_get_counts(kEncoder_Left);
     enc_r = encoders_get_counts(kEncoder_Right);
 
@@ -130,29 +142,72 @@ inline void motor_calc_distance_clear(motor_select_t motor_desired)
 
 void motor_calc_PID_run(void)
 {
-    switch (PID_admin.mode) {
-        case(kPID_velocity):
-            // Run velocity PID calculations
-            break;
+    float err_term[2];
+    float err_output[2];
 
-        case(kPID_distance):
-            // Run distance PID calculations
-            break;
-
-        default:
-            // do nothing
-            break;
+    if (PID_admin.mode == kPID_stop) {
+        return;
     }
+
+    // Run velocity PID calculations
+    // first, calculate the proportional error
+    if (PID_admin.mode == kPID_velocity) {
+        err_term[kMotor_Left]  = PID_admin.vel_target[kMotor_Left]  - motor_stats.vel[kMotor_Left];
+        err_term[kMotor_Right] = PID_admin.vel_target[kMotor_Right] - motor_stats.vel[kMotor_Right];
+    } else if (PID_admin.mode == kPID_distance) {
+        err_term[kMotor_Left]  = (float)(PID_admin.pos_target[kMotor_Left]  - motor_stats.pos[kMotor_Left]);
+        err_term[kMotor_Right] = (float)(PID_admin.pos_target[kMotor_Right] - motor_stats.pos[kMotor_Right]);
+    }
+
+    // add that to the integral error
+    PID_admin.err_integral[kMotor_Left]  += err_term[kMotor_Left];
+    PID_admin.err_integral[kMotor_Right] += err_term[kMotor_Right];
+
+    // apply the proportional constant
+    err_output[kMotor_Left]  = err_term[kMotor_Left]  * PID_K_PROPORTIONAL;
+    err_output[kMotor_Right] = err_term[kMotor_Right] * PID_K_PROPORTIONAL;
+
+    // apply the derivative factor & constant
+    err_output[kMotor_Left]  += (err_term[kMotor_Left] -
+                                 PID_admin.err_prev[kMotor_Left]) * PID_K_DERIVATIVE;
+
+    err_output[kMotor_Right] += (err_term[kMotor_Right] -
+                                 PID_admin.err_prev[kMotor_Right]) * PID_K_DERIVATIVE;
+
+    // apply the integral factor & constant
+    err_output[kMotor_Left]  += PID_admin.err_integral[kMotor_Left]  * PID_K_INTEGRAL;
+    err_output[kMotor_Right] += PID_admin.err_integral[kMotor_Right] * PID_K_INTEGRAL;
+
+    // compensate for the direciton the motor is going
+    err_output[kMotor_Left]  *= motors_get_direction(kMotor_Left);
+    err_output[kMotor_Right] *= motors_get_direction(kMotor_Right);
+
+    // saturate to 0 - 100 as that is the PWM range.
+    // TODO: Need to tune PID values to target 0 - 100 values
+    err_output[kMotor_Left]  = MAX(0, MIN(100, err_output[kMotor_Left]));
+    err_output[kMotor_Right] = MAX(0, MIN(100, err_output[kMotor_Right]));
+
+    // update the motors! Direction should have been taken care of elsewhere
+    motors_set_pwm(kMotor_Left,  (uint8_t)err_output[kMotor_Left]);
+    motors_set_pwm(kMotor_Right, (uint8_t)err_output[kMotor_Right]);
+
+    // update the previous error term
+    PID_admin.err_prev[kMotor_Left]  = err_term[kMotor_Left];
+    PID_admin.err_prev[kMotor_Right] = err_term[kMotor_Right];
 }
 
 
 inline void motor_calc_PID_setmode(PID_mode_t new_PID_mode)
 {
     // clear the current PID parameters
-    PID_admin.vel_integral_err[kMotor_Left]  = 0;
-    PID_admin.vel_integral_err[kMotor_Right] = 0;
-    PID_admin.pos_integral_err[kMotor_Left]  = 0;
-    PID_admin.pos_integral_err[kMotor_Right] = 0;
+    PID_admin.vel_target[kMotor_Left]  = 0;
+    PID_admin.vel_target[kMotor_Right] = 0;
+    PID_admin.pos_target[kMotor_Left]  = 0;
+    PID_admin.pos_target[kMotor_Right] = 0;
+    PID_admin.err_prev[kMotor_Left]  = 0;
+    PID_admin.err_prev[kMotor_Right] = 0;
+    PID_admin.err_integral[kMotor_Left]  = 0;
+    PID_admin.err_integral[kMotor_Right] = 0;
     // set the mode
     PID_admin.mode = new_PID_mode;
 }
