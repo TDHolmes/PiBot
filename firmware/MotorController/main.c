@@ -30,8 +30,16 @@
 volatile uint8_t timer_update_parameters;
 
 i2c_command_t active_command;
-uint8_t i2c_command_data[I2C_DATA_LENGTH];
 bool new_command;
+
+
+typedef union {
+    uint8_t  uint8_val;
+    uint32_t uint32_val;
+    float    float_val;
+} i2c_command_data_t;
+
+i2c_command_data_t i2c_command_data;
 
 
 int main(void)
@@ -58,8 +66,10 @@ int main(void)
     timer_init(&timer_update_parameters, MOTOR_CALC_UPDATE_RATE_MS);
 
     // get an initial command of the Idle state
-    memset(i2c_command_data, 0, I2C_DATA_LENGTH);
-    set_active_command(kIdle, i2c_command_data);
+    i2c_command_data.uint8_val = 0;
+    i2c_command_data.uint32_val = 0;
+    i2c_command_data.float_val = 0;
+    set_active_command(kIdle, NULL);
 
     while (1)
     {
@@ -86,11 +96,11 @@ int main(void)
                     if (new_command) {
                         // lets get the angle we want to turn
                         //TODO: Need to convert from angle to linear distances for each wheel
-                        gen_purpose_uint8 = i2c_command_data[0];
+                        gen_purpose_uint8 = i2c_command_data.uint8_val;
                         motor_calc_PID_setmode(kPID_distance);
 
                         // Convert angle to distances for both motors
-                        gen_purpose_uint32 = (uint32_t)(((float)gen_purpose_uint8 / 360.0) * PIBOT_DIAMETER_MM * PI);
+                        gen_purpose_uint32 = (uint32_t)(((float)gen_purpose_uint8 / 360.0f) * PIBOT_DIAMETER_MM * PI);
                         motor_calc_PID_set_target(kMotor_Right, kPID_distance, &gen_purpose_uint32);
                         gen_purpose_uint32 = (-1 * gen_purpose_uint32);
                         motor_calc_PID_set_target(kMotor_Left, kPID_distance, &gen_purpose_uint32);
@@ -99,6 +109,7 @@ int main(void)
 
                     if (motor_calc_PID_is_done(kMotor_Left, 0.1) && motor_calc_PID_is_done(kMotor_Right, 0.1)) {
                         set_active_command(kIdle, NULL);
+                        motor_calc_PID_setmode(kPID_stop);
                     }
                     break;
 
@@ -106,11 +117,11 @@ int main(void)
                     if (new_command) {
                         // lets get the angle we want to turn
                         //TODO: Need to convert from angle to linear distances for each wheel
-                        gen_purpose_uint8 = i2c_command_data[0];
+                        gen_purpose_uint8 = i2c_command_data.uint8_val;
                         motor_calc_PID_setmode(kPID_distance);
 
                         // Convert angle to distances for both motors
-                        gen_purpose_uint32 = (uint32_t)(((float)gen_purpose_uint8 / 360.0) * PIBOT_DIAMETER_MM * PI);
+                        gen_purpose_uint32 = (uint32_t)(((float)gen_purpose_uint8 / 360.0f) * PIBOT_DIAMETER_MM * PI);
                         motor_calc_PID_set_target(kMotor_Left, kPID_distance, &gen_purpose_uint32);
                         gen_purpose_uint32 = (-1 * gen_purpose_uint32);
                         motor_calc_PID_set_target(kMotor_Right, kPID_distance, &gen_purpose_uint32);
@@ -119,13 +130,14 @@ int main(void)
 
                     if (motor_calc_PID_is_done(kMotor_Left, 0.1) && motor_calc_PID_is_done(kMotor_Right, 0.1)) {
                         set_active_command(kIdle, NULL);
+                        motor_calc_PID_setmode(kPID_stop);
                     }
                     break;
 
                 case (kMoveDistance_Left):
                     if (new_command) {
                         // hacky uint32 from a 4 item uint8_t array
-                        gen_purpose_uint32 = *i2c_command_data;
+                        gen_purpose_uint32 = i2c_command_data.uint32_val;
                         motor_calc_PID_setmode(kPID_distance);
                         motor_calc_PID_set_target(kMotor_Left, kPID_distance, &gen_purpose_uint32);
                         new_command = false;
@@ -133,6 +145,7 @@ int main(void)
 
                     if (motor_calc_PID_is_done(kMotor_Left, 0.1)) {
                         set_active_command(kIdle, NULL);
+                        motor_calc_PID_setmode(kPID_stop);
                     }
                     break;
 
@@ -140,7 +153,7 @@ int main(void)
                 case (kMoveDistance_Right):
                     if (new_command) {
                         // hacky uint32 from a 4 item uint8_t array
-                        gen_purpose_uint32 = *i2c_command_data;
+                        gen_purpose_uint32 = i2c_command_data.uint32_val;
                         motor_calc_PID_setmode(kPID_distance);
                         motor_calc_PID_set_target(kMotor_Right, kPID_distance, &gen_purpose_uint32);
                         new_command = false;
@@ -148,13 +161,14 @@ int main(void)
 
                     if (motor_calc_PID_is_done(kMotor_Right, 0.1)) {
                         set_active_command(kIdle, NULL);
+                        motor_calc_PID_setmode(kPID_stop);
                     }
                     break;
 
                 case (kMoveDistance_Both):
                     if (new_command) {
                         // hacky uint32 from a 4 item uint8_t array
-                        gen_purpose_uint32 = *i2c_command_data;
+                        gen_purpose_uint32 = i2c_command_data.uint32_val;
                         motor_calc_PID_setmode(kPID_distance);
                         motor_calc_PID_set_target(kMotor_Right, kPID_distance, &gen_purpose_uint32);
                         motor_calc_PID_set_target(kMotor_Left, kPID_distance, &gen_purpose_uint32);
@@ -163,13 +177,14 @@ int main(void)
 
                     if (motor_calc_PID_is_done(kMotor_Left, 0.1) && motor_calc_PID_is_done(kMotor_Right, 0.1)) {
                         set_active_command(kIdle, NULL);
+                        motor_calc_PID_setmode(kPID_stop);
                     }
                     break;
 
                 case (kSetVelocity_Left):
                     if (new_command) {
                         // hacky float from a 4 item uint8_t array
-                        gen_purpose_float = *i2c_command_data;
+                        gen_purpose_float = i2c_command_data.float_val;
                         motor_calc_PID_setmode(kPID_velocity);
                         motor_calc_PID_set_target(kMotor_Left, kPID_velocity, &gen_purpose_float);
                         new_command = false;
@@ -179,7 +194,7 @@ int main(void)
                 case (kSetVelocity_Right):
                     if (new_command) {
                         // hacky float from a 4 item uint8_t array
-                        gen_purpose_float = *i2c_command_data;
+                        gen_purpose_float = i2c_command_data.float_val;
                         motor_calc_PID_setmode(kPID_velocity);
                         motor_calc_PID_set_target(kMotor_Right, kPID_velocity, &gen_purpose_float);
                         new_command = false;
@@ -190,7 +205,7 @@ int main(void)
                 case (kSetVelocity_Both):
                     if (new_command) {
                         // hacky float from a 4 item uint8_t array
-                        gen_purpose_float = *i2c_command_data;
+                        gen_purpose_float = i2c_command_data.float_val;
                         motor_calc_PID_setmode(kPID_velocity);
                         motor_calc_PID_set_target(kMotor_Left, kPID_velocity, &gen_purpose_float);
                         motor_calc_PID_set_target(kMotor_Right, kPID_velocity, &gen_purpose_float);
@@ -216,6 +231,15 @@ void set_active_command(i2c_command_t command, void * data)
     // change the current command
     active_command = command;
     // copy the data over to our local buffer
-    memcpy(i2c_command_data, data, I2C_DATA_LENGTH);
+
+    if ((command == kSetVelocity_Left) || (command == kSetVelocity_Right) || (command == kSetVelocity_Both)) {
+        i2c_command_data.float_val = *(float *)data;
+
+    } else if ((command == kMoveDistance_Left) || (command == kMoveDistance_Right) || (command == kMoveDistance_Both)) {
+        i2c_command_data.uint32_val = *(uint32_t *)data;
+
+    } else if ((command == kTurnLeft) || (command == kTurnRight)) {
+        i2c_command_data.uint8_val = *(uint8_t *)data;
+    }
     new_command = true;
 }
