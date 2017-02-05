@@ -44,5 +44,6 @@ void motor_calc_distance_clear(motor_select_t motor_desired);
 
 void motor_calc_PID_run(void);
 void motor_calc_PID_setmode(PID_mode_t new_PID_mode);
+void motor_calc_PID_set_target(motor_select_t motor_desired, PID_mode_t PID_mode, void * data);
 
 #endif /*_MOTOR_CALC_H_*/

@@ -85,11 +85,19 @@ int main(void)
                 case (kTurnLeft):
                     if (new_command) {
                         // lets get the angle we want to turn
+                        //TODO: Need to convert from angle to linear distances for each wheel
                         gen_purpose_uint8 = i2c_command_data[0];
+                        motor_calc_PID_setmode(kPID_distance);
+
+                        // Convert angle to distances for both motors
+                        gen_purpose_uint32 = (uint32_t)(((float)gen_purpose_uint8 / 360.0) * PIBOT_DIAMETER_MM * PI);
+                        motor_calc_PID_set_target(kMotor_Right, kPID_distance, &gen_purpose_uint32);
+                        gen_purpose_uint32 = (-1 * gen_purpose_uint32);
+                        motor_calc_PID_set_target(kMotor_Left, kPID_distance, &gen_purpose_uint32);
                         new_command = false;
                     }
 
-                    if (done) {
+                    if (motor_calc_PID_is_done(kMotor_Left, 0.1) && motor_calc_PID_is_done(kMotor_Right, 0.1)) {
                         set_active_command(kIdle, NULL);
                     }
                     break;
@@ -97,11 +105,19 @@ int main(void)
                 case (kTurnRight):
                     if (new_command) {
                         // lets get the angle we want to turn
+                        //TODO: Need to convert from angle to linear distances for each wheel
                         gen_purpose_uint8 = i2c_command_data[0];
+                        motor_calc_PID_setmode(kPID_distance);
+
+                        // Convert angle to distances for both motors
+                        gen_purpose_uint32 = (uint32_t)(((float)gen_purpose_uint8 / 360.0) * PIBOT_DIAMETER_MM * PI);
+                        motor_calc_PID_set_target(kMotor_Left, kPID_distance, &gen_purpose_uint32);
+                        gen_purpose_uint32 = (-1 * gen_purpose_uint32);
+                        motor_calc_PID_set_target(kMotor_Right, kPID_distance, &gen_purpose_uint32);
                         new_command = false;
                     }
 
-                    if (done) {
+                    if (motor_calc_PID_is_done(kMotor_Left, 0.1) && motor_calc_PID_is_done(kMotor_Right, 0.1)) {
                         set_active_command(kIdle, NULL);
                     }
                     break;
@@ -110,10 +126,12 @@ int main(void)
                     if (new_command) {
                         // hacky uint32 from a 4 item uint8_t array
                         gen_purpose_uint32 = *i2c_command_data;
+                        motor_calc_PID_setmode(kPID_distance);
+                        motor_calc_PID_set_target(kMotor_Left, kPID_distance, &gen_purpose_uint32);
                         new_command = false;
                     }
 
-                    if (done) {
+                    if (motor_calc_PID_is_done(kMotor_Left, 0.1)) {
                         set_active_command(kIdle, NULL);
                     }
                     break;
@@ -123,22 +141,38 @@ int main(void)
                     if (new_command) {
                         // hacky uint32 from a 4 item uint8_t array
                         gen_purpose_uint32 = *i2c_command_data;
+                        motor_calc_PID_setmode(kPID_distance);
+                        motor_calc_PID_set_target(kMotor_Right, kPID_distance, &gen_purpose_uint32);
                         new_command = false;
                     }
 
-                    if (done) {
+                    if (motor_calc_PID_is_done(kMotor_Right, 0.1)) {
                         set_active_command(kIdle, NULL);
                     }
                     break;
+
+                case (kMoveDistance_Both):
+                    if (new_command) {
+                        // hacky uint32 from a 4 item uint8_t array
+                        gen_purpose_uint32 = *i2c_command_data;
+                        motor_calc_PID_setmode(kPID_distance);
+                        motor_calc_PID_set_target(kMotor_Right, kPID_distance, &gen_purpose_uint32);
+                        motor_calc_PID_set_target(kMotor_Left, kPID_distance, &gen_purpose_uint32);
+                        new_command = false;
+                    }
+
+                    if (motor_calc_PID_is_done(kMotor_Left, 0.1) && motor_calc_PID_is_done(kMotor_Right, 0.1)) {
+                        set_active_command(kIdle, NULL);
+                    }
+                    break;
+
                 case (kSetVelocity_Left):
                     if (new_command) {
                         // hacky float from a 4 item uint8_t array
                         gen_purpose_float = *i2c_command_data;
+                        motor_calc_PID_setmode(kPID_velocity);
+                        motor_calc_PID_set_target(kMotor_Left, kPID_velocity, &gen_purpose_float);
                         new_command = false;
-                    }
-
-                    if (done) {
-                        set_active_command(kIdle, NULL);
                     }
                     break;
 
@@ -146,23 +180,21 @@ int main(void)
                     if (new_command) {
                         // hacky float from a 4 item uint8_t array
                         gen_purpose_float = *i2c_command_data;
+                        motor_calc_PID_setmode(kPID_velocity);
+                        motor_calc_PID_set_target(kMotor_Right, kPID_velocity, &gen_purpose_float);
                         new_command = false;
-                    }
-
-                    if (done) {
-                        set_active_command(kIdle, NULL);
                     }
                     break;
 
-                case (kSetVelocity_Net):
+
+                case (kSetVelocity_Both):
                     if (new_command) {
                         // hacky float from a 4 item uint8_t array
                         gen_purpose_float = *i2c_command_data;
+                        motor_calc_PID_setmode(kPID_velocity);
+                        motor_calc_PID_set_target(kMotor_Left, kPID_velocity, &gen_purpose_float);
+                        motor_calc_PID_set_target(kMotor_Right, kPID_velocity, &gen_purpose_float);
                         new_command = false;
-                    }
-
-                    if (done) {
-                        set_active_command(kIdle, NULL);
                     }
                     break;
 
