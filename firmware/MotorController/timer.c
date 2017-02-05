@@ -15,7 +15,7 @@
 #include "fsl_gpio.h"
 #include "fsl_common.h"   // has USEC_TO_COUNT macro
 
-#include "pin_mux.h"
+//#include "pin_mux.h"
 #include "clock_config.h"
 #include "timer.h"
 
