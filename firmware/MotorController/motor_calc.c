@@ -145,10 +145,6 @@ void motor_calc_PID_run(void)
     float err_term[2];
     float err_output[2];
 
-    if (PID_admin.mode == kPID_stop) {
-        return;
-    }
-
     // Run velocity PID calculations
     // first, calculate the proportional error
     if (PID_admin.mode == kPID_velocity) {
@@ -157,6 +153,9 @@ void motor_calc_PID_run(void)
     } else if (PID_admin.mode == kPID_distance) {
         err_term[kMotor_Left]  = (float)(PID_admin.pos_target[kMotor_Left]  - motor_stats.pos[kMotor_Left]);
         err_term[kMotor_Right] = (float)(PID_admin.pos_target[kMotor_Right] - motor_stats.pos[kMotor_Right]);
+    } else {
+        // PID_admin.mode == kPID_stop
+        return;
     }
 
     // add that to the integral error
@@ -200,15 +199,40 @@ void motor_calc_PID_run(void)
 inline void motor_calc_PID_setmode(PID_mode_t new_PID_mode)
 {
     // clear the current PID parameters
-    PID_admin.vel_target[kMotor_Left]  = 0;
-    PID_admin.vel_target[kMotor_Right] = 0;
-    PID_admin.pos_target[kMotor_Left]  = 0;
-    PID_admin.pos_target[kMotor_Right] = 0;
     PID_admin.err_prev[kMotor_Left]  = 0;
     PID_admin.err_prev[kMotor_Right] = 0;
     PID_admin.err_integral[kMotor_Left]  = 0;
     PID_admin.err_integral[kMotor_Right] = 0;
     // set the mode
     PID_admin.mode = new_PID_mode;
+}
+
+
+void motor_calc_PID_set_target(motor_select_t motor_desired, PID_mode_t PID_mode, void * data)
+{
+    if (PID_mode == kPID_velocity) {
+        PID_admin.vel_target[motor_desired] = *(float *)data;
+    } else if (PID_mode == kPID_distance) {
+        PID_admin.pos_target[motor_desired] = *(uint32_t *)data;
+    }
+}
+
+bool motor_calc_PID_is_done(motor_select_t motor_desired, float err_tollerance)
+{
+    float err_term[2];
+
+    if (PID_admin.mode == kPID_velocity) {
+        err_term[kMotor_Left]  = PID_admin.vel_target[kMotor_Left]  - motor_stats.vel[kMotor_Left];
+        err_term[kMotor_Right] = PID_admin.vel_target[kMotor_Right] - motor_stats.vel[kMotor_Right];
+    } else if (PID_admin.mode == kPID_distance) {
+        err_term[kMotor_Left]  = (float)(PID_admin.pos_target[kMotor_Left]  - motor_stats.pos[kMotor_Left]);
+        err_term[kMotor_Right] = (float)(PID_admin.pos_target[kMotor_Right] - motor_stats.pos[kMotor_Right]);
+    }
+
+    if (err_term[motor_desired] <= err_tollerance) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
