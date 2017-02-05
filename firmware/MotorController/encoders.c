@@ -105,7 +105,7 @@ void ENCODER_IRQ_HANDLER(void)
 
     // check pin states. Assumes only one pin has trigerred.
     /* --- RIGHT MOTOR CHECK --- */
-    if (pin_mask && ENC_RIGHT_A_MASK) {
+    if (pin_mask & ENC_RIGHT_A_MASK) {
         // encoder A has changed. High or low?
         if (GPIO_ReadPinInput(GPIOB, ENC_RIGHT_A)) {
             // we got a rising edge! Now, which direction are we going?
@@ -124,7 +124,7 @@ void ENCODER_IRQ_HANDLER(void)
             }
         }
 
-    } else if(pin_mask && ENC_RIGHT_B_MASK) {
+    } else if(pin_mask & ENC_RIGHT_B_MASK) {
         // encoder B has changed. High or low?
         if (GPIO_ReadPinInput(GPIOB, ENC_RIGHT_B)) {
             // we got a rising edge! Now, which direction are we going?
@@ -145,7 +145,7 @@ void ENCODER_IRQ_HANDLER(void)
 
 
     /* --- LEFT MOTOR CHECK --- */
-    } else if (pin_mask && ENC_LEFT_A_MASK) {
+    } else if (pin_mask & ENC_LEFT_A_MASK) {
         // encoder A has changed. High or low?
         if (GPIO_ReadPinInput(GPIOB, ENC_LEFT_A)) {
             // we got a rising edge! Now, which direction are we going?
@@ -164,7 +164,7 @@ void ENCODER_IRQ_HANDLER(void)
             }
         }
 
-    } else if(pin_mask && ENC_LEFT_B_MASK) {
+    } else if(pin_mask & ENC_LEFT_B_MASK) {
         // encoder B has changed. High or low?
         if (GPIO_ReadPinInput(GPIOB, ENC_LEFT_B)) {
             // we got a rising edge! Now, which direction are we going?
