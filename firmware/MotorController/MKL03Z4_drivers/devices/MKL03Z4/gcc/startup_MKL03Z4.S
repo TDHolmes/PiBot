@@ -135,11 +135,11 @@ Reset_Handler:
     ldr    r2, =__data_start__
     ldr    r3, =__data_end__
 
-    subs    r3, r2
+    movs    r3, r2  /* Changed by THolmes to compile under CLANG */
     ble     .LC0
 
 .LC1:
-    subs    r3, 4
+    movs    r3, 4  /* Changed by THolmes to compile under CLANG */
     ldr    r0, [r1,r3]
     str    r0, [r2,r3]
     bgt    .LC1
@@ -157,13 +157,13 @@ Reset_Handler:
     ldr r1, =__bss_start__
     ldr r2, =__bss_end__
 
-    subs    r2, r1
+    movs    r2, r1  /* Changed by THolmes to compile under CLANG */
     ble .LC3
 
     movs    r0, 0
 .LC2:
     str r0, [r1, r2]
-    subs    r2, 4
+    movs    r2, 4  /* Changed by THolmes to compile under CLANG */
     bge .LC2
 .LC3:
 #endif
