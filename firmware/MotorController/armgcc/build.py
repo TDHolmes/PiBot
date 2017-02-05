@@ -36,7 +36,7 @@ class bcolors:
     COLOR_LIGHT_GRAY = '\033[0;37m'
 
 
-def build_debug(armgcc_dir=""):
+def build_debug(use_clang=False, armgcc_dir=""):
     """Builds a debug version of the source code."""
     sys.stdout.write(bcolors.COLOR_YELLOW)
     print("\n————————————————————— DEBUG BUILD ————————————————————————\n")
@@ -45,20 +45,26 @@ def build_debug(armgcc_dir=""):
 
     # build the makefile with cmake
     if armgcc_dir == "":
-        cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="armgcc.cmake" -G ' + \
+        cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="{}.cmake" -G ' + \
             '"Unix Makefiles" -Wno-deprecated --no-warn-unused-cli ' + \
             '-DCMAKE_BUILD_TYPE=Debug  .'
     else:
-        cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="armgcc.cmake" -G ' + \
+        cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="{}.cmake" -G ' + \
             '"Unix Makefiles" -Wno-deprecated --no-warn-unused-cli ' + \
             '-DCMAKE_BUILD_TYPE=Debug -DTOOLCHAIN_DIR:STRING="' + \
             armgcc_dir + '"  .'
+
+    if use_clang:
+        cmd = cmd.format("clang")
+    else:
+        cmd = cmd.format("armgcc")
 
     print("executing {}".format(cmd))
     os.system(cmd)
 
     # make the code
     cmd = "make -j4"
+
     retval = os.system(cmd)
     if retval:
         sys.stdout.write(bcolors.COLOR_LIGHT_RED)
@@ -68,7 +74,7 @@ def build_debug(armgcc_dir=""):
     return retval
 
 
-def build_release(armgcc_dir=""):
+def build_release(use_clang=False, armgcc_dir=""):
     """Builds a release version of the source code."""
     sys.stdout.write(bcolors.COLOR_YELLOW)
     print("\n————————————————————— RELEASE BUILD ————————————————————————\n")
@@ -77,20 +83,26 @@ def build_release(armgcc_dir=""):
 
     # build the makefile with cmake
     if armgcc_dir == "":
-        cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="armgcc.cmake" -G ' + \
+        cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="{}.cmake" -G ' + \
             '"Unix Makefiles" -Wno-deprecated --no-warn-unused-cli ' + \
             '-DCMAKE_BUILD_TYPE=Release  .'
     else:
-        cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="armgcc.cmake" -G ' + \
+        cmd = 'cmake -DCMAKE_TOOLCHAIN_FILE="{}.cmake" -G ' + \
             '"Unix Makefiles" -Wno-deprecated --no-warn-unused-cli ' + \
             '-DCMAKE_BUILD_TYPE=Release -DTOOLCHAIN_DIR:STRING="' + \
             armgcc_dir + '"  .'
+
+    if use_clang:
+        cmd = cmd.format("clang")
+    else:
+        cmd = cmd.format("armgcc")
 
     print("executing {}".format(cmd))
     os.system(cmd)
 
     # make the code
     cmd = "make -j4"
+
     retval = os.system(cmd)
     if retval:
         sys.stdout.write(bcolors.COLOR_LIGHT_RED)
@@ -154,8 +166,8 @@ def build_get_section_info(build_type, chip_total_flash):
     print("\n———————————— {} FUNCTION SIZES ———————————————\n".format(b))
     sys.stdout.write(bcolors.COLOR_NC)
     sys.stdout.flush()
-    cmd = "arm-none-eabi-nm --print-size --size-sort " + \
-        "--radix=d --defined-only {}/motor_driver.elf".format(build_type.lower())
+    cmd = "arm-none-eabi-nm --print-size --size-sort --radix=d " + \
+        "--defined-only {}/motor_driver.elf".format(build_type.lower())
 
     stdout, stderr, retval = run_command(cmd, print_output=False)
 
@@ -249,6 +261,8 @@ if __name__ == '__main__':
                         "in the builds output elf file.")
     parser.add_argument("-g", "--gcc-dir", type=str, default="",
                         help="Directory for armgcc compiler.")
+    parser.add_argument("-c", "--clang", action="store_true",
+                        help="Use the clang compiler instead of armgcc.")
 
     args = parser.parse_args()
     build = args.build.strip().lower()
@@ -256,7 +270,7 @@ if __name__ == '__main__':
     build_clean(remove_elf_files=True)
 
     if build == "debug" or build == "all":
-        retval = build_debug(args.gcc_dir)
+        retval = build_debug(args.clang, args.gcc_dir)
         build_clean(remove_elf_files=False)
         if retval == 0:
             build_display_size(build_type="debug",
@@ -265,8 +279,8 @@ if __name__ == '__main__':
                 build_get_section_info("debug", args.flash_size)
 
     if build == "release" or build == "all":
-        retval = build_release(args.gcc_dir)
-        build_clean(remove_elf_files=False)
+        retval = build_release(args.clang, args.gcc_dir)
+        # build_clean(remove_elf_files=False)
         if retval == 0:
             build_display_size(build_type="release",
                                chip_total_flash=args.flash_size)
