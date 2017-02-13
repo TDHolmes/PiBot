@@ -1,0 +1,18 @@
+notifications: # set notification options
+  email:
+    recipients:
+      - tyler@holmesengineering.com
+      - brodbones@gmail.com
+
+    # change is when the repo status goes from pass to fail or vice versa
+    on_success: change
+    on_failure: always
+
+# whitelist which branches to build on
+branches:
+  only:
+    - master
+language: C
+script:
+  - cd firmware/UnitTests
+  - ./run_tests.py -v
