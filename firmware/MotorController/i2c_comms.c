@@ -61,17 +61,18 @@ void i2c_comms_init(uint8_t slave_address)
     comms_admin.state = kWait;
 
     // I2C slave configuration (can't modify the pointer, but can modify contents)
-    i2c_slave_config_t * const i2c_conf_ptr;
+    i2c_slave_config_t i2c_conf;
+    i2c_slave_config_t * i2c_conf_ptr = &i2c_conf;
 
     #pragma GCC diagnostic ignored "-Wuninitialized"
     // Get some sane defaults loaded
     I2C_SlaveGetDefaultConfig(i2c_conf_ptr);
 
     // add in I2C as a wake source and configure the address
-    i2c_conf_ptr->enableWakeUp = true;
-    i2c_conf_ptr->addressingMode = kI2C_Address7bit;
-    i2c_conf_ptr->slaveAddress = comms_admin.slave_address;
-    i2c_conf_ptr->upperAddress = 0; /*  not used for this example */
+    i2c_conf.enableWakeUp = true;
+    i2c_conf.addressingMode = kI2C_Address7bit;
+    i2c_conf.slaveAddress = comms_admin.slave_address;
+    i2c_conf.upperAddress = 0; /*  not used for this example */
 
 
     // initialize the I2C slave
