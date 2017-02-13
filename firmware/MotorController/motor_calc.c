@@ -219,6 +219,9 @@ bool motor_calc_PID_is_done(motor_select_t motor_desired, float err_tollerance)
     } else if (PID_admin.mode == kPID_distance) {
         err_term[kMotor_Left]  = (float)(PID_admin.pos_target[kMotor_Left]  - motor_stats.pos[kMotor_Left]);
         err_term[kMotor_Right] = (float)(PID_admin.pos_target[kMotor_Right] - motor_stats.pos[kMotor_Right]);
+    } else {
+        // we're done I guess... :p
+        return true;
     }
 
     if (err_term[motor_desired] <= err_tollerance) {
