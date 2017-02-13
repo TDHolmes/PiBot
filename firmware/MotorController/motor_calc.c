@@ -79,6 +79,11 @@ void motor_calc_parameters(int32_t left_encoder_counts, int32_t right_encoder_co
 {
     int32_t enc_l_delta, enc_r_delta;
 
+    if (current_tick == motor_stats.time_prev) {
+        // If the current time is identical to the previous, we shouldn't do these calculations
+        return;
+    }
+
     // get distance travelled since we last did this
     enc_l_delta = (left_encoder_counts - motor_stats.enc_prev[kEncoder_Left]);
     enc_r_delta = (right_encoder_counts - motor_stats.enc_prev[kEncoder_Right]);
@@ -194,11 +199,11 @@ PID_mode_t motor_calc_PID_getmode(void)
 }
 
 
-void motor_calc_PID_set_target(motor_select_t motor_desired, PID_mode_t PID_mode, void * data)
+void motor_calc_PID_set_target(motor_select_t motor_desired, void * data)
 {
-    if (PID_mode == kPID_velocity) {
+    if ( motor_calc_PID_getmode() == kPID_velocity ) {
         PID_admin.vel_target[motor_desired] = *(float *)data;
-    } else if (PID_mode == kPID_distance) {
+    } else if ( motor_calc_PID_getmode() == kPID_distance ) {
         PID_admin.pos_target[motor_desired] = *(uint32_t *)data;
     }
 }

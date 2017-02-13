@@ -107,9 +107,9 @@ int main(void)
 
                         // Convert angle to distances for both motors
                         gen_purpose_uint32 = (uint32_t)(((float)gen_purpose_uint8 / 360.0f) * PIBOT_DIAMETER_MM * PI);
-                        motor_calc_PID_set_target(kMotor_Right, kPID_distance, &gen_purpose_uint32);
+                        motor_calc_PID_set_target(kMotor_Right, &gen_purpose_uint32);
                         gen_purpose_uint32 = (-1 * gen_purpose_uint32);
-                        motor_calc_PID_set_target(kMotor_Left, kPID_distance, &gen_purpose_uint32);
+                        motor_calc_PID_set_target(kMotor_Left, &gen_purpose_uint32);
                         new_command = false;
                     }
 
@@ -127,9 +127,9 @@ int main(void)
 
                         // Convert angle to distances for both motors
                         gen_purpose_uint32 = (uint32_t)(((float)gen_purpose_uint8 / 360.0f) * PIBOT_DIAMETER_MM * PI);
-                        motor_calc_PID_set_target(kMotor_Left, kPID_distance, &gen_purpose_uint32);
+                        motor_calc_PID_set_target(kMotor_Left, &gen_purpose_uint32);
                         gen_purpose_uint32 = (-1 * gen_purpose_uint32);
-                        motor_calc_PID_set_target(kMotor_Right, kPID_distance, &gen_purpose_uint32);
+                        motor_calc_PID_set_target(kMotor_Right, &gen_purpose_uint32);
                         new_command = false;
                     }
 
@@ -144,7 +144,7 @@ int main(void)
                         // We expect the uint32 part of the enum to have been set before hand
                         gen_purpose_uint32 = i2c_command_data.uint32_val;
                         motor_calc_PID_setmode(kPID_distance);
-                        motor_calc_PID_set_target(kMotor_Left, kPID_distance, &gen_purpose_uint32);
+                        motor_calc_PID_set_target(kMotor_Left, &gen_purpose_uint32);
                         new_command = false;
                     }
 
@@ -160,7 +160,7 @@ int main(void)
                         // We expect the uint32 part of the enum to have been set before hand
                         gen_purpose_uint32 = i2c_command_data.uint32_val;
                         motor_calc_PID_setmode(kPID_distance);
-                        motor_calc_PID_set_target(kMotor_Right, kPID_distance, &gen_purpose_uint32);
+                        motor_calc_PID_set_target(kMotor_Right, &gen_purpose_uint32);
                         new_command = false;
                     }
 
@@ -175,8 +175,8 @@ int main(void)
                         // We expect the uint32 part of the enum to have been set before hand
                         gen_purpose_uint32 = i2c_command_data.uint32_val;
                         motor_calc_PID_setmode(kPID_distance);
-                        motor_calc_PID_set_target(kMotor_Right, kPID_distance, &gen_purpose_uint32);
-                        motor_calc_PID_set_target(kMotor_Left, kPID_distance, &gen_purpose_uint32);
+                        motor_calc_PID_set_target(kMotor_Right, &gen_purpose_uint32);
+                        motor_calc_PID_set_target(kMotor_Left, &gen_purpose_uint32);
                         new_command = false;
                     }
 
@@ -191,7 +191,7 @@ int main(void)
                         // We expect the float value to have been set
                         gen_purpose_float = i2c_command_data.float_val;
                         motor_calc_PID_setmode(kPID_velocity);
-                        motor_calc_PID_set_target(kMotor_Left, kPID_velocity, &gen_purpose_float);
+                        motor_calc_PID_set_target(kMotor_Left, &gen_purpose_float);
                         new_command = false;
                     }
                     // we never leave this state until we get told to switch states
@@ -202,7 +202,7 @@ int main(void)
                         // We expect the float value to have been set
                         gen_purpose_float = i2c_command_data.float_val;
                         motor_calc_PID_setmode(kPID_velocity);
-                        motor_calc_PID_set_target(kMotor_Right, kPID_velocity, &gen_purpose_float);
+                        motor_calc_PID_set_target(kMotor_Right, &gen_purpose_float);
                         new_command = false;
                     }
                     // we never leave this state until we get told to switch states
@@ -214,8 +214,8 @@ int main(void)
                         // We expect the float value to have been set
                         gen_purpose_float = i2c_command_data.float_val;
                         motor_calc_PID_setmode(kPID_velocity);
-                        motor_calc_PID_set_target(kMotor_Left, kPID_velocity, &gen_purpose_float);
-                        motor_calc_PID_set_target(kMotor_Right, kPID_velocity, &gen_purpose_float);
+                        motor_calc_PID_set_target(kMotor_Left, &gen_purpose_float);
+                        motor_calc_PID_set_target(kMotor_Right, &gen_purpose_float);
                         new_command = false;
                         // we never leave this state until we get told to switch states
                     }

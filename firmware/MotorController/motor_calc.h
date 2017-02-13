@@ -30,7 +30,7 @@ void motor_calc_distance_clear(motor_select_t motor_desired);
 void motor_calc_PID_run(float *err_output_l_ptr, float *err_output_r_ptr);
 void motor_calc_PID_setmode(PID_mode_t new_PID_mode);
 PID_mode_t motor_calc_PID_getmode(void);
-void motor_calc_PID_set_target(motor_select_t motor_desired, PID_mode_t PID_mode, void * data);
+void motor_calc_PID_set_target(motor_select_t motor_desired, void * data);
 bool motor_calc_PID_is_done(motor_select_t motor_desired, float err_tollerance);
 
 #endif /*_MOTOR_CALC_H_*/
