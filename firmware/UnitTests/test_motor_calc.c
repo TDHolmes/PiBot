@@ -339,6 +339,13 @@ void test_PIDrunDistance_ErrorGrows_IfNoProgress(void)
 }
 
 
+
+void test_thisTestFails(void)
+{
+    TEST_ASSERT(1 == 2);
+}
+
+
 int main(void)
 {
     UNITY_BEGIN();
@@ -361,6 +368,8 @@ int main(void)
     RUN_TEST(test_PIDrunDistance_NegativeError_WhenOverTarget);
     RUN_TEST(test_PIDrunDistance_PositiveError_WhenUnderTarget);
     RUN_TEST(test_PIDrunDistance_ErrorGrows_IfNoProgress);
+
+    RUN_TEST(test_thisTestFails);
 
     return UNITY_END();
 }
