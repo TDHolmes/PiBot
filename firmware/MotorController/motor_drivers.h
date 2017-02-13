@@ -8,25 +8,12 @@
 #ifndef _MOTOR_DRIVERS_H_
 #define _MOTOR_DRIVERS_H_
 
+#include "constants.h"
+
 
 /*******************************************************************************
  * Public Data Structures
  ******************************************************************************/
-
-//! Used to select which motor driver you want to configure/retrieve.
-typedef enum {
-    kMotor_Left,
-    kMotor_Right
-} motor_select_t;
-
-
-//! Direction modes possible.
-typedef enum {
-    kMotor_Mode_Forward,
-    kMotor_Mode_Backward,
-    kMotor_Mode_HighZ,
-    kMotor_Mode_Brake
-} motor_mode_t;
 
 
 /*******************************************************************************
