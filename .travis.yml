@@ -1,7 +1,7 @@
 notifications: # set notification options
   email:
     recipients:
-      - tyler@holmesengineering.com
+      - tylerdanielholmes@gmail.com
       - brodbones@gmail.com
 
     # change is when the repo status goes from pass to fail or vice versa
