@@ -14,7 +14,7 @@ branches:
     - master
 language: C
 before_script:
-  - git clone git@github.com:ThrowTheSwitch/Unity.git
+  - git clone https://github.com/ThrowTheSwitch/Unity.git
 script:
   - cd firmware/UnitTests
   - ./run_tests.py -v -u ../../Unity/src/
