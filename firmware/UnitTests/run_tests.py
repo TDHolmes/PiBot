@@ -7,11 +7,8 @@ from Queue import Queue, Empty
 import time
 
 
-UNITY_PATH = "/usr/local/resources/tools/Unity/src/"
-BASE_CMD_START = "gcc  -I {0} {0}unity.c ".format(UNITY_PATH)
-
-
-def run_unit_test(source_code_list, output_name, verbose=False):
+def run_unit_test(source_code_list, output_name, unity_path, verbose=False):
+    BASE_CMD_START = "gcc  -I {0} {0}unity.c ".format(unity_path)
     # build up the command with the source and output name
     abs_path_list = [os.path.abspath(src_file) for src_file in source_code_list]
     cmd = BASE_CMD_START + "{} -o {}".format(" ".join(abs_path_list), output_name)
@@ -26,10 +23,11 @@ def run_unit_test(source_code_list, output_name, verbose=False):
     run_command("rm {}".format(output_name), print_output=False)
 
 
-def main():
+def main(verbose, unity_path):
     # run all tests!
-    run_unit_test(["dummy_test.c"], "test_dummy_test")
-    run_unit_test(["../MotorController/motor_calc.c", "test_motor_calc.c"], "test_motor_calc")
+    run_unit_test(["dummy_test.c"], "test_dummy_test", unity_path, verbose)
+    run_unit_test(["../MotorController/motor_calc.c", "test_motor_calc.c"], "test_motor_calc",
+                  unity_path, verbose)
 
 
 def run_command(cmd, print_output=True):
@@ -96,4 +94,15 @@ def run_command(cmd, print_output=True):
 
 
 if __name__ == '__main__':
-    main()
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-u", "--unity-path", type=str,
+                        default="/usr/local/resources/tools/Unity/src/",
+                        help="Path to the Unity C Unit testing framework.")
+    parser.add_argument("-v", "--verose", action="store_true",
+                        help="Verbose output.")
+
+    args = parser.parse_args()
+
+    main(args.verbose, args.unity_path)
