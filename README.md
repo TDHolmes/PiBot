@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/TDHolmes/PiBot.png)](https://travis-ci.org/TDHolmes/PiBot)
-#
 # PiBot
+[![Build Status](https://travis-ci.org/TDHolmes/PiBot.png)](https://travis-ci.org/TDHolmes/PiBot)[![Codacy grade](https://img.shields.io/codacy/grade/e27821fb6289410b8f58338c7e0bc686.svg)](https://www.codacy.com/app/TDHolmes/PiBot/dashboard)
+
 MicroPython based robot designed for openness, flexibility, and education.
 
 ## Design
