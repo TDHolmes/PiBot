@@ -8,13 +8,12 @@
 
 // standard libraries required
 #include <stdint.h>
+#include <stdbool.h>
 #include <string.h>  // for memcopy and memset
 
 // definitions of peripherals and memory addresses
 #include "MKL03Z4.h"
-#include "hardware.h"
 
-#include "motor_drivers.h"
 #include "motor_calc.h"
 #include "encoders.h"
 #include "fsl_i2c.h"
@@ -63,6 +62,8 @@ void i2c_comms_init(uint8_t slave_address)
 
     // I2C slave configuration (can't modify the pointer, but can modify contents)
     i2c_slave_config_t * const i2c_conf_ptr;
+
+    #pragma GCC diagnostic ignored "-Wuninitialized"
     // Get some sane defaults loaded
     I2C_SlaveGetDefaultConfig(i2c_conf_ptr);
 
@@ -159,7 +160,7 @@ static void i2c_comms_callback(I2C_Type *base, i2c_slave_transfer_t *xfer, void 
             // we've received all data we expect but master is still sending data.
             if (comms_admin.state == kWait) {
                 // if this is the start, we expect an address
-                xfer->data = comms_admin.addr_to_use_ptr;
+                xfer->data = (uint8_t *)comms_admin.addr_to_use_ptr;
                 xfer->dataSize = 1;
                 comms_admin.state = kReceivingAddr;
                 break;
