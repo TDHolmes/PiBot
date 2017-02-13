@@ -1,4 +1,4 @@
-Firmware:[![Build Status](https://travis-ci.org/TDHolmes/PiBot.png)](https://travis-ci.org/TDHolmes/PiBot)
+[![Build Status](https://travis-ci.org/TDHolmes/PiBot.png)](https://travis-ci.org/TDHolmes/PiBot)
 #
 # PiBot
 MicroPython based robot designed for openness, flexibility, and education.
