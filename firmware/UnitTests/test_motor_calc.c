@@ -19,7 +19,7 @@ void test_MinMacro(void)
 
 void test_MaxMacro(void)
 {
-    TEST_ASSERT_EQUAL_HEX8(5, MAX(4, 5));
+    TEST_ASSERT_EQUAL_HEX8(4, MAX(4, 5));
     TEST_ASSERT_EQUAL_HEX8(4, MAX(4, 4));
     TEST_ASSERT( 4.01 == MAX(4.0, 4.01));
 }
