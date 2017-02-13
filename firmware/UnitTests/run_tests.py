@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 import subprocess
 import os
+import sys
 from threading import Thread
 from Queue import Queue, Empty
 import time
@@ -13,21 +14,24 @@ def run_unit_test(source_code_list, output_name, unity_path, verbose=False):
     abs_path_list = [os.path.abspath(src_file) for src_file in source_code_list]
     cmd = BASE_CMD_START + "{} -o {}".format(" ".join(abs_path_list), output_name)
     if verbose:
-        cmd += " -v"
-    run_command(cmd)
+        cmd += " -D VERBOSE_OUTPUT"
+    stdout, stderr, retval = run_command(cmd)
 
     # run the output program
     cmd = "./{}".format(output_name)
-    run_command(cmd)
+    stdout, stderr, retval = run_command(cmd)
 
-    run_command("rm {}".format(output_name), print_output=False)
+    run_command("rm {}".format(output_name), print_output=verbose)
+
+    return retval
 
 
 def main(verbose, unity_path):
     # run all tests!
-    run_unit_test(["dummy_test.c"], "test_dummy_test", unity_path, verbose)
-    run_unit_test(["../MotorController/motor_calc.c", "test_motor_calc.c"], "test_motor_calc",
-                  unity_path, verbose)
+    retval = run_unit_test(["dummy_test.c"], "test_dummy_test", unity_path, verbose)
+    retval += run_unit_test(["../MotorController/motor_calc.c", "test_motor_calc.c"], "test_motor_calc",
+                            unity_path, verbose)
+    sys.exit(retval)
 
 
 def run_command(cmd, print_output=True):
@@ -61,7 +65,7 @@ def run_command(cmd, print_output=True):
     # read stdout and stderr without blocking
     finished = False
     while True:
-        done = proc.poll()
+        retval = proc.poll()
         try:
             line_stdout = ""
             while True:
@@ -85,9 +89,9 @@ def run_command(cmd, print_output=True):
             print(line_stderr.rstrip("\n"))
 
         if finished:
-            return stdout, stderr, done
+            return stdout, stderr, retval
 
-        if done is not None:
+        if retval is not None:
             finished = True
             # give stdout and stderr time
             time.sleep(0.25)
@@ -100,7 +104,7 @@ if __name__ == '__main__':
     parser.add_argument("-u", "--unity-path", type=str,
                         default="/usr/local/resources/tools/Unity/src/",
                         help="Path to the Unity C Unit testing framework.")
-    parser.add_argument("-v", "--verose", action="store_true",
+    parser.add_argument("-v", "--verbose", action="store_true",
                         help="Verbose output.")
 
     args = parser.parse_args()
