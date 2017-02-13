@@ -1,5 +1,5 @@
 # PiBot
-[![Build Status](https://travis-ci.org/TDHolmes/PiBot.png)](https://travis-ci.org/TDHolmes/PiBot) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d694ab5c693b4470be67239594d33585)](https://www.codacy.com/app/TDHolmes/PiBot/dashboard)
+[![Build Status](https://travis-ci.org/TDHolmes/PiBot.png)](https://travis-ci.org/TDHolmes/PiBot) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d694ab5c693b4470be67239594d33585)](https://www.codacy.com/app/TDHolmes/PiBot/dashboard) [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 MicroPython based robot designed for openness, flexibility, and education.
 
