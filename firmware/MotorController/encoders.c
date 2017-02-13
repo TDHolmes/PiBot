@@ -11,12 +11,13 @@
 #include <stdint.h>
 // definitions of peripherals and memory addresses
 #include "MKL03Z4.h"
-#include "hardware.h"
 #include "fsl_port.h"
+#include "fsl_gpio.h"
 #include "encoders.h"
 
 #define PORTB_IRQ           PORTB_IRQn
 #define ENCODER_IRQ_HANDLER PORTB_IRQHandler
+
 
 // Encoder masks to determine which pins triggered an interrupt
 #define ENC_RIGHT_A_MASK 0b00000010U

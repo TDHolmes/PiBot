@@ -7,6 +7,7 @@
  */
 
 #include <stdint.h>
+#include <stdbool.h>
 #include <string.h>  // for memset
 #include "fsl_device_registers.h"
 #include "fsl_debug_console.h"
@@ -50,6 +51,9 @@ int main(void)
     uint8_t  gen_purpose_uint8;
     uint32_t gen_purpose_uint32;
 
+    // place to store the error output when running PID calculations
+    float err_output[2] = {0, 0};
+
     // Init board hardware.
     hw_init_pins();
     clk_conf_run();
@@ -57,6 +61,7 @@ int main(void)
     // initialize the motor driver and encoders
     motors_init();
     encoders_init();
+    motor_calc_init( timer_get_tick() );
 
     // read B13 to twiddle the I2C LSB and initialize the I2C slave
     slave_address = I2C_ADDRESS_BASE | GPIO_ReadPinInput(GPIOB, I2C_LSB_PIN);
@@ -78,7 +83,9 @@ int main(void)
          */
         if (timer_update_parameters) {
             timer_update_parameters = 0;
-            motor_calc_parameters();
+            motor_calc_parameters( encoders_get_counts(kEncoder_Left),
+                                   encoders_get_counts(kEncoder_Right),
+                                   timer_get_tick() );
 
             // run whatever command is currently active
             switch (active_command) {
@@ -218,8 +225,23 @@ int main(void)
                     // odd that we got here...
                 }
 
-            // run the PID loop with the updated parameters
-            motor_calc_PID_run();
+                // run the PID loop with the updated parameters
+                if (motor_calc_PID_getmode() != kPID_stop) {
+                    motor_calc_PID_run( &err_output[kMotor_Left], &err_output[kMotor_Right] );
+
+                    // compensate for the direciton the motor is going
+                    err_output[kMotor_Left]  *= motors_get_direction(kMotor_Left);
+                    err_output[kMotor_Right] *= motors_get_direction(kMotor_Right);
+
+                    // saturate to 0 - 100 as that is the PWM range.
+                    // TODO: Need to tune PID values to target 0 - 100 values
+                    err_output[kMotor_Left]  = MAX(0, MIN(100, err_output[kMotor_Left]));
+                    err_output[kMotor_Right] = MAX(0, MIN(100, err_output[kMotor_Right]));
+
+                    // update the motors! Direction should have been taken care of elsewhere
+                    motors_set_pwm(kMotor_Left,  (uint8_t)err_output[kMotor_Left]);
+                    motors_set_pwm(kMotor_Right, (uint8_t)err_output[kMotor_Right]);
+                }
 
             }  /* END RUN EVERY N MS */
         }
