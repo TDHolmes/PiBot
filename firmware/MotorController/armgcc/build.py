@@ -280,7 +280,7 @@ if __name__ == '__main__':
 
     if build == "release" or build == "all":
         retval = build_release(args.clang, args.gcc_dir)
-        # build_clean(remove_elf_files=False)
+        build_clean(remove_elf_files=False)
         if retval == 0:
             build_display_size(build_type="release",
                                chip_total_flash=args.flash_size)
