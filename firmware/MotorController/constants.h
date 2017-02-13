@@ -4,8 +4,13 @@
 
 /* ------------------ Useful macros ------------------ */
 
+#if !defined(MIN)
 #define MIN(a, b) ((a) >= (b) ? (b) : (a))
+#endif
+
+#if !defined(MAX)
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
+#endif
 
 
 /* ------------------ Motor Constants --------------------- */
