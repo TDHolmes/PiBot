@@ -16,3 +16,4 @@ language: C
 script:
   - cd firmware/UnitTests
   - ./run_tests.py -v
+  - ls -la
