@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/TDHolmes/PiBot.png)](https://travis-ci.org/TDHolmes/PiBot)
+#
 # PiBot
 MicroPython based robot designed for openness, flexibility, and education.
 
@@ -10,6 +12,5 @@ your robot.
 The PiBot uses:
  - a mk20dx256vlh7 processor, just like the teensy 3.1 and 3.2
  - a MC33926PNB motor driver
- - ___ motors
- - ___ encoders
+ - pololu motors + encoders (for beta unit)
 
