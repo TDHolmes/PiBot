@@ -411,8 +411,20 @@ typedef struct {
 
 
 /* ADC - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral ADC0 base address */
 #define ADC0_BASE                                (0x4003B000u)
+
+#else /* This means we're locally running a unit test and shouldn't use memory mapped locations */
+
+/* Instanciate a local version for host side unit testing */
+ADC_Type Local_ADC0;
+#define ADC0_BASE                                ((unsigned long)&Local_ADC0)
+
+#endif /* HOST_UNIT_TEST */
+
 /** Peripheral ADC0 base pointer */
 #define ADC0                                     ((ADC_Type *)ADC0_BASE)
 /** Array initializer of ADC peripheral base addresses */
@@ -537,8 +549,20 @@ typedef struct {
 
 
 /* CMP - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral CMP0 base address */
 #define CMP0_BASE                                (0x40073000u)
+
+#else /* This means we're locally running a unit test and shouldn't use memory mapped locations */
+
+/* Instanciate a local version for host side unit testing */
+CMP_Type Local_CMP0;
+#define CMP0_BASE                                ((unsigned long)&Local_CMP0)
+
+#endif /* HOST_UNIT_TEST */
+
 /** Peripheral CMP0 base pointer */
 #define CMP0                                     ((CMP_Type *)CMP0_BASE)
 /** Array initializer of CMP peripheral base addresses */
@@ -618,12 +642,25 @@ typedef struct {
 
 
 /* FGPIO - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral FGPIOA base address */
 #define FGPIOA_BASE                              (0xF8000000u)
-/** Peripheral FGPIOA base pointer */
-#define FGPIOA                                   ((FGPIO_Type *)FGPIOA_BASE)
 /** Peripheral FGPIOB base address */
 #define FGPIOB_BASE                              (0xF8000040u)
+
+#else
+
+FGPIO_Type Local_FGPIOA;
+#define FGPIOA_BASE                              ((unsigned long)&Local_FGPIOA)
+FGPIO_Type Local_FGPIOB;
+#define FGPIOB_BASE                              ((unsigned long)&Local_FGPIOB)
+
+#endif /* HOST_UNIT_TEST */
+
+/** Peripheral FGPIOA base pointer */
+#define FGPIOA                                   ((FGPIO_Type *)FGPIOA_BASE)
 /** Peripheral FGPIOB base pointer */
 #define FGPIOB                                   ((FGPIO_Type *)FGPIOB_BASE)
 /** Array initializer of FGPIO peripheral base addresses */
@@ -815,8 +852,20 @@ typedef struct {
 
 
 /* FTFA - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral FTFA base address */
 #define FTFA_BASE                                (0x40020000u)
+
+#else /* This means we're locally running a unit test and shouldn't use memory mapped locations */
+
+/* Instanciate a local version for host side unit testing */
+FTFA_Type Local_FTFA;
+#define FTFA_BASE                                ((unsigned long)&Local_FTFA)
+
+#endif /* HOST_UNIT_TEST */
+
 /** Peripheral FTFA base pointer */
 #define FTFA                                     ((FTFA_Type *)FTFA_BASE)
 /** Array initializer of FTFA peripheral base addresses */
@@ -1111,8 +1160,20 @@ typedef struct {
 
 
 /* I2C - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral I2C0 base address */
 #define I2C0_BASE                                (0x40066000u)
+
+#else /* This means we're locally running a unit test and shouldn't use memory mapped locations */
+
+/* Instanciate a local version for host side unit testing */
+I2C_Type Local_I2C0;
+#define I2C0_BASE                                ((unsigned long)&Local_I2C0)
+
+#endif /* HOST_UNIT_TEST */
+
 /** Peripheral I2C0 base pointer */
 #define I2C0                                     ((I2C_Type *)I2C0_BASE)
 /** Array initializer of I2C peripheral base addresses */
@@ -1279,8 +1340,20 @@ typedef struct {
 
 
 /* LLWU - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral LLWU base address */
 #define LLWU_BASE                                (0x4007C000u)
+
+#else /* This means we're locally running a unit test and shouldn't use memory mapped locations */
+
+/* Instanciate a local version for host side unit testing */
+LLWU_Type Local_LLWU;
+#define LLWU_BASE                                ((unsigned long)&Local_LLWU)
+
+#endif /* HOST_UNIT_TEST */
+
 /** Peripheral LLWU base pointer */
 #define LLWU                                     ((LLWU_Type *)LLWU_BASE)
 /** Array initializer of LLWU peripheral base addresses */
@@ -1372,8 +1445,19 @@ typedef struct {
 
 
 /* LPTMR - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral LPTMR0 base address */
 #define LPTMR0_BASE                              (0x40040000u)
+
+#else
+
+LPTMR_Type Local_LPTMR0;
+#define LPTMR0_BASE                              ((unsigned long)&Local_LPTMR0)
+
+#endif /* HOST_UNIT_TEST */
+
 /** Peripheral LPTMR0 base pointer */
 #define LPTMR0                                   ((LPTMR_Type *)LPTMR0_BASE)
 /** Array initializer of LPTMR peripheral base addresses */
@@ -1745,8 +1829,19 @@ typedef struct {
 
 
 /* MCG - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral MCG base address */
 #define MCG_BASE                                 (0x40064000u)
+
+#else
+
+MCG_Type Local_MCG;
+#define MCG_BASE                                 ((unsigned long)&Local_MCG)
+
+#endif
+
 /** Peripheral MCG base pointer */
 #define MCG                                      ((MCG_Type *)MCG_BASE)
 /** Array initializer of MCG peripheral base addresses */
@@ -1826,8 +1921,19 @@ typedef struct {
 
 
 /* MCM - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral MCM base address */
 #define MCM_BASE                                 (0xF0003000u)
+
+#else
+
+MCM_Type Local_MCM;
+#define MCM_BASE                                 ((unsigned long)&Local_MCM)
+
+#endif
+
 /** Peripheral MCM base pointer */
 #define MCM                                      ((MCM_Type *)MCM_BASE)
 /** Array initializer of MCM peripheral base addresses */
@@ -2044,8 +2150,19 @@ typedef struct {
 
 
 /* MTB - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral MTB base address */
 #define MTB_BASE                                 (0xF0000000u)
+
+#else
+
+MTB_Type Local_MTB;
+#define MTB_BASE                                 ((unsigned long)&Local_MTB)
+
+#endif
+
 /** Peripheral MTB base pointer */
 #define MTB                                      ((MTB_Type *)MTB_BASE)
 /** Array initializer of MTB peripheral base addresses */
@@ -2222,8 +2339,19 @@ typedef struct {
 
 
 /* MTBDWT - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral MTBDWT base address */
 #define MTBDWT_BASE                              (0xF0001000u)
+
+#else
+
+MTBDWT_Type Local_MTBDWT;
+#define MTBDWT_BASE                              ((unsigned long)&Local_MTBDWT)
+
+#endif /* HOST_UNIT_TEST */
+
 /** Peripheral MTBDWT base pointer */
 #define MTBDWT                                   ((MTBDWT_Type *)MTBDWT_BASE)
 /** Array initializer of MTBDWT peripheral base addresses */
@@ -2440,8 +2568,19 @@ typedef struct {
 
 
 /* OSC - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral OSC base address */
 #define OSC_BASE                                 (0x40065000u)
+
+#else
+
+OSC_Type Local_OSC;
+#define OSC_BASE                                 ((unsigned long)&Local_OSC)
+
+#endif
+
 /** Peripheral OSC base pointer */
 #define OSC                                      ((OSC_Type *)OSC_BASE)
 /** Array initializer of OSC peripheral base addresses */
@@ -2531,8 +2670,19 @@ typedef struct {
 
 
 /* PMC - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral PMC base address */
 #define PMC_BASE                                 (0x4007D000u)
+
+#else
+
+PMC_Type Local_PMC;
+#define PMC_BASE                                 ((unsigned long)&Local_PMC)
+
+#endif
+
 /** Peripheral PMC base pointer */
 #define PMC                                      ((PMC_Type *)PMC_BASE)
 /** Array initializer of PMC peripheral base addresses */
@@ -2631,12 +2781,27 @@ typedef struct {
 
 
 /* PORT - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral PORTA base address */
 #define PORTA_BASE                               (0x40049000u)
-/** Peripheral PORTA base pointer */
-#define PORTA                                    ((PORT_Type *)PORTA_BASE)
 /** Peripheral PORTB base address */
 #define PORTB_BASE                               (0x4004A000u)
+
+#else
+
+/** Peripheral PORTA base address */
+PORT_Type Local_PORTA;
+#define PORTA_BASE                               ((unsigned long)&Local_PORTA)
+/** Peripheral PORTB base address */
+PORT_Type Local_PORTB;
+#define PORTB_BASE                               ((unsigned long)&Local_PORTB)
+
+#endif /* HOST_UNIT_TEST */
+
+/** Peripheral PORTA base pointer */
+#define PORTA                                    ((PORT_Type *)PORTA_BASE)
 /** Peripheral PORTB base pointer */
 #define PORTB                                    ((PORT_Type *)PORTB_BASE)
 /** Array initializer of PORT peripheral base addresses */
@@ -2774,8 +2939,19 @@ typedef struct {
 
 
 /* RCM - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral RCM base address */
 #define RCM_BASE                                 (0x4007F000u)
+
+#else
+
+RCM_Type Local_RCM;
+#define RCM_BASE                                 ((unsigned long)&Local_RCM)
+
+#endif
+
 /** Peripheral RCM base pointer */
 #define RCM                                      ((RCM_Type *)RCM_BASE)
 /** Array initializer of RCM peripheral base addresses */
@@ -2835,8 +3011,19 @@ typedef struct {
 
 
 /* RFSYS - Peripheral instance base addresses */
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral RFSYS base address */
 #define RFSYS_BASE                               (0x40041000u)
+
+#else
+
+/** Peripheral RFSYS base address */
+RFSYS_Type Local_RFSYS;
+#define RFSYS_BASE                               ((unsigned long)&Local_RFSYS)
+
+#endif
+
 /** Peripheral RFSYS base pointer */
 #define RFSYS                                    ((RFSYS_Type *)RFSYS_BASE)
 /** Array initializer of RFSYS peripheral base addresses */
@@ -2957,8 +3144,19 @@ typedef struct {
 
 
 /* ROM - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral ROM base address */
 #define ROM_BASE                                 (0xF0002000u)
+
+#else
+
+ROM_Type Local_ROM;
+#define ROM_BASE                                 ((unsigned long)&Local_ROM)
+
+#endif
+
 /** Peripheral ROM base pointer */
 #define ROM                                      ((ROM_Type *)ROM_BASE)
 /** Array initializer of ROM peripheral base addresses */
@@ -3117,8 +3315,19 @@ typedef struct {
 
 
 /* RTC - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral RTC base address */
 #define RTC_BASE                                 (0x4003D000u)
+
+#else
+
+RTC_Type Local_RTC;
+#define RTC_BASE                                 ((unsigned long)&Local_RTC)
+
+#endif
+
 /** Peripheral RTC base pointer */
 #define RTC                                      ((RTC_Type *)RTC_BASE)
 /** Array initializer of RTC peripheral base addresses */
@@ -3376,8 +3585,19 @@ typedef struct {
 
 
 /* SIM - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral SIM base address */
 #define SIM_BASE                                 (0x40047000u)
+
+#else
+
+SIM_Type Local_SIM;
+#define SIM_BASE                                 ((unsigned long)&Local_SIM)
+
+#endif
+
 /** Peripheral SIM base pointer */
 #define SIM                                      ((SIM_Type *)SIM_BASE)
 /** Array initializer of SIM peripheral base addresses */
@@ -3461,8 +3681,20 @@ typedef struct {
 
 
 /* SMC - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral SMC base address */
 #define SMC_BASE                                 (0x4007E000u)
+
+#else
+
+/** Peripheral SMC base address */
+SMC_Type Local_SMC;
+#define SMC_BASE                                 ((unsigned long)&Local_SMC)
+
+#endif
+
 /** Peripheral SMC base pointer */
 #define SMC                                      ((SMC_Type *)SMC_BASE)
 /** Array initializer of SMC peripheral base addresses */
@@ -3586,8 +3818,20 @@ typedef struct {
 
 
 /* SPI - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral SPI0 base address */
 #define SPI0_BASE                                (0x40076000u)
+
+#else /* This means we're locally running a unit test and shouldn't use memory mapped locations */
+
+/* Instanciate a local version for host side unit testing */
+SPI_Type Local_SPI0;
+#define SPI0_BASE                                ((unsigned long)&Local_SPI0)
+
+#endif /* HOST_UNIT_TEST */
+
 /** Peripheral SPI0 base pointer */
 #define SPI0                                     ((SPI_Type *)SPI0_BASE)
 /** Array initializer of SPI peripheral base addresses */
@@ -3734,12 +3978,27 @@ typedef struct {
 
 
 /* TPM - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral TPM0 base address */
 #define TPM0_BASE                                (0x40038000u)
-/** Peripheral TPM0 base pointer */
-#define TPM0                                     ((TPM_Type *)TPM0_BASE)
 /** Peripheral TPM1 base address */
 #define TPM1_BASE                                (0x40039000u)
+
+#else /* This means we're locally running a unit test and shouldn't use memory mapped locations */
+
+/* Instanciate a local version for host side unit testing */
+TPM_Type Local_TPM0;
+#define TPM0_BASE                                ((unsigned long)&Local_TPM0)
+/* Instanciate a local version for host side unit testing */
+TPM_Type Local_TPM1;
+#define TPM1_BASE                                ((unsigned long)&Local_TPM1)
+
+#endif /* HOST_UNIT_TEST */
+
+/** Peripheral TPM0 base pointer */
+#define TPM0                                     ((TPM_Type *)TPM0_BASE)
 /** Peripheral TPM1 base pointer */
 #define TPM1                                     ((TPM_Type *)TPM1_BASE)
 /** Array initializer of TPM peripheral base addresses */
@@ -3810,8 +4069,20 @@ typedef struct {
 
 
 /* VREF - Peripheral instance base addresses */
+
+#ifndef HOST_UNIT_TEST
+
 /** Peripheral VREF base address */
 #define VREF_BASE                                (0x40074000u)
+
+#else /* This means we're locally running a unit test and shouldn't use memory mapped locations */
+
+/* Instanciate a local version for host side unit testing */
+VREF_Type Local_VREF;
+#define VREF_BASE                                ((unsigned long)&Local_VREF)
+
+#endif /* HOST_UNIT_TEST */
+
 /** Peripheral VREF base pointer */
 #define VREF                                     ((VREF_Type *)VREF_BASE)
 /** Array initializer of VREF peripheral base addresses */
