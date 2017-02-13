@@ -22,7 +22,7 @@
 
 uint32_t timer_get_tick(void);
 void timer_clear_tick(void);
-void timer_init(uint8_t * flag_ptr, uint16_t flag_threshold);
+void timer_init(volatile uint8_t * flag_ptr, uint16_t flag_threshold);
 
 
 #endif /* _TIMER_H_ */

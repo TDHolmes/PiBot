@@ -31,14 +31,14 @@
 typedef struct {
     volatile uint32_t count;
     uint16_t flag_threshold;
-    uint8_t  *flag_ptr;
+    volatile uint8_t  *flag_ptr;
 } timer_admin_t;
 
 
 timer_admin_t tmr_admin;
 
 
-void timer_init(uint8_t * flag_ptr, uint16_t flag_threshold)
+void timer_init(volatile uint8_t * flag_ptr, uint16_t flag_threshold)
 {
     lptmr_config_t lptmrConfig;
     /* Configure LPTMR */
