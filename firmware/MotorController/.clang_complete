@@ -1,0 +1,5 @@
+
+-IMKL03Z4_drivers/devices/MKL03Z4/
+-IMKL03Z4_drivers/devices/MKL03Z4/drivers/
+-I/usr/local/resources/
+-IMKL03Z4_drivers/CMSIS/Include

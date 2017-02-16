@@ -69,7 +69,7 @@ def run_command(cmd, print_output=True):
         try:
             line_stdout = ""
             while True:
-                line_stdout += q_stdout.get_nowait()  # or q.get(timeout=.1)
+                line_stdout += q_stdout.get_nowait()
         except Empty:
             pass
         # accumilate stdout and print if we should
@@ -80,7 +80,7 @@ def run_command(cmd, print_output=True):
         try:
             line_stderr = ""
             while True:
-                line_stderr += q_stderr.get_nowait()  # or q.get(timeout=.1)
+                line_stderr += q_stderr.get_nowait()
         except Empty:
             pass
         # accumilate stderr and print if we should
