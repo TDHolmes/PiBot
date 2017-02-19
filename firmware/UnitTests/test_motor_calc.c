@@ -37,14 +37,14 @@ void test_VelocityCalculation(void)
     // the left motor went 10 ticks, the right 20, in 100 ms
     motor_calc_parameters(10, 20, 100);
 
-    TEST_ASSERT_EQUAL_FLOAT( (10.0f / 100.0f), motor_calc_velocity_get(kMotor_Left) );
-    TEST_ASSERT_EQUAL_FLOAT( (20.0f / 100.0f), motor_calc_velocity_get(kMotor_Right) );
+    TEST_ASSERT_EQUAL_FLOAT( MM_PER_ENCODER_TICK * (10.0f / 100.0f), motor_calc_velocity_get(kMotor_Left) );
+    TEST_ASSERT_EQUAL_FLOAT( MM_PER_ENCODER_TICK * (20.0f / 100.0f), motor_calc_velocity_get(kMotor_Right) );
 
     // the left motor went 30 ticks, the right 15, in 50 ms
     motor_calc_parameters(30, 15, 150);
 
-    TEST_ASSERT_EQUAL_FLOAT( ((30.0f - 10.0f) / 50.0f), motor_calc_velocity_get(kMotor_Left) );
-    TEST_ASSERT_EQUAL_FLOAT( ((15.0f - 20.0f) / 50.0f), motor_calc_velocity_get(kMotor_Right) );
+    TEST_ASSERT_EQUAL_FLOAT( (MM_PER_ENCODER_TICK * (30.0f - 10.0f) / 50.0f), motor_calc_velocity_get(kMotor_Left) );
+    TEST_ASSERT_EQUAL_FLOAT( (MM_PER_ENCODER_TICK * (15.0f - 20.0f) / 50.0f), motor_calc_velocity_get(kMotor_Right) );
 }
 
 
@@ -55,14 +55,14 @@ void test_DistanceCalculation(void)
     // the left motor went 10 ticks, the right 20, in 100 ms
     motor_calc_parameters(10, 20, 100);
 
-    TEST_ASSERT_EQUAL_UINT32( 10, motor_calc_distance_get(kMotor_Left) );
-    TEST_ASSERT_EQUAL_UINT32( 20, motor_calc_distance_get(kMotor_Right) );
+    TEST_ASSERT_EQUAL_UINT32( 10 * MM_PER_ENCODER_TICK, motor_calc_distance_get(kMotor_Left) );
+    TEST_ASSERT_EQUAL_UINT32( 20 * MM_PER_ENCODER_TICK, motor_calc_distance_get(kMotor_Right) );
 
     // the left motor went 30 ticks, the right 15, in 50 ms
     motor_calc_parameters(30, 15, 150);
 
-    TEST_ASSERT_EQUAL_UINT32( 30, motor_calc_distance_get(kMotor_Left) );
-    TEST_ASSERT_EQUAL_UINT32( 15, motor_calc_distance_get(kMotor_Right) );
+    TEST_ASSERT_EQUAL_UINT32( 30 * MM_PER_ENCODER_TICK, motor_calc_distance_get(kMotor_Left) );
+    TEST_ASSERT_EQUAL_UINT32( 15 * MM_PER_ENCODER_TICK, motor_calc_distance_get(kMotor_Right) );
 }
 
 
@@ -109,7 +109,7 @@ void test_MotorCalc_NoINF(void)
 
 void test_PIDrunVelocity_ZeroError_WhenTargetMet(void)
 {
-    float vel_target = 0.2f;
+    float vel_target = 0.2f * MM_PER_ENCODER_TICK;
     float err_output_l = 0;
     float err_output_r = 0;
     motor_calc_init(0);
@@ -134,7 +134,7 @@ void test_PIDrunVelocity_ZeroError_WhenTargetMet(void)
 
 void test_PIDrunVelocity_NegativeError_WhenOverTarget(void)
 {
-    float vel_target = 0.2f;
+    float vel_target = 0.2f * MM_PER_ENCODER_TICK;
     float err_output_l = 0;
     float err_output_r = 0;
     motor_calc_init(0);
@@ -159,7 +159,7 @@ void test_PIDrunVelocity_NegativeError_WhenOverTarget(void)
 
 void test_PIDrunVelocity_PositiveError_WhenUnderTarget(void)
 {
-    float vel_target = 0.2f;
+    float vel_target = 0.2f * MM_PER_ENCODER_TICK;
     float err_output_l = 0;
     float err_output_r = 0;
     motor_calc_init(0);
@@ -184,7 +184,7 @@ void test_PIDrunVelocity_PositiveError_WhenUnderTarget(void)
 
 void test_PIDrunVelocity_ErrorGrows_IfNoProgress(void)
 {
-    float vel_target = 2.0f;
+    float vel_target = 2.0f * MM_PER_ENCODER_TICK;
     float first_err_output_l = 0;
     float first_err_output_r = 0;
     float second_err_output_l = 0;
@@ -228,7 +228,7 @@ void test_PIDrunVelocity_ErrorGrows_IfNoProgress(void)
 
 void test_PIDrunDistance_ZeroError_WhenTargetMet(void)
 {
-    int32_t distance_target = 30;
+    int32_t distance_target = 30 * MM_PER_ENCODER_TICK;
     float err_output_l = 0;
     float err_output_r = 0;
     motor_calc_init(0);
@@ -253,7 +253,7 @@ void test_PIDrunDistance_ZeroError_WhenTargetMet(void)
 
 void test_PIDrunDistance_NegativeError_WhenOverTarget(void)
 {
-    int32_t distance_target = 30;
+    int32_t distance_target = 30 * MM_PER_ENCODER_TICK;
     float err_output_l = 0;
     float err_output_r = 0;
     motor_calc_init(0);
@@ -278,7 +278,7 @@ void test_PIDrunDistance_NegativeError_WhenOverTarget(void)
 
 void test_PIDrunDistance_PositiveError_WhenUnderTarget(void)
 {
-    int32_t distance_target = 30;
+    int32_t distance_target = 30 * MM_PER_ENCODER_TICK;
     float err_output_l = 0;
     float err_output_r = 0;
     motor_calc_init(0);
@@ -303,7 +303,7 @@ void test_PIDrunDistance_PositiveError_WhenUnderTarget(void)
 
 void test_PIDrunDistance_ErrorGrows_IfNoProgress(void)
 {
-    int32_t distance_target = 100;
+    int32_t distance_target = 100 * MM_PER_ENCODER_TICK;
     float first_err_output_l = 0;
     float first_err_output_r = 0;
     float second_err_output_l = 0;
