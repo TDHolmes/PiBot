@@ -155,10 +155,10 @@ add_executable(motor_driver.elf
 	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_lptmr.h"
 	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_lptmr.c"
 	# UART stuff...
-	# "${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_lpuart.h"
-	# "${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_lpuart.c"
-	# "${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/utilities/fsl_debug_console.c"
-	# "${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/utilities/fsl_debug_console.h"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_lpuart.h"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/fsl_lpuart.c"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/utilities/fsl_debug_console.c"
+	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/utilities/fsl_debug_console.h"
 	# Other stuff that was used before, but not anymore :p
 	# "${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/pin_mux.h"
 	# "${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers/pin_mux.c"
