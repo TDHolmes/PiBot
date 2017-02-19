@@ -1,16 +1,12 @@
 /*
  * Motor Controller for the PycoBot project.
  *
- *
- *
- *
  */
 
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>  // for memset
 #include "fsl_device_registers.h"
-#include "fsl_debug_console.h"
 
 // definitions of peripherals and memory addresses
 #include "MKL03Z4.h"
@@ -24,11 +20,12 @@
 #include "motor_drivers.h"
 #include "i2c_comms.h"
 #include "timer.h"
-#include "main.h"
 
 
 // flag to trigger superloop
 volatile uint8_t timer_update_parameters;
+// flag to indicate new command is ready
+volatile uint8_t new_command_ready;
 
 i2c_command_t active_command;
 bool new_command;
@@ -42,6 +39,9 @@ typedef union {
 
 i2c_command_data_t i2c_command_data;
 
+/********** private function definitions **********/
+void set_active_command(i2c_command_t command, void * data);
+
 
 int main(void)
 {
@@ -50,6 +50,8 @@ int main(void)
     float    gen_purpose_float;
     uint8_t  gen_purpose_uint8;
     uint32_t gen_purpose_uint32;
+    uint8_t tmp_data[4];
+    i2c_command_t tmp_command;
 
     // place to store the error output when running PID calculations
     float err_output[2] = {0, 0};
@@ -65,7 +67,7 @@ int main(void)
 
     // read B13 to twiddle the I2C LSB and initialize the I2C slave
     slave_address = I2C_ADDRESS_BASE | GPIO_ReadPinInput(GPIOB, I2C_LSB_PIN);
-    i2c_comms_init(slave_address);
+    i2c_comms_init(slave_address, &new_command_ready);
 
     // Setup a timer to trigger the running of the PID loop every N ms
     timer_init(&timer_update_parameters, MOTOR_CALC_UPDATE_RATE_MS);
@@ -81,6 +83,13 @@ int main(void)
         /* wait x ms between updating motor parameters and running the active command
          * switch statement.
          */
+        // check if we've gotten a new command via I2C
+        if (new_command_ready != 0) {
+            tmp_command = i2c_comms_get_command(tmp_data);
+            set_active_command(tmp_command, tmp_data);
+        }
+
+        // check if we should run motor calculations on regular timer intervals
         if (timer_update_parameters) {
             timer_update_parameters = 0;
             motor_calc_parameters( encoders_get_counts(kEncoder_Left),
@@ -89,7 +98,6 @@ int main(void)
 
             // run whatever command is currently active
             switch (active_command) {
-
                 case (kIdle):
                     if (new_command) {
                         motors_set_mode(kMotor_Left, kMotor_Mode_HighZ);

@@ -15,7 +15,8 @@
 
 /* ------------------ Motor Constants --------------------- */
 
-#define MOTOR_CALC_UPDATE_RATE_MS (10)
+#define MOTOR_CALC_UPDATE_RATE_MS (1)
+#define MM_PER_ENCODER_TICK       (4)
 
 //! Used to select which motor driver you want to configure/retrieve.
 typedef enum {
@@ -53,6 +54,11 @@ typedef enum {
     kPID_velocity,
     kPID_distance
 } PID_mode_t;
+
+/* ----------------- Useful Constants -------------------------*/
+
+#define PIBOT_DIAMETER_MM (100.0f)
+#define PI                (3.14159265358f)
 
 
 #endif /* _CONSTANTS_H_ */
