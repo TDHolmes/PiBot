@@ -1,6 +1,7 @@
 #ifndef _I2C_COMMS_H_
 #define _I2C_COMMS_H_
 
+#include <stdint.h>
 
 /*******************************************************************************
  * Public Data Structures
@@ -45,7 +46,8 @@ typedef enum {
  * Public Function Definitions
  ******************************************************************************/
 
-void i2c_comms_init(uint8_t slave_address);
+void          i2c_comms_init(uint8_t slave_address, volatile uint8_t * new_command_ready_ptr);
+i2c_command_t i2c_comms_get_command(uint8_t * data_buffer);
 
 
 #endif /* _I2C_COMMS_H_ */

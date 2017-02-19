@@ -85,16 +85,18 @@ void motor_calc_parameters(int32_t left_encoder_counts, int32_t right_encoder_co
     }
 
     // get distance travelled since we last did this
-    enc_l_delta = (left_encoder_counts - motor_stats.enc_prev[kEncoder_Left]);
+    enc_l_delta = (left_encoder_counts  - motor_stats.enc_prev[kEncoder_Left]);
     enc_r_delta = (right_encoder_counts - motor_stats.enc_prev[kEncoder_Right]);
 
     // update position
-    motor_stats.pos[kMotor_Left] += enc_l_delta;
-    motor_stats.pos[kMotor_Right] += enc_r_delta;
+    motor_stats.pos[kMotor_Left] += (enc_l_delta * MM_PER_ENCODER_TICK);
+    motor_stats.pos[kMotor_Right] += (enc_r_delta * MM_PER_ENCODER_TICK);
 
     // update velocity... ugly
-    motor_stats.vel[kMotor_Left]  = (float)enc_l_delta / (float)(current_tick - motor_stats.time_prev);
-    motor_stats.vel[kMotor_Right] = (float)enc_r_delta / (float)(current_tick - motor_stats.time_prev);
+    motor_stats.vel[kMotor_Left]  = (float)(enc_l_delta * MM_PER_ENCODER_TICK) /
+                                    (float)(current_tick - motor_stats.time_prev);
+    motor_stats.vel[kMotor_Right] = (float)(enc_r_delta * MM_PER_ENCODER_TICK) /
+                                    (float)(current_tick - motor_stats.time_prev);
 
     // update those parameters!
     motor_stats.enc_prev[kEncoder_Left]  = left_encoder_counts;
@@ -105,13 +107,13 @@ void motor_calc_parameters(int32_t left_encoder_counts, int32_t right_encoder_co
 
 /* -- Helper functions that get / set data -- */
 
-
+// Velocity is measured in meters per second
 float motor_calc_velocity_get(motor_select_t motor_desired)
 {
     return motor_stats.vel[motor_desired];
 }
 
-
+// distance is measured in milimeters
 int32_t motor_calc_distance_get(motor_select_t motor_desired)
 {
     return motor_stats.pos[motor_desired];
@@ -130,7 +132,9 @@ void motor_calc_distance_clear(motor_select_t motor_desired)
 }
 
 
-/* -- PID runner / helper functions -- */
+/*******************************************************************************
+*                       PID runner / helper functions                          *
+*******************************************************************************/
 
 void motor_calc_PID_run(float *err_output_l_ptr, float *err_output_r_ptr)
 {
