@@ -88,6 +88,7 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -Xlinker -
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -Xlinker -static")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -Xlinker -z")
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -Xlinker muldefs")
+SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -Xlinker -Map=release/motor_driver.map")
 
 
 # ------------------------------ LINKER FLAGS - DEBUG ------------------------------ #
@@ -98,22 +99,17 @@ SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -Xlinker --gc-
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -Xlinker -static")
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -Xlinker -z")
 SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -Xlinker muldefs")
+SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG} -Xlinker -Map=debug/motor_driver.map")
 
 
 # ------------------------------ INCLUDE DIRECTORIES ------------------------------ #
 
 include_directories(${ProjDirPath})
-
 include_directories(${ProjDirPath}MKL03Z4_drivers/CMSIS/Include)
-
 include_directories(${ProjDirPath}MKL03Z4_drivers/devices)
-
 include_directories(${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/drivers)
-
 include_directories(${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/utilities)
-
 include_directories(${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4)
-
 
 # ------------------------------ SOURCE FILES ------------------------------ #
 
@@ -135,7 +131,6 @@ add_executable(motor_driver.elf
 	"${ProjDirPath}timer.c"
 	"${ProjDirPath}timer.h"
 	"${ProjDirPath}main.c"
-	"${ProjDirPath}main.h"
 
 	# NXP drivers and system files
 	"${ProjDirPath}MKL03Z4_drivers/devices/MKL03Z4/gcc/startup_MKL03Z4.S"

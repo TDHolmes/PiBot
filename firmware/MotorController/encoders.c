@@ -40,8 +40,8 @@ typedef struct {
     int32_t right_count;
 } encoders_t;
 
-encoders_t enc_admin;
-encoders_t* enc_admin_ptr;
+static encoders_t enc_admin;
+static encoders_t* enc_admin_ptr;
 
 /* Private Function Declarations */
 

@@ -112,23 +112,31 @@ void test_PIDrunVelocity_ZeroError_WhenTargetMet(void)
     float vel_target = 0.2f * MM_PER_ENCODER_TICK;
     float err_output_l = 0;
     float err_output_r = 0;
-    motor_calc_init(0);
-    motor_calc_PID_setmode(kPID_velocity);
-    motor_calc_PID_set_target(kMotor_Left, &vel_target);
-    motor_calc_PID_set_target(kMotor_Right, &vel_target);
-    motor_calc_parameters(20, 20, 100);
-    motor_calc_PID_run(&err_output_l, &err_output_r);
 
-    // do some output if we've defined verbose output
-    #ifdef VERBOSE_OUTPUT
-    printf("\nFunction: %s\n", __func__);
-    printf("\tError Output Left:  %f\n", err_output_l);
-    printf("\tError Output Right: %f\n", err_output_r);
-    printf("\n");
-    #endif
+    // Test both positive and negative numbers
+    for (int i = 1; i >= -1; i -= 2) {
+        vel_target = vel_target * i;
+        motor_calc_init(0);
+        motor_calc_PID_setmode(kPID_velocity);
+        motor_calc_PID_set_target(kMotor_Left, &vel_target);
+        motor_calc_PID_set_target(kMotor_Right, &vel_target);
 
-    TEST_ASSERT_EQUAL_FLOAT(0.0, err_output_r);
-    TEST_ASSERT_EQUAL_FLOAT(0.0, err_output_l);
+        // Fake go 20 encoder ticks (either forward or backward) in 100 ms
+        motor_calc_parameters(20 * i, 20 * i, 100);
+        motor_calc_PID_run(&err_output_l, &err_output_r);
+
+        // do some output if we've defined verbose output
+        #ifdef VERBOSE_OUTPUT
+        printf("\nFunction: %s\n", __func__);
+        printf("\tError Output Left:  %f\n", err_output_l);
+        printf("\tError Output Right: %f\n", err_output_r);
+        printf("\tVelocity Target: %f\n", vel_target);
+        printf("\n");
+        #endif
+
+        TEST_ASSERT_EQUAL_FLOAT(0.0, err_output_r);
+        TEST_ASSERT_EQUAL_FLOAT(0.0, err_output_l);
+    }
 }
 
 
@@ -137,23 +145,32 @@ void test_PIDrunVelocity_NegativeError_WhenOverTarget(void)
     float vel_target = 0.2f * MM_PER_ENCODER_TICK;
     float err_output_l = 0;
     float err_output_r = 0;
-    motor_calc_init(0);
-    motor_calc_PID_setmode(kPID_velocity);
-    motor_calc_PID_set_target(kMotor_Left, &vel_target);
-    motor_calc_PID_set_target(kMotor_Right, &vel_target);
-    motor_calc_parameters(30, 30, 100);
-    motor_calc_PID_run(&err_output_l, &err_output_r);
 
-    // do some output if we've defined verbose output
-    #ifdef VERBOSE_OUTPUT
-    printf("\nFunction: %s\n", __func__);
-    printf("\tError Output Left:  %f\n", err_output_l);
-    printf("\tError Output Right: %f\n", err_output_r);
-    printf("\n");
-    #endif
+    // Test both positive and negative numbers
+    for (int i = 1; i >= -1; i -= 2) {
+        vel_target = vel_target * i;
+        motor_calc_init(0);
+        motor_calc_PID_setmode(kPID_velocity);
+        motor_calc_PID_set_target(kMotor_Left, &vel_target);
+        motor_calc_PID_set_target(kMotor_Right, &vel_target);
 
-    TEST_ASSERT(0.0 > err_output_r);
-    TEST_ASSERT(0.0 > err_output_l);
+        // Fake go 20 encoder ticks (either forward or backward) in 100 ms
+        motor_calc_parameters(30 * i, 30 * i, 100);
+        motor_calc_PID_run(&err_output_l, &err_output_r);
+
+        // do some output if we've defined verbose output
+        #ifdef VERBOSE_OUTPUT
+        printf("\nFunction: %s\n", __func__);
+        printf("\tError Output Left:  %f\n", err_output_l);
+        printf("\tError Output Right: %f\n", err_output_r);
+        printf("\tVelocity Target: %f\n", vel_target);
+        printf("\t\tError should be opposite sign than velocity target.\n");
+        printf("\n");
+        #endif
+
+        TEST_ASSERT(0.0f > err_output_r * i);
+        TEST_ASSERT(0.0f > err_output_l * i);
+    }
 }
 
 
@@ -162,23 +179,31 @@ void test_PIDrunVelocity_PositiveError_WhenUnderTarget(void)
     float vel_target = 0.2f * MM_PER_ENCODER_TICK;
     float err_output_l = 0;
     float err_output_r = 0;
-    motor_calc_init(0);
-    motor_calc_PID_setmode(kPID_velocity);
-    motor_calc_PID_set_target(kMotor_Left, &vel_target);
-    motor_calc_PID_set_target(kMotor_Right, &vel_target);
-    motor_calc_parameters(10, 10, 100);
-    motor_calc_PID_run(&err_output_l, &err_output_r);
 
-    // do some output if we've defined verbose output
-    #ifdef VERBOSE_OUTPUT
-    printf("\nFunction: %s\n", __func__);
-    printf("\tError Output Left:  %f\n", err_output_l);
-    printf("\tError Output Right: %f\n", err_output_r);
-    printf("\n");
-    #endif
+    // Test both positive and negative numbers
+    for (int i = 1; i >= -1; i -= 2) {
+        vel_target = vel_target * i;
+        motor_calc_init(0);
+        motor_calc_PID_setmode(kPID_velocity);
+        motor_calc_PID_set_target(kMotor_Left, &vel_target);
+        motor_calc_PID_set_target(kMotor_Right, &vel_target);
 
-    TEST_ASSERT(0.0 < err_output_r);
-    TEST_ASSERT(0.0 < err_output_l);
+        // Fake go 10 encoder ticks (either forward or backward) in 100 ms
+        motor_calc_parameters(10 * i, 10 * i, 100);
+        motor_calc_PID_run(&err_output_l, &err_output_r);
+
+        // do some output if we've defined verbose output
+        #ifdef VERBOSE_OUTPUT
+        printf("\nFunction: %s\n", __func__);
+        printf("\tError Output Left:  %f\n", err_output_l);
+        printf("\tError Output Right: %f\n", err_output_r);
+        printf("\tVelocity Target: %f\n", vel_target);
+        printf("\n");
+        #endif
+
+        TEST_ASSERT(0.0f < err_output_r * i);
+        TEST_ASSERT(0.0f < err_output_l * i);
+    }
 }
 
 
@@ -190,34 +215,36 @@ void test_PIDrunVelocity_ErrorGrows_IfNoProgress(void)
     float second_err_output_l = 0;
     float second_err_output_r = 0;
 
-    // setup initial conditions...
-    motor_calc_init(0);
-    motor_calc_PID_setmode(kPID_velocity);
-    motor_calc_PID_set_target(kMotor_Left, &vel_target);
-    motor_calc_PID_set_target(kMotor_Right, &vel_target);
+    // Test both positive and negative numbers
+    for (int i = 1; i >= -1; i -= 2) {
+        vel_target = vel_target * i;
+        motor_calc_init(0);
+        motor_calc_PID_setmode(kPID_velocity);
+        motor_calc_PID_set_target(kMotor_Left, &vel_target);
+        motor_calc_PID_set_target(kMotor_Right, &vel_target);
 
-    // imitate the first cycle (no movement over 100 ticks)
-    motor_calc_parameters(0, 0, 100);
-    motor_calc_PID_run(&first_err_output_l, &first_err_output_r);
+        // imitate the first cycle (no movement over 100 ticks)
+        motor_calc_parameters(0, 0, 100);
+        motor_calc_PID_run(&first_err_output_l, &first_err_output_r);
 
-    // imitate some small movement after 100 more ticks
-    motor_calc_parameters(0, 0, 200);
-    motor_calc_PID_run(&second_err_output_l, &second_err_output_r);
+        // imitate no movement again after 100 more ticks (200 total)
+        motor_calc_parameters(0, 0, 200);
+        motor_calc_PID_run(&second_err_output_l, &second_err_output_r);
 
-    // do some output if we've defined verbose output
-    #ifdef VERBOSE_OUTPUT
-    printf("\nFunction: %s\n", __func__);
-    printf("\tVelocity Target: %f\tVelocity: %f\n", vel_target, motor_calc_velocity_get(kMotor_Right));
-    printf("\tError Output: %f\n", first_err_output_l);
-    printf("\tVelocity Target: %f\tVelocity: %f\n", vel_target, motor_calc_velocity_get(kMotor_Right));
-    printf("\tError Output: %f\n", second_err_output_l);
-    printf("\n");
-    #endif
+        // do some output if we've defined verbose output
+        #ifdef VERBOSE_OUTPUT
+        printf("\nFunction: %s\n", __func__);
+        printf("\tVelocity Target: %f\tVelocity: %f\n", vel_target, motor_calc_velocity_get(kMotor_Right));
+        printf("\tError Output: %f\n", first_err_output_l);
+        printf("\tVelocity Target: %f\tVelocity: %f\n", vel_target, motor_calc_velocity_get(kMotor_Right));
+        printf("\tError Output: %f\n", second_err_output_l);
+        printf("\n");
+        #endif
 
-
-    // the error output should be slightly more the second time (integral error)
-    TEST_ASSERT(first_err_output_l < second_err_output_l);
-    TEST_ASSERT(first_err_output_r < second_err_output_r);
+        // the error output should be slightly more the second time (integral error)
+        TEST_ASSERT((first_err_output_l * i) < (second_err_output_l * i));
+        TEST_ASSERT((first_err_output_r * i) < (second_err_output_r * i));
+    }
 }
 
 
@@ -231,23 +258,31 @@ void test_PIDrunDistance_ZeroError_WhenTargetMet(void)
     int32_t distance_target = 30 * MM_PER_ENCODER_TICK;
     float err_output_l = 0;
     float err_output_r = 0;
-    motor_calc_init(0);
-    motor_calc_PID_setmode(kPID_distance);
-    motor_calc_PID_set_target(kMotor_Left, &distance_target);
-    motor_calc_PID_set_target(kMotor_Right, &distance_target);
-    motor_calc_parameters(30, 30, 100);
-    motor_calc_PID_run(&err_output_l, &err_output_r);
 
-    // do some output if we've defined verbose output
-    #ifdef VERBOSE_OUTPUT
-    printf("\nFunction: %s\n", __func__);
-    printf("\tError Output Left:  %f\n", err_output_l);
-    printf("\tError Output Right: %f\n", err_output_r);
-    printf("\n");
-    #endif
+    // Test both positive and negative numbers
+    for (int i = 1; i >= -1; i -= 2) {
+        distance_target = distance_target * i;
+        motor_calc_init(0);
+        motor_calc_PID_setmode(kPID_distance);
+        motor_calc_PID_set_target(kMotor_Left, &distance_target);
+        motor_calc_PID_set_target(kMotor_Right, &distance_target);
 
-    TEST_ASSERT_EQUAL_FLOAT(0.0, err_output_r);
-    TEST_ASSERT_EQUAL_FLOAT(0.0, err_output_l);
+        // fake move 30 encoder ticks in 100 ms (either forward or backward)
+        motor_calc_parameters(30 * i, 30 * i, 100);
+        motor_calc_PID_run(&err_output_l, &err_output_r);
+
+        // do some output if we've defined verbose output
+        #ifdef VERBOSE_OUTPUT
+        printf("\nFunction: %s\n", __func__);
+        printf("\tError Output Left:  %f\n", err_output_l);
+        printf("\tError Output Right: %f\n", err_output_r);
+        printf("\tDistance Target: %d\n", distance_target);
+        printf("\n");
+        #endif
+
+        TEST_ASSERT_EQUAL_FLOAT(0.0, err_output_r);
+        TEST_ASSERT_EQUAL_FLOAT(0.0, err_output_l);
+    }
 }
 
 
@@ -256,23 +291,31 @@ void test_PIDrunDistance_NegativeError_WhenOverTarget(void)
     int32_t distance_target = 30 * MM_PER_ENCODER_TICK;
     float err_output_l = 0;
     float err_output_r = 0;
-    motor_calc_init(0);
-    motor_calc_PID_setmode(kPID_distance);
-    motor_calc_PID_set_target(kMotor_Left, &distance_target);
-    motor_calc_PID_set_target(kMotor_Right, &distance_target);
-    motor_calc_parameters(40, 40, 100);
-    motor_calc_PID_run(&err_output_l, &err_output_r);
 
-    // do some output if we've defined verbose output
-    #ifdef VERBOSE_OUTPUT
-    printf("\nFunction: %s\n", __func__);
-    printf("\tError Output Left:  %f\n", err_output_l);
-    printf("\tError Output Right: %f\n", err_output_r);
-    printf("\n");
-    #endif
+    // Test both positive and negative numbers
+    for (int i = 1; i >= -1; i -= 2) {
+        distance_target = distance_target * i;
+        motor_calc_init(0);
+        motor_calc_PID_setmode(kPID_distance);
+        motor_calc_PID_set_target(kMotor_Left, &distance_target);
+        motor_calc_PID_set_target(kMotor_Right, &distance_target);
 
-    TEST_ASSERT(0.0 > err_output_r);
-    TEST_ASSERT(0.0 > err_output_l);
+        // fake move 40 encoder ticks in 100 ms (either forward or backward)
+        motor_calc_parameters(40 * i, 40 * i, 100);
+        motor_calc_PID_run(&err_output_l, &err_output_r);
+
+        // do some output if we've defined verbose output
+        #ifdef VERBOSE_OUTPUT
+        printf("\nFunction: %s\n", __func__);
+        printf("\tError Output Left:  %f\n", err_output_l);
+        printf("\tError Output Right: %f\n", err_output_r);
+        printf("\tDistance Target: %d\n", distance_target);
+        printf("\n");
+        #endif
+
+        TEST_ASSERT(0.0f > err_output_r * i);
+        TEST_ASSERT(0.0f > err_output_l * i);
+    }
 }
 
 
@@ -281,23 +324,31 @@ void test_PIDrunDistance_PositiveError_WhenUnderTarget(void)
     int32_t distance_target = 30 * MM_PER_ENCODER_TICK;
     float err_output_l = 0;
     float err_output_r = 0;
-    motor_calc_init(0);
-    motor_calc_PID_setmode(kPID_distance);
-    motor_calc_PID_set_target(kMotor_Left, &distance_target);
-    motor_calc_PID_set_target(kMotor_Right, &distance_target);
-    motor_calc_parameters(10, 10, 100);
-    motor_calc_PID_run(&err_output_l, &err_output_r);
 
-    // do some output if we've defined verbose output
-    #ifdef VERBOSE_OUTPUT
-    printf("\nFunction: %s\n", __func__);
-    printf("\tError Output Left:  %f\n", err_output_l);
-    printf("\tError Output Right: %f\n", err_output_r);
-    printf("\n");
-    #endif
+    // Test both positive and negative numbers
+    for (int i = 1; i >= -1; i -= 2) {
+        distance_target = distance_target * i;
+        motor_calc_init(0);
+        motor_calc_PID_setmode(kPID_distance);
+        motor_calc_PID_set_target(kMotor_Left, &distance_target);
+        motor_calc_PID_set_target(kMotor_Right, &distance_target);
 
-    TEST_ASSERT(0.0 < err_output_r);
-    TEST_ASSERT(0.0 < err_output_l);
+        // fake move 10 encoder ticks in 100 ms (either forward or backward)
+        motor_calc_parameters(10 * i, 10 * i, 100);
+        motor_calc_PID_run(&err_output_l, &err_output_r);
+
+        // do some output if we've defined verbose output
+        #ifdef VERBOSE_OUTPUT
+        printf("\nFunction: %s\n", __func__);
+        printf("\tError Output Left:  %f\n", err_output_l);
+        printf("\tError Output Right: %f\n", err_output_r);
+        printf("\tDistance Target: %d\n", distance_target);
+        printf("\n");
+        #endif
+
+        TEST_ASSERT(0.0f < err_output_r * i);
+        TEST_ASSERT(0.0f < err_output_l * i);
+    }
 }
 
 
@@ -309,33 +360,37 @@ void test_PIDrunDistance_ErrorGrows_IfNoProgress(void)
     float second_err_output_l = 0;
     float second_err_output_r = 0;
 
-    // setup initial conditions...
-    motor_calc_init(0);
-    motor_calc_PID_setmode(kPID_distance);
-    motor_calc_PID_set_target(kMotor_Left, &distance_target);
-    motor_calc_PID_set_target(kMotor_Right, &distance_target);
+    // Test both positive and negative numbers
+    for (int i = 1; i >= -1; i -= 2) {
+        distance_target = distance_target * i;
+        // setup initial conditions...
+        motor_calc_init(0);
+        motor_calc_PID_setmode(kPID_distance);
+        motor_calc_PID_set_target(kMotor_Left, &distance_target);
+        motor_calc_PID_set_target(kMotor_Right, &distance_target);
 
-    // imitate the first cycle (no movement over 100 ticks)
-    motor_calc_parameters(0, 0, 100);
-    motor_calc_PID_run(&first_err_output_l, &first_err_output_r);
+        // imitate the first cycle (no movement over 100 ticks)
+        motor_calc_parameters(0, 0, 100);
+        motor_calc_PID_run(&first_err_output_l, &first_err_output_r);
 
-    // imitate some small movement after 100 more ticks
-    motor_calc_parameters(0, 0, 200);
-    motor_calc_PID_run(&second_err_output_l, &second_err_output_r);
+        // imitate no movement after 100 more ticks
+        motor_calc_parameters(0, 0, 200);
+        motor_calc_PID_run(&second_err_output_l, &second_err_output_r);
 
-    // do some output if we've defined verbose output
-    #ifdef VERBOSE_OUTPUT
-    printf("\nFunction: %s\n", __func__);
-    printf("\tDistance Target: %d\tDistance: %d\n", distance_target, motor_calc_distance_get(kMotor_Right));
-    printf("\tError Output: %f\n", first_err_output_l);
-    printf("\tDistance Target: %d\tDistance: %d\n", distance_target, motor_calc_distance_get(kMotor_Right));
-    printf("\tError Output: %f\n", second_err_output_l);
-    printf("\n");
-    #endif
+        // do some output if we've defined verbose output
+        #ifdef VERBOSE_OUTPUT
+        printf("\nFunction: %s\n", __func__);
+        printf("\tDistance Target: %d\tDistance: %d\n", distance_target, motor_calc_distance_get(kMotor_Right));
+        printf("\tError Output: %f\n", first_err_output_l);
+        printf("\tDistance Target: %d\tDistance: %d\n", distance_target, motor_calc_distance_get(kMotor_Right));
+        printf("\tError Output: %f\n", second_err_output_l);
+        printf("\n");
+        #endif
 
-    // the error output should be slightly more the second time (integral error)
-    TEST_ASSERT(first_err_output_l < second_err_output_l);
-    TEST_ASSERT(first_err_output_r < second_err_output_r);
+        // the error output should be slightly more the second time (integral error)
+        TEST_ASSERT((first_err_output_l * i) < (second_err_output_l * i));
+        TEST_ASSERT((first_err_output_r * i) < (second_err_output_r * i));
+    }
 }
 
 

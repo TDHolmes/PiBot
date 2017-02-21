@@ -47,7 +47,7 @@
 typedef struct {
     uint8_t pwm_vals[2];
     motor_mode_t modes[2];
-} motor_admin_t;
+}  motor_admin_t;
 
 motor_admin_t md_admin;
 
@@ -200,4 +200,3 @@ bool motor_in_fault(void)
         return true;
     }
 }
-

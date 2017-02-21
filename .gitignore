@@ -8,6 +8,7 @@ CMakeFiles/
 *.ko
 *.obj
 *.elf
+*.map
 
 # Precompiled Headers
 *.gch
@@ -47,4 +48,3 @@ CMakeFiles/
 _saved_*.sch
 *.kicad_pcb-bak
 .DS_Store
-

@@ -2,5 +2,6 @@
 -IMKL03Z4_drivers/devices/MKL03Z4/
 -IMKL03Z4_drivers/devices/MKL03Z4/drivers/
 -I/usr/local/resources/
+-I/usr/local/resources/tools/Unity/
 -IMKL03Z4_drivers/CMSIS/Include
 -DCPU_MKL03Z32VFK4
