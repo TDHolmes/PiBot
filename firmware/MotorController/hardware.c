@@ -28,11 +28,9 @@
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include <stdint.h>
 #include "hardware.h"
-#include "fsl_debug_console.h"
-#include "fsl_common.h"
 #include "fsl_port.h"
+
 
 /*******************************************************************************
  * Variables
@@ -45,11 +43,31 @@
 /* initialize GPIO pins and setup hardware modules */
 void hw_init_pins(void)
 {
-    /* Initialize LPUART0 pins below */
     /* Ungate the port clock */
+    CLOCK_EnableClock(kCLOCK_PortA);
     CLOCK_EnableClock(kCLOCK_PortB);
-    /* Affects PORTA_PCR1 register */
-    PORT_SetPinMux(PORTB, 1u, kPORT_MuxAlt2);
-    /* Affects PORTA_PCR2 register */
-    PORT_SetPinMux(PORTB, 2u, kPORT_MuxAlt2);
+    // Setup PORTB
+    PORT_SetPinMux(PORTB, 0u, kPORT_PinDisabledOrAnalog); // FB_R - Analog read of the right motor (ADC0_SE9 by default)
+    PORT_SetPinMux(PORTB, 1u, kPORT_MuxAsGpio);           // right_encA - Digital square wave to read encoder distance... (alt 1)
+    PORT_SetPinMux(PORTB, 2u, kPORT_MuxAsGpio);           // right_encB - Digital square wave to read encoder distance... (alt 1)
+    PORT_SetPinMux(PORTB, 3u, kPORT_MuxAlt2);             // I2C_SCL - I2C Clock (alt 2)
+    PORT_SetPinMux(PORTB, 4u, kPORT_MuxAlt2);             // I2C_SDA - I2C Data (alt 2)
+    // JTAG_SWO - JTAG SWO pin (N/A)
+    PORT_SetPinMux(PORTB, 6u, kPORT_MuxAsGpio);           // left_encA - Digital square wave to read encoder distance... (alt 1)
+    PORT_SetPinMux(PORTB, 7u, kPORT_MuxAsGpio);           // left_encB - Digital square wave to read encoder distance... (alt 1)
+    PORT_SetPinMux(PORTB, 10u, kPORT_MuxAlt2);            // MotorL_D_n - Disables the left motor. Can PWM for speed control (TPM0_CH1 - alt 2)
+    PORT_SetPinMux(PORTB, 11u, kPORT_MuxAsGpio);          // MotorL_Inv - Invert the left motors direction (alt 1)
+    PORT_SetPinMux(PORTB, 13u, kPORT_MuxAsGpio);          // I2C_LSB_BIT - Controls the I2C address least significant bit (alt 1)
+
+    // JTAG_SWCLK - JTAG SWCLK pin (N/A)
+    // JTAG_RESET - JTAG RESET pin (N/A)
+    // JTAG_SWDIO - JTAG SWDIO pin (N/A)
+    PORT_SetPinMux(PORTA, 3u, kPORT_MuxAlt4);             // rear_bumper - rear bumper sensor   (alt 1) / Debug UART-TX (alt 4)
+    PORT_SetPinMux(PORTA, 4u, kPORT_MuxAlt4);             // front_bumper - front bumper sensor (alt 1) / Debug UART-RX (alt 4)
+    PORT_SetPinMux(PORTA, 5u, kPORT_MuxAsGpio);           // MotorSF_n - Motor status flag to indicate a motor driver error (alt 1)
+    PORT_SetPinMux(PORTA, 6u, kPORT_MuxAsGpio);           // Motor_In1 - Motor driver input (alt 1)
+    PORT_SetPinMux(PORTA, 7u, kPORT_MuxAsGpio);           // Motor_In2 - Motor driver input (alt 1)
+    PORT_SetPinMux(PORTA, 8u, kPORT_PinDisabledOrAnalog); // FB_L - Analog read of the left motor (ADC0_SE3 by default)
+    PORT_SetPinMux(PORTA, 9u, kPORT_PinDisabledOrAnalog); // VBATT_MONITOR - Analog read of the motor voltage. (ADC0_SE2 by default)
+    PORT_SetPinMux(PORTA, 12u, kPORT_MuxAlt2);            // MotorR_D_n - Disables the right motor. Can PWM for speed control (TPM1_CH0 = alt 2)
 }
