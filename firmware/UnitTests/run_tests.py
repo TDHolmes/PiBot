@@ -27,10 +27,10 @@ def run_unit_test(source_code_list, output_name, unity_path, verbose=False):
 
 
 def main(verbose, unity_path):
+    retval = 0
     # run all tests!
-    retval = run_unit_test(["dummy_test.c"], "test_dummy_test", unity_path, verbose)
-    retval += run_unit_test(["../MotorController/motor_calc.c", "test_motor_calc.c"], "test_motor_calc",
-                            unity_path, verbose)
+    retval += run_unit_test(["../MotorController/motor_calc.c", "test_motor_calc.c"],
+                            "test_motor_calc", unity_path, verbose)
     sys.exit(retval)
 
 
