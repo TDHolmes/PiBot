@@ -184,7 +184,6 @@ void ENCODER_IRQ_HANDLER(void)
             }
         }
 
-
     /* NOT GOOD. Some other pin interrupted us... */
     } else {
         assert(false);
