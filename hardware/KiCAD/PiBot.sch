@@ -348,23 +348,6 @@ Text GLabel 2750 4250 0    50   Input ~ 0
 SCL
 Text GLabel 2750 4350 0    50   BiDi ~ 0
 SDA
-$Comp
-L CONN_01X03 P4
-U 1 1 585ED87D
-P 2950 4750
-F 0 "P4" H 3027 4791 50  0000 L CNN
-F 1 "SPI_EXPANSION" H 3027 4700 50  0000 L CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x03_Pitch2.54mm" H 2950 4750 50  0001 C CNN
-F 3 "" H 2950 4750 50  0000 C CNN
-	1    2950 4750
-	1    0    0    -1  
-$EndComp
-Text GLabel 2750 4650 0    39   Input ~ 0
-SCK
-Text GLabel 2750 4750 0    39   Input ~ 0
-MOSI
-Text GLabel 2750 4850 0    39   Output ~ 0
-MISO
 Text GLabel 6500 2600 0    39   Output ~ 0
 MotorL_Inv
 $Comp
@@ -1725,56 +1708,10 @@ F 3 "" H 9475 5800 50  0000 C CNN
 $EndComp
 Text Notes 7025 4050 0    60   Italic 12
 Test Points
-$Comp
-L CONN_01X07 P1
-U 1 1 586E08CF
-P 2550 2200
-F 0 "P1" V 2650 2450 50  0000 C CNN
-F 1 "BREAKOUT" V 2650 2100 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x07_Pitch2.54mm" H 2550 2200 50  0001 C CNN
-F 3 "" H 2550 2200 50  0000 C CNN
-	1    2550 2200
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	2750 1900 2800 1900
-Wire Wire Line
-	2800 2000 2750 2000
-Wire Wire Line
-	2750 2100 2800 2100
-Wire Wire Line
-	2800 2200 2750 2200
-Wire Wire Line
-	2750 2300 2800 2300
-Wire Wire Line
-	2800 2400 2750 2400
-Wire Wire Line
-	2750 2500 2800 2500
 Wire Wire Line
 	4600 2500 5000 2500
-Wire Wire Line
-	4650 2400 4600 2400
-Wire Wire Line
-	4600 2300 4650 2300
-Wire Wire Line
-	4650 2200 4600 2200
-Wire Wire Line
-	4600 2100 4650 2100
-Wire Wire Line
-	4650 2000 4600 2000
 NoConn ~ 2650 5550
 NoConn ~ 3150 5550
-$Comp
-L CONN_01X02 P8
-U 1 1 586EA9A5
-P 4850 2950
-F 0 "P8" V 4850 3050 50  0000 L CNN
-F 1 "BREAKOUT" V 4950 2750 50  0000 L CNN
-F 2 "Pin_Headers:Pin_Header_Straight_2x01_Pitch2.54mm" H 4850 2950 50  0001 C CNN
-F 3 "" H 4850 2950 50  0000 C CNN
-	1    4850 2950
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	5050 1900 5050 1950
 Text Label 6050 2700 0    30   ~ 0
@@ -1800,34 +1737,6 @@ Wire Wire Line
 	900  7000 900  7050
 Wire Wire Line
 	900  7350 900  7400
-$Comp
-L CONN_01X05 P7
-U 1 1 587015B5
-P 4850 2200
-F 0 "P7" V 4950 2400 50  0000 C CNN
-F 1 "BREAKOUT" V 4950 2150 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x05_Pitch2.54mm" H 4850 2200 50  0001 C CNN
-F 3 "" H 4850 2200 50  0000 C CNN
-	1    4850 2200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4650 2900 4600 2900
-Wire Wire Line
-	4650 3000 4600 3000
-$Comp
-L CONN_01X01 P6
-U 1 1 5870679A
-P 4850 1800
-F 0 "P6" V 4950 1750 50  0000 L CNN
-F 1 "BREAKOUT" V 4950 1600 50  0001 L CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x01_Pitch2.54mm" H 4850 1800 50  0001 C CNN
-F 3 "" H 4850 1800 50  0000 C CNN
-	1    4850 1800
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4650 1800 4600 1800
 $Comp
 L Jumper_NC_Small JP1
 U 1 1 58707A25
