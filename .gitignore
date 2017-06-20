@@ -3,6 +3,10 @@
 CMakeCache.txt
 CMakeFiles/
 
+# build directories
+firmware/MotorController/armgcc/debug/*
+firmware/MotorController/armgcc/release/*
+
 # Object files
 *.o
 *.ko
